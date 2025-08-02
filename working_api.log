@@ -1,0 +1,41 @@
+INFO:     Started server process [46019]
+INFO:     Waiting for application startup.
+INFO:__main__:🚀 Starting MLX Distributed Inference API...
+INFO:__main__:✅ Config loaded: mlx-community/Qwen3-1.7B-8bit
+INFO:__main__:📦 Loading model and tokenizer...
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 90742.15it/s]
+INFO:__main__:✅ Model loaded: 28 layers
+INFO:__main__:🔗 Connecting to workers...
+INFO:communication.dns_resolver:Resolved mini2.local -> 192.168.2.15 using mdns_native in 8.7ms
+INFO:__main__:✅ mini2: Connected (9 layers)
+INFO:communication.dns_resolver:Resolved master.local -> 192.168.2.106 using mdns_native in 1.0ms
+INFO:__main__:✅ master: Connected (9 layers)
+INFO:__main__:✅ API server ready!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+INFO:     192.168.2.106:64745 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.2.106:64745 - "GET /openapi.json HTTP/1.1" 200 OK
+ERROR:__main__:Error in chat completion: not enough values to unpack (expected 3, got 2)
+INFO:     192.168.2.106:64746 - "POST /v1/chat/completions HTTP/1.1" 500 Internal Server Error
+INFO:     192.168.2.106:64749 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65303 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65349 - "GET /cluster/status HTTP/1.1" 200 OK
+INFO:     192.168.2.106:64764 - "GET /cluster/status HTTP/1.1" 200 OK
+INFO:     192.168.2.106:64764 - "GET /cluster/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65419 - "POST /v1/chat/completions HTTP/1.1" 422 Unprocessable Content
+INFO:     192.168.2.106:64847 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.2.106:64847 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     192.168.2.106:64847 - "GET /cluster/status HTTP/1.1" 200 OK
+ERROR:__main__:Error in chat completion: not enough values to unpack (expected 3, got 2)
+INFO:     192.168.2.106:64848 - "POST /v1/chat/completions HTTP/1.1" 500 Internal Server Error
+ERROR:__main__:Error in chat completion: not enough values to unpack (expected 3, got 2)
+INFO:     127.0.0.1:49202 - "POST /v1/chat/completions HTTP/1.1" 500 Internal Server Error
+INFO:     192.168.2.106:64851 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.2.106:64851 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:__main__:👋 Shutting down API server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [46019]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-_eyle4ln'}
+  warnings.warn(

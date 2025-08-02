@@ -1,0 +1,78 @@
+INFO:     Started server process [83164]
+INFO:     Waiting for application startup.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1754054473.987496 2356530 fork_posix.cc:71] Other threads are currently calling into gRPC, skipping fork() handlers
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 71358.67it/s]
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 57281.85it/s]
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+/Users/mini1/Movies/mlx_inference_distributed/distributed_api.py:241: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "timestamp": datetime.utcnow().isoformat()
+INFO:     127.0.0.1:52921 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52923 - "GET /health HTTP/1.1" 200 OK
+MLX array conversion failed, trying float32 fallback: Item size 2 for PEP 3118 buffer format string B does not match the dtype B item size 1.
+gRPC send error: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.RESOURCE_EXHAUSTED
+	details = "SERVER: Received message larger than max (5469788 vs. 4194304)"
+	debug_error_string = "UNKNOWN:Error received from peer ipv6:%5Bfe80::492:856:9cad:cad4%257%5D:50101 {grpc_message:"SERVER: Received message larger than max (5469788 vs. 4194304)", grpc_status:8}"
+>
+Distributed inference failed: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.RESOURCE_EXHAUSTED
+	details = "SERVER: Received message larger than max (5469788 vs. 4194304)"
+	debug_error_string = "UNKNOWN:Error received from peer ipv6:%5Bfe80::492:856:9cad:cad4%257%5D:50101 {grpc_message:"SERVER: Received message larger than max (5469788 vs. 4194304)", grpc_status:8}"
+>
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_api.py", line 530, in create_chat_completion
+    response, token_count = distributed_inference.chat(
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=messages,
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        return_token_count=True
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_mlx_inference.py", line 513, in chat
+    response, token_count = self.generate_distributed(
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        prompt_tokens,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        verbose
+        ^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_mlx_inference.py", line 368, in generate_distributed
+    logits, _ = self._distributed_forward(input_ids)
+                ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_mlx_inference.py", line 274, in _distributed_forward
+    self.comm.send(
+    ~~~~~~~~~~~~~~^
+        data=hidden_states,
+        ^^^^^^^^^^^^^^^^^^^
+        dest=self.local_rank + 1,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+        comm_type=CommunicationType.TENSOR
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_comm.py", line 474, in send
+    response = self._stubs[dest].Send(request)
+  File "/Users/mini1/Movies/mlx_inference_distributed/.venv/lib/python3.13/site-packages/grpc/_channel.py", line 1178, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+  File "/Users/mini1/Movies/mlx_inference_distributed/.venv/lib/python3.13/site-packages/grpc/_channel.py", line 1006, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.RESOURCE_EXHAUSTED
+	details = "SERVER: Received message larger than max (5469788 vs. 4194304)"
+	debug_error_string = "UNKNOWN:Error received from peer ipv6:%5Bfe80::492:856:9cad:cad4%257%5D:50101 {grpc_message:"SERVER: Received message larger than max (5469788 vs. 4194304)", grpc_status:8}"
+>
+Distributed inference error: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.RESOURCE_EXHAUSTED
+	details = "SERVER: Received message larger than max (5469788 vs. 4194304)"
+	debug_error_string = "UNKNOWN:Error received from peer ipv6:%5Bfe80::492:856:9cad:cad4%257%5D:50101 {grpc_message:"SERVER: Received message larger than max (5469788 vs. 4194304)", grpc_status:8}"
+>
+INFO:     127.0.0.1:52925 - "POST /v1/chat/completions HTTP/1.1" 500 Internal Server Error
+I0000 00:00:1754054573.893912 2356647 chttp2_transport.cc:1335] ipv6:%5Bfe80::492:856:9cad:cad4%257%5D:50101: Got goaway [11] err=UNAVAILABLE:GOAWAY received; Error code: 11; Debug Text: too_many_pings {grpc_status:14, http2_error:11}
+E0000 00:00:1754054573.893979 2356647 chttp2_transport.cc:1364] ipv6:%5Bfe80::492:856:9cad:cad4%257%5D:50101: Received a GOAWAY with error code ENHANCE_YOUR_CALM and debug data equal to "too_many_pings". Current keepalive time (before throttling): 20000ms

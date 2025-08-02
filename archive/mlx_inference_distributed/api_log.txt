@@ -1,0 +1,7 @@
+INFO:     Started server process [48310]
+INFO:     Waiting for application startup.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1754036986.134966 2155209 fork_posix.cc:71] Other threads are currently calling into gRPC, skipping fork() handlers
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 186874.93it/s]
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)

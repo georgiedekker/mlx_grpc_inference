@@ -1,0 +1,149 @@
+INFO:     Started server process [76279]
+INFO:     Waiting for application startup.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1754080541.724237 3142471 fork_posix.cc:71] Other threads are currently calling into gRPC, skipping fork() handlers
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 136277.03it/s]
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 213269.69it/s]
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+INFO:     192.168.2.106:60254 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.2.106:60254 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     192.168.2.106:60254 - "GET /distributed/gpu-info HTTP/1.1" 200 OK
+/Users/mini1/Movies/mlx_inference_distributed/distributed_api.py:241: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "timestamp": datetime.utcnow().isoformat()
+INFO:     127.0.0.1:63331 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63333 - "GET /health HTTP/1.1" 200 OK
+MLX array conversion failed, trying float32 fallback: Item size 2 for PEP 3118 buffer format string B does not match the dtype B item size 1.
+gRPC send error: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.16:50101: Failed to connect to remote host: connect: Connection refused (61)"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:14, grpc_message:"failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.16:50101: Failed to connect to remote host: connect: Connection refused (61)"}"
+>
+Distributed inference failed: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.16:50101: Failed to connect to remote host: connect: Connection refused (61)"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:14, grpc_message:"failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.16:50101: Failed to connect to remote host: connect: Connection refused (61)"}"
+>
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_api.py", line 530, in create_chat_completion
+    response, token_count = distributed_inference.chat(
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=messages,
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        return_token_count=True
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_mlx_inference.py", line 513, in chat
+    response, token_count = self.generate_distributed(
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        prompt_tokens,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        verbose
+        ^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_mlx_inference.py", line 368, in generate_distributed
+    logits, _ = self._distributed_forward(input_ids)
+                ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_mlx_inference.py", line 274, in _distributed_forward
+    self.comm.send(
+    ~~~~~~~~~~~~~~^
+        data=hidden_states,
+        ^^^^^^^^^^^^^^^^^^^
+        dest=self.local_rank + 1,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+        comm_type=CommunicationType.TENSOR
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_comm.py", line 481, in send
+    response = self._stubs[dest].Send(request)
+  File "/Users/mini1/Movies/mlx_inference_distributed/.venv/lib/python3.13/site-packages/grpc/_channel.py", line 1178, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+  File "/Users/mini1/Movies/mlx_inference_distributed/.venv/lib/python3.13/site-packages/grpc/_channel.py", line 1006, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.16:50101: Failed to connect to remote host: connect: Connection refused (61)"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:14, grpc_message:"failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.16:50101: Failed to connect to remote host: connect: Connection refused (61)"}"
+>
+Distributed inference error: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.16:50101: Failed to connect to remote host: connect: Connection refused (61)"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:14, grpc_message:"failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.16:50101: Failed to connect to remote host: connect: Connection refused (61)"}"
+>
+INFO:     127.0.0.1:63335 - "POST /v1/chat/completions HTTP/1.1" 500 Internal Server Error
+MLX array conversion failed, trying float32 fallback: Item size 2 for PEP 3118 buffer format string B does not match the dtype B item size 1.
+gRPC send error: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv6:%5Bfe80::492:856:9cad:cad4%2516%5D:50101: Failed to connect to remote host: connect: Connection refused (61)"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"failed to connect to all addresses; last error: UNKNOWN: ipv6:%5Bfe80::492:856:9cad:cad4%2516%5D:50101: Failed to connect to remote host: connect: Connection refused (61)", grpc_status:14}"
+>
+Distributed inference failed: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv6:%5Bfe80::492:856:9cad:cad4%2516%5D:50101: Failed to connect to remote host: connect: Connection refused (61)"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"failed to connect to all addresses; last error: UNKNOWN: ipv6:%5Bfe80::492:856:9cad:cad4%2516%5D:50101: Failed to connect to remote host: connect: Connection refused (61)", grpc_status:14}"
+>
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_api.py", line 530, in create_chat_completion
+    response, token_count = distributed_inference.chat(
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        messages=messages,
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        return_token_count=True
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_mlx_inference.py", line 513, in chat
+    response, token_count = self.generate_distributed(
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        prompt_tokens,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        verbose
+        ^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_mlx_inference.py", line 368, in generate_distributed
+    logits, _ = self._distributed_forward(input_ids)
+                ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_mlx_inference.py", line 274, in _distributed_forward
+    self.comm.send(
+    ~~~~~~~~~~~~~~^
+        data=hidden_states,
+        ^^^^^^^^^^^^^^^^^^^
+        dest=self.local_rank + 1,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+        comm_type=CommunicationType.TENSOR
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_comm.py", line 481, in send
+    response = self._stubs[dest].Send(request)
+  File "/Users/mini1/Movies/mlx_inference_distributed/.venv/lib/python3.13/site-packages/grpc/_channel.py", line 1178, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+  File "/Users/mini1/Movies/mlx_inference_distributed/.venv/lib/python3.13/site-packages/grpc/_channel.py", line 1006, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv6:%5Bfe80::492:856:9cad:cad4%2516%5D:50101: Failed to connect to remote host: connect: Connection refused (61)"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"failed to connect to all addresses; last error: UNKNOWN: ipv6:%5Bfe80::492:856:9cad:cad4%2516%5D:50101: Failed to connect to remote host: connect: Connection refused (61)", grpc_status:14}"
+>
+Distributed inference error: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv6:%5Bfe80::492:856:9cad:cad4%2516%5D:50101: Failed to connect to remote host: connect: Connection refused (61)"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"failed to connect to all addresses; last error: UNKNOWN: ipv6:%5Bfe80::492:856:9cad:cad4%2516%5D:50101: Failed to connect to remote host: connect: Connection refused (61)", grpc_status:14}"
+>
+INFO:     192.168.2.106:60255 - "POST /v1/chat/completions HTTP/1.1" 500 Internal Server Error
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [76279]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-b9m302bo'}
+  warnings.warn(

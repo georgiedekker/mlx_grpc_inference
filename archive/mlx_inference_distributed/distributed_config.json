@@ -1,0 +1,119 @@
+{
+  "devices": [
+    {
+      "device_id": "mini1",
+      "hostname": "localhost",
+      "port": 50051,
+      "role": "coordinator",
+      "enabled": true,
+      "grpc_options": {},
+      "capabilities": {
+        "device_id": "mini1",
+        "hostname": "mini1.local",
+        "model": "Apple M4",
+        "memory_gb": 16.0,
+        "gpu_cores": 10,
+        "cpu_cores": 10,
+        "cpu_performance_cores": 4,
+        "cpu_efficiency_cores": 6,
+        "neural_engine_cores": 16,
+        "bandwidth_gbps": null,
+        "mlx_metal_available": true,
+        "max_recommended_model_size_gb": 12.8
+      }
+    },
+    {
+      "device_id": "mini2",
+      "hostname": "mini2.local",
+      "port": 50051,
+      "role": "worker",
+      "enabled": true,
+      "grpc_options": {},
+      "capabilities": {
+        "device_id": "mini2",
+        "hostname": "mini2.local",
+        "model": "Apple M4",
+        "memory_gb": 16.0,
+        "gpu_cores": 10,
+        "cpu_cores": 10,
+        "cpu_performance_cores": 4,
+        "cpu_efficiency_cores": 6,
+        "neural_engine_cores": 16,
+        "bandwidth_gbps": null,
+        "mlx_metal_available": true,
+        "max_recommended_model_size_gb": 12.8
+      }
+    },
+    {
+      "device_id": "master",
+      "hostname": "master.local",
+      "port": 50051,
+      "role": "worker",
+      "enabled": true,
+      "grpc_options": {},
+      "capabilities": {
+        "device_id": "master",
+        "hostname": "master.local",
+        "model": "Apple M4",
+        "memory_gb": 16.0,
+        "gpu_cores": 10,
+        "cpu_cores": 10,
+        "cpu_performance_cores": 4,
+        "cpu_efficiency_cores": 6,
+        "neural_engine_cores": 16,
+        "bandwidth_gbps": null,
+        "mlx_metal_available": true,
+        "max_recommended_model_size_gb": 12.8
+      }
+    }
+  ],
+  "coordinator_device_id": "mini1",
+  "model": {
+    "name": "Qwen3-1.7B-8bit",
+    "provider": "mlx-community",
+    "cache_dir": null,
+    "quantization": "int8",
+    "dtype": "float16",
+    "max_sequence_length": null
+  },
+  "network": {
+    "protocol": "grpc",
+    "compression": true,
+    "max_message_size_mb": 2048,
+    "keepalive_time_ms": 20000,
+    "keepalive_timeout_ms": 10000,
+    "connection_timeout_s": 15.0,
+    "tensor_timeout_s": 25.0,
+    "barrier_timeout_s": 20.0
+  },
+  "sharding": {
+    "strategy": "balanced",
+    "custom_proportions": null,
+    "min_layers_per_device": 1,
+    "optimize_for": "balance",
+    "allow_partial_layers": false,
+    "cache_shards": true,
+    "cache_dir": null
+  },
+  "inference": {
+    "default_max_tokens": 512,
+    "default_temperature": 0.7,
+    "default_top_p": 0.9,
+    "default_repetition_penalty": 1.1,
+    "batch_size": 1,
+    "enable_streaming": true,
+    "timeout_s": 45.0,
+    "tensor_receive_timeout_s": 25.0,
+    "max_retries": 3
+  },
+  "monitoring": {
+    "enable_metrics": true,
+    "metrics_port": 9090,
+    "health_check_interval_s": 10.0,
+    "log_level": "INFO",
+    "log_performance": true,
+    "trace_requests": false
+  },
+  "api_host": "0.0.0.0",
+  "api_port": 8100
+}

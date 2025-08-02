@@ -1,0 +1,13 @@
+<frozen runpy>:128: RuntimeWarning: 'src.coordinator.api_server' found in sys.modules after import of package 'src.coordinator', but prior to execution of 'src.coordinator.api_server'; this may result in unpredictable behaviour
+INFO:     Started server process [38715]
+INFO:     Waiting for application startup.
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 159952.27it/s]
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 40897.87it/s]
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 154707.93it/s]
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1754129870.945964 3810085 chttp2_transport.cc:1335] ipv4:192.168.2.15:50051: Got goaway [11] err=UNAVAILABLE:GOAWAY received; Error code: 11; Debug Text: too_many_pings {grpc_status:14, http2_error:11}
+E0000 00:00:1754129870.948861 3810085 chttp2_transport.cc:1364] ipv4:192.168.2.15:50051: Received a GOAWAY with error code ENHANCE_YOUR_CALM and debug data equal to "too_many_pings". Current keepalive time (before throttling): 30000ms
+I0000 00:00:1754129870.956548 3810085 chttp2_transport.cc:1335] ipv4:192.168.2.106:50051: Got goaway [11] err=UNAVAILABLE:GOAWAY received; Error code: 11; Debug Text: too_many_pings {grpc_status:14, http2_error:11}
+E0000 00:00:1754129870.957447 3810085 chttp2_transport.cc:1364] ipv4:192.168.2.106:50051: Received a GOAWAY with error code ENHANCE_YOUR_CALM and debug data equal to "too_many_pings". Current keepalive time (before throttling): 30000ms
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-c6n30jt7'}
+  warnings.warn(

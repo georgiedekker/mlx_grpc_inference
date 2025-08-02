@@ -1,0 +1,91 @@
+{
+  "network_type": "lan",
+  "master_hostname": "mini1.local",
+  "master_port": 8100,
+  "mpi_hosts": [
+    "mini1.local",
+    "mini2.local",
+    "master.local"
+  ],
+  "mpi_slots_per_host": 1,
+  "model_name": "mlx-community/Qwen3-1.7B-8bit",
+  "model_parallel_size": 3,
+  "pipeline_parallel_size": 1,
+  "communication_backend": "grpc",
+  "heartbeat_interval": 5.0,
+  "timeout": 60.0,
+  "batch_size": 1,
+  "prefetch_batches": 2,
+  "auto_discover_devices": true,
+  "device_list": [
+    {
+      "device_id": "mini1",
+      "hostname": "mini1.local",
+      "port": 8100,
+      "role": "master",
+      "device_index": 0,
+      "capabilities": {
+        "device_id": "mini1",
+        "hostname": "mini1.local",
+        "device_type": "Mac mini",
+        "model": "M4",
+        "device_name": "Mac mini M4",
+        "memory_gb": 16.0,
+        "gpu_cores": 10,
+        "cpu_cores": 10,
+        "cpu_performance_cores": 4,
+        "cpu_efficiency_cores": 6,
+        "neural_engine_cores": 16,
+        "mlx_metal_available": true,
+        "max_recommended_model_size_gb": 12.8,
+        "is_laptop": false
+      }
+    },
+    {
+      "device_id": "mini2",
+      "hostname": "mini2.local",
+      "port": 8001,
+      "role": "worker",
+      "device_index": 1,
+      "capabilities": {
+        "device_id": "mini2",
+        "hostname": "mini2.local",
+        "device_type": "Mac mini",
+        "model": "M4",
+        "device_name": "Mac mini M4",
+        "memory_gb": 16.0,
+        "gpu_cores": 10,
+        "cpu_cores": 10,
+        "cpu_performance_cores": 4,
+        "cpu_efficiency_cores": 6,
+        "neural_engine_cores": 16,
+        "mlx_metal_available": true,
+        "max_recommended_model_size_gb": 12.8,
+        "is_laptop": false
+      }
+    },
+    {
+      "device_id": "master",
+      "hostname": "master.local",
+      "port": 8002,
+      "role": "worker",
+      "device_index": 2,
+      "capabilities": {
+        "device_id": "master",
+        "hostname": "master.local",
+        "device_type": "MacBook Pro",
+        "model": "M4 Pro",
+        "device_name": "MacBook Pro M4 Pro",
+        "memory_gb": 48.0,
+        "gpu_cores": 16,
+        "cpu_cores": 12,
+        "cpu_performance_cores": 8,
+        "cpu_efficiency_cores": 4,
+        "neural_engine_cores": 16,
+        "mlx_metal_available": true,
+        "max_recommended_model_size_gb": 38.4,
+        "is_laptop": true
+      }
+    }
+  ]
+}

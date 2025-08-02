@@ -1,0 +1,46 @@
+# Performance testing configuration
+devices:
+  - device_id: "coordinator"
+    hostname: "localhost"
+    rank: 0
+    role: "coordinator"
+    grpc_port: 50051
+    api_port: 8000
+  
+  - device_id: "worker_1"
+    hostname: "localhost"
+    rank: 1
+    role: "worker"
+    grpc_port: 50052
+    api_port: 8001
+  
+  - device_id: "worker_2"
+    hostname: "localhost"
+    rank: 2
+    role: "worker"
+    grpc_port: 50053
+    api_port: 8002
+    
+  - device_id: "worker_3"
+    hostname: "localhost"
+    rank: 3
+    role: "worker"
+    grpc_port: 50054
+    api_port: 8003
+
+model:
+  name: "performance_test_model"
+  path: "mlx-community/Qwen2.5-1.5B-Instruct-4bit"
+  layer_distribution:
+    coordinator: [0, 1]
+    worker_1: [2, 3, 4]
+    worker_2: [5, 6, 7]
+    worker_3: [8]
+  max_sequence_length: 4096
+  context_window: 8192
+
+performance:
+  request_timeout_seconds: 60.0
+  max_concurrent_requests: 20
+  tensor_compression: true
+  memory_limit_gb: 16.0

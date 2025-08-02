@@ -1,0 +1,138 @@
+syntax = "proto3";
+
+package mlx_distributed;
+
+// Service definition for distributed MLX inference
+service DistributedInference {
+  // Initialize a device with its shard of the model
+  rpc InitializeShard(InitializeShardRequest) returns (InitializeShardResponse);
+  
+  // Process a forward pass through this device's layers
+  rpc Forward(ForwardRequest) returns (ForwardResponse);
+  
+  // Health check
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
+  
+  // Get device capabilities
+  rpc GetCapabilities(GetCapabilitiesRequest) returns (GetCapabilitiesResponse);
+  
+  // Shutdown the device
+  rpc Shutdown(ShutdownRequest) returns (ShutdownResponse);
+}
+
+// Tensor representation
+message Tensor {
+  repeated int64 shape = 1;
+  string dtype = 2;
+  bytes data = 3;
+  map<string, string> metadata = 4;
+}
+
+// Device capabilities
+message DeviceCapabilities {
+  string device_id = 1;
+  string device_model = 2;  // e.g., "M4", "M4 Pro", "M2 Ultra"
+  int64 memory_bytes = 3;
+  int32 gpu_cores = 4;
+  int32 cpu_cores = 5;
+  float bandwidth_gbps = 6;  // Network bandwidth
+  map<string, string> extra = 7;
+}
+
+// Model shard information
+message ShardInfo {
+  string device_id = 1;
+  int32 start_layer = 2;
+  int32 end_layer = 3;
+  repeated string layer_names = 4;
+  int64 shard_size_bytes = 5;
+  map<string, string> config = 6;
+}
+
+// Initialize shard request
+message InitializeShardRequest {
+  string model_name = 1;
+  string model_provider = 2;  // e.g., "mlx-community", "local", "huggingface"
+  ShardInfo shard_info = 3;
+  map<string, string> model_config = 4;
+  bool load_from_cache = 5;
+  string cache_path = 6;
+}
+
+// Initialize shard response
+message InitializeShardResponse {
+  bool success = 1;
+  string message = 2;
+  int64 load_time_ms = 3;
+  int64 model_size_bytes = 4;
+}
+
+// Forward pass request
+message ForwardRequest {
+  string request_id = 1;
+  Tensor input_tensor = 2;
+  map<string, Tensor> cache = 3;  // KV cache
+  map<string, string> metadata = 4;
+  bool return_cache = 5;
+}
+
+// Forward pass response
+message ForwardResponse {
+  string request_id = 1;
+  Tensor output_tensor = 2;
+  map<string, Tensor> cache = 3;  // Updated KV cache
+  int64 inference_time_ms = 4;
+  map<string, string> metadata = 5;
+}
+
+// Health check
+message HealthCheckRequest {
+  bool include_stats = 1;
+}
+
+message HealthCheckResponse {
+  bool healthy = 1;
+  string status = 2;
+  int64 uptime_seconds = 3;
+  float gpu_utilization = 4;
+  float memory_utilization = 5;
+  int64 requests_processed = 6;
+  map<string, string> stats = 7;
+}
+
+// Get capabilities
+message GetCapabilitiesRequest {}
+
+message GetCapabilitiesResponse {
+  DeviceCapabilities capabilities = 1;
+  repeated string supported_models = 2;
+  repeated string supported_dtypes = 3;
+}
+
+// Shutdown
+message ShutdownRequest {
+  bool force = 1;
+  int32 grace_period_seconds = 2;
+}
+
+message ShutdownResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Configuration messages for heterogeneous setups
+message DeviceConfig {
+  string device_id = 1;
+  string hostname = 2;
+  int32 port = 3;
+  DeviceCapabilities capabilities = 4;
+  ShardInfo assigned_shard = 5;
+}
+
+message ClusterConfig {
+  repeated DeviceConfig devices = 1;
+  string sharding_strategy = 2;  // "uniform", "memory_proportional", "compute_proportional", "custom"
+  string model_name = 3;
+  string model_provider = 4;
+  map<string, string> global_config = 5;
+}

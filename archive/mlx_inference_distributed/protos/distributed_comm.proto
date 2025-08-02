@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package mlx_distributed.comm;
+
+// Service for distributed communication between devices
+service DistributedComm {
+  // Send data to another device
+  rpc Send(SendRequest) returns (SendResponse);
+  
+  // Receive data from another device (blocking call)
+  rpc Receive(ReceiveRequest) returns (stream ReceiveResponse);
+  
+  // Broadcast data from root to all devices
+  rpc Broadcast(BroadcastRequest) returns (BroadcastResponse);
+  
+  // AllReduce operation for distributed aggregation
+  rpc AllReduce(AllReduceRequest) returns (AllReduceResponse);
+  
+  // Barrier synchronization
+  rpc Barrier(BarrierRequest) returns (BarrierResponse);
+}
+
+// Communication data
+message CommData {
+  oneof data {
+    bytes pickle_data = 1;     // Pickled Python objects
+    TensorData tensor_data = 2; // MLX tensor data
+    bytes numpy_data = 3;       // NumPy array data
+  }
+  string comm_type = 4;
+  map<string, string> metadata = 5;
+}
+
+// Tensor data representation
+message TensorData {
+  bytes data = 1;
+  repeated int64 shape = 2;
+  string dtype = 3;
+}
+
+// Send request
+message SendRequest {
+  int32 source_rank = 1;
+  int32 dest_rank = 2;
+  CommData data = 3;
+  string tag = 4;
+}
+
+message SendResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Receive request
+message ReceiveRequest {
+  int32 receiver_rank = 1;
+  int32 source_rank = 2;
+  string tag = 3;
+  string comm_type = 4;
+}
+
+message ReceiveResponse {
+  CommData data = 1;
+  int32 source_rank = 2;
+  string tag = 3;
+}
+
+// Broadcast request
+message BroadcastRequest {
+  int32 root_rank = 1;
+  int32 sender_rank = 2;
+  CommData data = 3;
+}
+
+message BroadcastResponse {
+  bool success = 1;
+  CommData data = 2;
+}
+
+// AllReduce request
+message AllReduceRequest {
+  int32 rank = 1;
+  TensorData tensor = 2;
+  string operation = 3; // "sum", "mean", "max", "min"
+}
+
+message AllReduceResponse {
+  bool success = 1;
+  TensorData result = 2;
+}
+
+// Barrier request
+message BarrierRequest {
+  int32 rank = 1;
+  string barrier_id = 2;
+}
+
+message BarrierResponse {
+  bool success = 1;
+  int32 participants = 2;
+}

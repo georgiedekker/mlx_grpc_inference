@@ -1,0 +1,31 @@
+/Users/mini1/Movies/mlx_inference_distributed/distributed_api_enhanced.py:139: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+/Users/mini1/Movies/mlx_inference_distributed/distributed_api_enhanced.py:191: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("shutdown")
+INFO:     Started server process [39491]
+INFO:     Waiting for application startup.
+2025-08-01 09:13:36,050 - __main__ - INFO - 🚀 Starting MLX Enhanced Distributed API...
+ERROR:    Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_inference_distributed/.venv/lib/python3.13/site-packages/starlette/routing.py", line 694, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/mini1/Movies/mlx_inference_distributed/.venv/lib/python3.13/site-packages/starlette/routing.py", line 571, in __aenter__
+    await self._router.startup()
+  File "/Users/mini1/Movies/mlx_inference_distributed/.venv/lib/python3.13/site-packages/starlette/routing.py", line 671, in startup
+    await handler()
+  File "/Users/mini1/Movies/mlx_inference_distributed/distributed_api_enhanced.py", line 157, in startup_event
+    original_add = cluster_manager.discovery.on_device_added
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'on_device_added'
+
+ERROR:    Application startup failed. Exiting.

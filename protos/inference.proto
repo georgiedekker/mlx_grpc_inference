@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package mlx_inference;
+
+// Service for distributed inference
+service InferenceService {
+    // Process layers on this worker
+    rpc ProcessLayers(LayerRequest) returns (LayerResponse);
+    
+    // Health check
+    rpc HealthCheck(Empty) returns (HealthStatus);
+    
+    // Get device information
+    rpc GetDeviceInfo(Empty) returns (DeviceInfo);
+}
+
+// Empty message for requests without parameters
+message Empty {}
+
+// Tensor metadata
+message TensorMetadata {
+    repeated int64 shape = 1;
+    string dtype = 2;
+    bool compressed = 3;
+}
+
+// Layer processing request
+message LayerRequest {
+    string request_id = 1;
+    bytes input_tensor = 2;
+    repeated int32 layer_indices = 3;
+    TensorMetadata metadata = 4;
+    map<string, string> context = 5;  // Additional context (e.g., attention mask)
+}
+
+// Layer processing response
+message LayerResponse {
+    string request_id = 1;
+    bytes output_tensor = 2;
+    TensorMetadata metadata = 3;
+    float processing_time_ms = 4;
+    string device_id = 5;
+}
+
+// Health status
+message HealthStatus {
+    bool healthy = 1;
+    string device_id = 2;
+    int64 timestamp = 3;
+    map<string, string> details = 4;
+}
+
+// Device information
+message DeviceInfo {
+    string device_id = 1;
+    string hostname = 2;
+    int32 rank = 3;
+    string role = 4;
+    repeated int32 assigned_layers = 5;
+    map<string, string> capabilities = 6;
+    float gpu_utilization = 7;
+    float memory_usage_gb = 8;
+}

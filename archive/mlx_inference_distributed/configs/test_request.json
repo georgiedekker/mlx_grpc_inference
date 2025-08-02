@@ -1,0 +1,10 @@
+{
+  "model": "mlx-community/Qwen3-1.7B-8bit",
+  "messages": [
+    {
+      "role": "user", 
+      "content": "Hello! Count to 3."
+    }
+  ],
+  "max_tokens": 50
+}

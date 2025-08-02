@@ -1,0 +1,134 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools-scm>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlx-distributed-training"
+version = "0.1.0"
+description = "MLX Distributed Training System - Supervised Fine-Tuning and RLHF"
+readme = "README.md"
+requires-python = ">=3.13"
+license = {text = "MIT"}
+authors = [
+    {name = "MLX Training Team", email = "training@mlx.ai"}
+]
+keywords = ["machine learning", "distributed training", "fine-tuning", "mlx"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    # Core MLX
+    "mlx>=0.22.0",
+    "mlx-lm>=0.21.0",
+    
+    # Training and Data
+    "datasets>=3.2.0",
+    "transformers>=4.48.0",
+    "tokenizers>=0.21.0",
+    "accelerate>=1.2.1",
+    
+    # Experiment Tracking
+    "wandb>=0.19.1",
+    "tensorboard>=2.18.0",
+    
+    # Distributed Communication
+    "grpcio>=1.74.0",
+    "grpcio-tools>=1.74.0",
+    
+    # API Framework (Port 8200)
+    "fastapi>=0.115.6",
+    "uvicorn[standard]>=0.34.0",
+    "pydantic>=2.10.3",
+    
+    # Configuration and Utilities
+    "pyyaml>=6.0.2",
+    "click>=8.1.7",
+    "rich>=13.9.4",
+    "tqdm>=4.67.1",
+    
+    # Math and Scientific
+    "numpy>=1.24.0",
+    "scipy>=1.11.0",
+    
+    # Integration with Team A (imports only, no modifications)
+    # "mlx-distributed>=0.1.0",  # Team A's package - commented out until available
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+    "pytest-asyncio>=0.24.0",
+    "black>=24.10.0",
+    "ruff>=0.8.6",
+    "mypy>=1.14.1",
+    "pre-commit>=4.0.1",
+]
+
+[project.scripts]
+mlx-train = "mlx_distributed_training.cli:main"
+mlx-train-api = "mlx_distributed_training.api.server:main"
+
+[project.urls]
+Homepage = "https://github.com/ml-explore/mlx-distributed-training"
+Documentation = "https://mlx-distributed-training.readthedocs.io/"
+Repository = "https://github.com/ml-explore/mlx-distributed-training"
+Issues = "https://github.com/ml-explore/mlx-distributed-training/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 88
+target-version = ['py313']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.mypy]
+python_version = "3.13"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--verbose --cov=src/mlx_distributed_training --cov-report=term-missing"

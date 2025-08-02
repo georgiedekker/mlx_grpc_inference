@@ -1,0 +1,161 @@
+{
+  "validation_summary": {
+    "total_tests": 4,
+    "passed_tests": 0,
+    "failed_tests": 4,
+    "success_rate": 0.0,
+    "total_execution_time": 1.6284549236297607
+  },
+  "test_results": {
+    "Core Pipeline Validation": {
+      "script": "validate_distributed_pipeline.py",
+      "description": "Validates core pipeline components and identifies issues",
+      "exit_code": 1,
+      "execution_time": 0.8865940570831299,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/validate_distributed_pipeline.py\", line 21, in <module>\n    from src.coordinator.orchestrator import DistributedOrchestrator, InferenceRequest\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/__init__.py\", line 5, in <module>\n    from .orchestrator import DistributedOrchestrator\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/orchestrator.py\", line 12, in <module>\n    from ..devices import CoordinatorDevice, DeviceManager\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/devices/__init__.py\", line 9, in <module>\n    from .coordinator_device import CoordinatorDevice\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/devices/coordinator_device.py\", line 19, in <module>\n    from ..communication.connection_pool import ConnectionPool\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/connection_pool.py\", line 13, in <module>\n    from .grpc_client import GRPCInferenceClient\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/grpc_client.py\", line 13, in <module>\n    from .tensor_utils import serialize_mlx_array, deserialize_mlx_array\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/tensor_utils.py\", line 9, in <module>\n    import lz4.frame\nModuleNotFoundError: No module named 'lz4'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/validate_distributed_pipeline.py\", line 28, in <module>\n    from coordinator.orchestrator import DistributedOrchestrator, InferenceRequest\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/__init__.py\", line 5, in <module>\n    from .orchestrator import DistributedOrchestrator\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/orchestrator.py\", line 11, in <module>\n    from ..core.config import ClusterConfig, DeviceRole\nImportError: attempted relative import beyond top-level package\n",
+      "success": false
+    },
+    "Tensor Flow Validation": {
+      "script": "test_tensor_flow_validation.py",
+      "description": "Comprehensive tensor serialization and flow testing",
+      "exit_code": 1,
+      "execution_time": 0.09062790870666504,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/test_tensor_flow_validation.py\", line 22, in <module>\n    from src.communication.tensor_utils import serialize_mlx_array, deserialize_mlx_array\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/tensor_utils.py\", line 9, in <module>\n    import lz4.frame\nModuleNotFoundError: No module named 'lz4'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/test_tensor_flow_validation.py\", line 27, in <module>\n    from communication.tensor_utils import serialize_mlx_array, deserialize_mlx_array\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/tensor_utils.py\", line 9, in <module>\n    import lz4.frame\nModuleNotFoundError: No module named 'lz4'\n",
+      "success": false
+    },
+    "Device Communication Validation": {
+      "script": "test_device_communication.py",
+      "description": "Network connectivity and gRPC communication testing",
+      "exit_code": 1,
+      "execution_time": 0.0967559814453125,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/test_device_communication.py\", line 22, in <module>\n    from src.communication.grpc_client import ConnectionPool, GRPCInferenceClient\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/grpc_client.py\", line 13, in <module>\n    from .tensor_utils import serialize_mlx_array, deserialize_mlx_array\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/tensor_utils.py\", line 9, in <module>\n    import lz4.frame\nModuleNotFoundError: No module named 'lz4'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/test_device_communication.py\", line 27, in <module>\n    from communication.grpc_client import ConnectionPool, GRPCInferenceClient\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/grpc_client.py\", line 12, in <module>\n    from ..core.config import DeviceConfig\nImportError: attempted relative import beyond top-level package\n",
+      "success": false
+    },
+    "Generation Pipeline Validation": {
+      "script": "test_generation_pipeline.py",
+      "description": "End-to-end generation pipeline and scenario testing",
+      "exit_code": 1,
+      "execution_time": 0.55385422706604,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/test_generation_pipeline.py\", line 23, in <module>\n    from src.coordinator.orchestrator import DistributedOrchestrator, InferenceRequest\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/__init__.py\", line 5, in <module>\n    from .orchestrator import DistributedOrchestrator\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/orchestrator.py\", line 12, in <module>\n    from ..devices import CoordinatorDevice, DeviceManager\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/devices/__init__.py\", line 9, in <module>\n    from .coordinator_device import CoordinatorDevice\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/devices/coordinator_device.py\", line 19, in <module>\n    from ..communication.connection_pool import ConnectionPool\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/connection_pool.py\", line 13, in <module>\n    from .grpc_client import GRPCInferenceClient\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/grpc_client.py\", line 13, in <module>\n    from .tensor_utils import serialize_mlx_array, deserialize_mlx_array\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/tensor_utils.py\", line 9, in <module>\n    import lz4.frame\nModuleNotFoundError: No module named 'lz4'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/test_generation_pipeline.py\", line 31, in <module>\n    from coordinator.orchestrator import DistributedOrchestrator, InferenceRequest\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/__init__.py\", line 5, in <module>\n    from .orchestrator import DistributedOrchestrator\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/orchestrator.py\", line 11, in <module>\n    from ..core.config import ClusterConfig, DeviceRole\nImportError: attempted relative import beyond top-level package\n",
+      "success": false
+    }
+  },
+  "key_findings": {
+    "what_works": [],
+    "what_is_broken": [],
+    "performance_notes": [],
+    "infrastructure_status": []
+  },
+  "critical_issues": [
+    {
+      "severity": "HIGH",
+      "category": "gRPC Communication",
+      "issue": "'str' object has no attribute 'hostname' - prevents device communication",
+      "location": "src/communication/grpc_client.py",
+      "impact": "System cannot communicate between devices",
+      "blocking": true
+    },
+    {
+      "severity": "HIGH",
+      "category": "Distributed Forward Pass",
+      "issue": "Implementation doesn't return tensors to coordinator for final processing",
+      "location": "src/coordinator/orchestrator.py",
+      "impact": "Generation happens with incomplete data",
+      "blocking": true
+    },
+    {
+      "severity": "HIGH",
+      "category": "Generation Logic",
+      "issue": "No proper autoregressive generation with distributed forward passes",
+      "location": "Generation pipeline",
+      "impact": "Cannot generate multi-token sequences",
+      "blocking": true
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "Orchestrator Initialization",
+      "issue": "Missing required attributes: connection_pool, model_loader, layer_processor",
+      "location": "src/coordinator/orchestrator.py",
+      "impact": "Orchestrator incomplete",
+      "blocking": false
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "EOS Token Handling",
+      "issue": "Incomplete end-of-sequence token handling",
+      "location": "Generation pipeline",
+      "impact": "Generation may not stop properly",
+      "blocking": false
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "IMMEDIATE",
+      "title": "Fix gRPC Client Bug",
+      "description": "Fix attribute access in GRPCInferenceClient to properly handle device objects",
+      "estimated_effort": "2-4 hours",
+      "files_to_modify": [
+        "src/communication/grpc_client.py"
+      ],
+      "blocking": true
+    },
+    {
+      "priority": "IMMEDIATE",
+      "title": "Implement Proper Distributed Forward Pass",
+      "description": "Modify orchestrator to implement 4-step flow: mini1\u2192mini2\u2192master\u2192mini1",
+      "estimated_effort": "1-2 days",
+      "files_to_modify": [
+        "src/coordinator/orchestrator.py"
+      ],
+      "blocking": true
+    },
+    {
+      "priority": "HIGH",
+      "title": "Add Autoregressive Generation Loop",
+      "description": "Implement iterative token generation with proper EOS handling",
+      "estimated_effort": "1-2 days",
+      "files_to_modify": [
+        "src/coordinator/orchestrator.py",
+        "generation pipeline"
+      ],
+      "blocking": true
+    },
+    {
+      "priority": "MEDIUM",
+      "title": "Initialize Missing Orchestrator Components",
+      "description": "Properly initialize connection_pool, model_loader, and layer_processor",
+      "estimated_effort": "4-8 hours",
+      "files_to_modify": [
+        "src/coordinator/orchestrator.py"
+      ],
+      "blocking": false
+    },
+    {
+      "priority": "LOW",
+      "title": "Add Device Utilization Monitoring",
+      "description": "Implement explicit tracking that all devices process their layers",
+      "estimated_effort": "4-6 hours",
+      "files_to_modify": [
+        "src/coordinator/orchestrator.py",
+        "monitoring components"
+      ],
+      "blocking": false
+    }
+  ],
+  "timestamp": 1754125915.14242,
+  "system_info": {
+    "platform": "MLX distributed inference cluster",
+    "devices": [
+      "mini1 (coordinator)",
+      "mini2 (worker)",
+      "master (worker)"
+    ],
+    "model": "mlx-community/Qwen3-1.7B-8bit",
+    "layer_distribution": "10-9-9",
+    "package_manager": "UV compliant"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "model": "mlx-community/Qwen3-1.7B-8bit",
+  "device": "mini1",
+  "api_port": 8100
+}

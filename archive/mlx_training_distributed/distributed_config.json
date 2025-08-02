@@ -1,0 +1,18 @@
+{
+  "world_size": 4,
+  "rank": 0,
+  "backend": "allreduce",
+  "master_addr": "localhost",
+  "master_port": 29500,
+  "gradient_as_bucket_view": true,
+  "find_unused_parameters": false,
+  "devices": ["gpu:0", "gpu:1", "gpu:2", "gpu:3"],
+  "communication": {
+    "timeout": 30000,
+    "retry_count": 3
+  },
+  "optimization": {
+    "overlap_grad_reduce": true,
+    "bucket_size_mb": 25
+  }
+}

@@ -1,0 +1,6 @@
+{
+    "messages": [
+        {"role": "user", "content": "Hi mom!"}
+    ],
+    "max_tokens": 30
+}

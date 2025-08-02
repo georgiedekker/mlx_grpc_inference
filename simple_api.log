@@ -1,0 +1,22 @@
+INFO:     Started server process [42349]
+INFO:     Waiting for application startup.
+🚀 Starting Simple MLX API Server...
+✅ Config loaded: mlx-community/Qwen3-1.7B-8bit
+📦 Loading model and tokenizer...
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 132451.71it/s]
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+✅ Model loaded: 28 layers
+🔗 Connecting to workers...
+✅ mini2: Connected, 9 layers
+✅ master: Connected, 9 layers
+✅ API server ready at http://0.0.0.0:8100
+INFO:     192.168.2.106:64569 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.2.106:64569 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     192.168.2.106:64570 - "POST /chat/completions HTTP/1.1" 500 Internal Server Error
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [42349]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-6svdqjq4'}
+  warnings.warn(

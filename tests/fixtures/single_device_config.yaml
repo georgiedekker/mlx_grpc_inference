@@ -1,0 +1,22 @@
+# Single device configuration for testing
+devices:
+  - device_id: "coordinator"
+    hostname: "localhost"
+    rank: 0
+    role: "coordinator"
+    grpc_port: 50051
+    api_port: 8000
+
+model:
+  name: "test_model_single"
+  path: "mlx-community/Qwen2.5-1.5B-Instruct-4bit"
+  layer_distribution:
+    coordinator: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+  max_sequence_length: 1024
+  context_window: 2048
+
+performance:
+  request_timeout_seconds: 30.0
+  max_concurrent_requests: 5
+  tensor_compression: false
+  memory_limit_gb: 4.0

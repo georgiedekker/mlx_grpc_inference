@@ -1,0 +1,18 @@
+INFO:     Started server process [49968]
+INFO:     Waiting for application startup.
+INFO:__main__:🚀 Starting MLX Distributed Inference API...
+INFO:__main__:✅ Config loaded: mlx-community/Qwen3-1.7B-8bit
+INFO:__main__:📦 Loading model and tokenizer...
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 140853.49it/s]
+INFO:__main__:✅ Model loaded: 28 layers
+INFO:__main__:🔗 Connecting to workers...
+INFO:communication.dns_resolver:Resolved mini2.local -> 192.168.2.15 using mdns_native in 53.6ms
+INFO:__main__:✅ mini2: Connected (9 layers)
+INFO:communication.dns_resolver:Resolved master.local -> 192.168.2.106 using mdns_native in 1.2ms
+INFO:__main__:✅ master: Connected (9 layers)
+INFO:__main__:✅ API server ready!
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('0.0.0.0', 8100): address already in use
+INFO:     Waiting for application shutdown.
+INFO:__main__:👋 Shutting down API server...
+INFO:     Application shutdown complete.
