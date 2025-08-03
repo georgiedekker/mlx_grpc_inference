@@ -1,0 +1,143 @@
+INFO:__main__:Using DLPack-based tensor serialization for dtype preservation
+INFO:     Started server process [6000]
+INFO:     Waiting for application startup.
+INFO:__main__:🚀 Starting Fixed MLX Distributed Inference API...
+INFO:__main__:✅ Config loaded: mlx-community/GLM-4.5-4bit
+INFO:__main__:📦 Loading model and tokenizer...
+Fetching 46 files:   0%|          | 0/46 [00:00<?, ?it/s]/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 5137.81 MB. The target location /Users/mini1/.cache/huggingface/hub/models--mlx-community--GLM-4.5-4bit/blobs only has 2535.39 MB free disk space.
+  warnings.warn(
+/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 5229.45 MB. The target location /Users/mini1/.cache/huggingface/hub/models--mlx-community--GLM-4.5-4bit/blobs only has 352.64 MB free disk space.
+  warnings.warn(
+/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 5137.81 MB. The target location /Users/mini1/.cache/huggingface/hub/models--mlx-community--GLM-4.5-4bit/blobs only has 141.34 MB free disk space.
+  warnings.warn(
+/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 5360.93 MB. The target location /Users/mini1/.cache/huggingface/hub/models--mlx-community--GLM-4.5-4bit/blobs only has 140.58 MB free disk space.
+  warnings.warn(
+/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 5137.81 MB. The target location /Users/mini1/.cache/huggingface/hub/models--mlx-community--GLM-4.5-4bit/blobs only has 139.89 MB free disk space.
+  warnings.warn(
+/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 5268.77 MB. The target location /Users/mini1/.cache/huggingface/hub/models--mlx-community--GLM-4.5-4bit/blobs only has 147.49 MB free disk space.
+  warnings.warn(
+/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 5229.45 MB. The target location /Users/mini1/.cache/huggingface/hub/models--mlx-community--GLM-4.5-4bit/blobs only has 105.35 MB free disk space.
+  warnings.warn(
+/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 5137.81 MB. The target location /Users/mini1/.cache/huggingface/hub/models--mlx-community--GLM-4.5-4bit/blobs only has 105.35 MB free disk space.
+  warnings.warn(
+/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 5137.81 MB. The target location /Users/mini1/.cache/huggingface/hub/models--mlx-community--GLM-4.5-4bit/blobs only has 126.57 MB free disk space.
+  warnings.warn(
+/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 5229.45 MB. The target location /Users/mini1/.cache/huggingface/hub/models--mlx-community--GLM-4.5-4bit/blobs only has 129.31 MB free disk space.
+  warnings.warn(
+/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 5137.81 MB. The target location /Users/mini1/.cache/huggingface/hub/models--mlx-community--GLM-4.5-4bit/blobs only has 173.57 MB free disk space.
+  warnings.warn(
+Fetching 46 files:   7%|▋         | 3/46 [1:12:47<17:23:18, 1455.78s/it]
+/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 5137.81 MB. The target location /Users/mini1/.cache/huggingface/hub/models--mlx-community--GLM-4.5-4bit/blobs only has 169.60 MB free disk space.
+  warnings.warn(
+{"timestamp":"2025-08-03T02:43:35.500624Z","level":"WARN","fields":{"message":"Reqwest(reqwest::Error { kind: Request, source: hyper_util::client::legacy::Error(SendRequest, hyper::Error(IncompleteMessage)) }). Retrying..."},"filename":"/Users/runner/work/xet-core/xet-core/cas_client/src/http_client.rs","line_number":242}
+{"timestamp":"2025-08-03T02:43:35.501837Z","level":"WARN","fields":{"message":"Retry attempt #0. Sleeping 291.488638ms before the next attempt"},"filename":"/Users/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/reqwest-retry-0.7.0/src/middleware.rs","line_number":171}
+ERROR:    Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 694, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/working_api_server_fixed.py", line 106, in lifespan
+    model, tokenizer = load(
+                       ~~~~^
+        config.model.name,
+        ^^^^^^^^^^^^^^^^^^
+        tokenizer_config=tokenizer_config
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/utils.py", line 258, in load
+    model_path, _ = get_model_path(path_or_hf_repo)
+                    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/utils.py", line 102, in get_model_path
+    snapshot_download(
+    ~~~~~~~~~~~~~~~~~^
+        path_or_hf_repo,
+        ^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+        ],
+        ^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/_snapshot_download.py", line 332, in snapshot_download
+    thread_map(
+    ~~~~~~~~~~^
+        _inner_hf_hub_download,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        tqdm_class=tqdm_class or hf_tqdm,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/tqdm/contrib/concurrent.py", line 69, in thread_map
+    return _executor_map(ThreadPoolExecutor, fn, *iterables, **tqdm_kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/tqdm/contrib/concurrent.py", line 51, in _executor_map
+    return list(tqdm_class(ex.map(fn, *iterables, chunksize=chunksize), **kwargs))
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+               ^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/_snapshot_download.py", line 306, in _inner_hf_hub_download
+    return hf_hub_download(
+        repo_id,
+    ...<15 lines>...
+        headers=headers,
+    )
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py", line 1010, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+        # Destination
+    ...<14 lines>...
+        force_download=force_download,
+    )
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py", line 1171, in _hf_hub_download_to_cache_dir
+    _download_to_tmp_and_move(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        incomplete_path=Path(blob_path + ".incomplete"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+        xet_file_data=xet_file_data,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py", line 1723, in _download_to_tmp_and_move
+    xet_get(
+    ~~~~~~~^
+        incomplete_path=incomplete_path,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        displayed_filename=filename,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/file_download.py", line 629, in xet_get
+    download_files(
+    ~~~~~~~~~~~~~~^
+        xet_download_info,
+        ^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        progress_updater=[progress_updater],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+RuntimeError: Data processing error: CAS service error : IO Error: No space left on device (os error 28)
+
+ERROR:    Application startup failed. Exiting.
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-v3g61sxo'}
+  warnings.warn(

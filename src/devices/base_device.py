@@ -17,7 +17,10 @@ import psutil
 
 from ..core.config import ClusterConfig, DeviceConfig, DeviceRole
 from ..model.loader import DistributedModelLoader
-from ..model.inference import LayerProcessor
+try:
+    from ..model.inference_fixed import FixedLayerProcessor as LayerProcessor
+except ImportError:
+    from ..model.inference import LayerProcessor
 
 logger = logging.getLogger(__name__)
 

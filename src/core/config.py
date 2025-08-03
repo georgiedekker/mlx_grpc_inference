@@ -110,6 +110,39 @@ class ClusterConfig:
     monitoring: MonitoringConfig
 
     @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'ClusterConfig':
+        """Create ClusterConfig from dictionary."""
+        # Parse devices
+        devices = []
+        for device_data in data['devices']:
+            devices.append(DeviceConfig.from_dict(device_data))
+        
+        # Parse model config
+        model = ModelConfig(
+            name=data['model']['name'],
+            total_layers=data['model']['total_layers'],
+            layer_distribution=data['model']['layer_distribution']
+        )
+        
+        # Parse performance config
+        perf_data = data.get('performance', {})
+        performance = PerformanceConfig(**perf_data)
+        
+        # Parse monitoring config
+        mon_data = data.get('monitoring', {})
+        monitoring = MonitoringConfig(**mon_data)
+        
+        return cls(
+            name=data['cluster']['name'],
+            coordinator_device_id=data['cluster']['coordinator_device_id'],
+            communication_backend=data['cluster']['communication_backend'],
+            devices=devices,
+            model=model,
+            performance=performance,
+            monitoring=monitoring
+        )
+
+    @classmethod
     def from_yaml(cls, yaml_path: str) -> 'ClusterConfig':
         """Load configuration from YAML file."""
         with open(yaml_path, 'r') as f:

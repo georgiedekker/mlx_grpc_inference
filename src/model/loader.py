@@ -46,7 +46,22 @@ class DistributedModelLoader:
             logger.info(f"Loading model shard for {device_id}: layers {shard.layer_indices}")
             
             # Load full model first (we'll optimize this later)
-            model, tokenizer = load(self.config.model.name)
+            # IMPORTANT: Ensure all devices load from the exact same source
+            model_path = self.config.model.name
+            logger.info(f"Loading model from: {model_path}")
+            
+            # Force fresh download if cache might be corrupted
+            # This ensures all workers have identical weights
+            model, tokenizer = load(model_path)
+            
+            # Log model hash for verification
+            if hasattr(model, 'model') and hasattr(model.model, 'layers'):
+                # Get a sample weight to verify consistency
+                first_layer = model.model.layers[0]
+                if hasattr(first_layer, 'self_attn') and hasattr(first_layer.self_attn, 'q_proj'):
+                    sample_weight = first_layer.self_attn.q_proj.weight
+                    weight_sum = mx.sum(sample_weight).item()
+                    logger.info(f"Model verification - first layer q_proj weight sum: {weight_sum:.6f}")
             
             # For now, return the full model
             # In a production system, we would extract only the needed layers

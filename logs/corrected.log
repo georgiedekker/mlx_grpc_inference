@@ -1,0 +1,30 @@
+INFO:     Started server process [93973]
+INFO:     Waiting for application startup.
+INFO:__main__:🚀 Starting Corrected MLX Inference API...
+INFO:__main__:📦 Loading model: mlx-community/Qwen3-1.7B-8bit
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 73872.28it/s]
+INFO:__main__:✅ Model loaded: 28 layers
+INFO:__main__:✅ Corrected API server ready!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+INFO:__main__:🚀 Generating response for 10 prompt tokens
+INFO:__main__:📝 Formatted prompt: 'Adaptive Multi-Teacher Multi-level Knowledge Distillation'...
+INFO:__main__:✅ Generated response:
+INFO:__main__:   Prompt: 10 tokens @ 3851.9 tok/s
+INFO:__main__:   Response: 50 tokens @ 45.0 tok/s
+INFO:__main__:   Content: 'for Few-Shot Learning\n\nIn this paper, we propose a novel framework for few-shot learning (FSL) that '...
+INFO:     127.0.0.1:53533 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:__main__:🚀 Generating response for 5 prompt tokens
+INFO:__main__:📝 Formatted prompt: 'What is machine learning?'...
+INFO:__main__:✅ Generated response:
+INFO:__main__:   Prompt: 5 tokens @ 6345.4 tok/s
+INFO:__main__:   Response: 50 tokens @ 47.0 tok/s
+INFO:__main__:   Content: 'Machine learning is a subset of artificial intelligence that focuses on developing algorithms and mo'...
+INFO:     127.0.0.1:53568 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:__main__:👋 Shutting down API server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [93973]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-q36lho0q'}
+  warnings.warn(

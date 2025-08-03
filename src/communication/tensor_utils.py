@@ -34,6 +34,8 @@ def serialize_mlx_array(array: mx.array,
     # Convert to numpy for serialization
     # First ensure the array is evaluated
     mx.eval(array)
+    # Store original dtype before conversion
+    original_dtype = array.dtype
     # Convert to float32 if needed to avoid dtype issues
     if array.dtype in [mx.float16, mx.bfloat16]:
         array = array.astype(mx.float32)
@@ -66,6 +68,7 @@ def serialize_mlx_array(array: mx.array,
     metadata = {
         'shape': list(np_array.shape),
         'dtype': str(np_array.dtype),
+        'original_dtype': str(original_dtype),  # Store original MLX dtype
         'compressed': compress,
         'original_size': original_size,
         'compressed_size': len(compressed_data),
@@ -113,6 +116,16 @@ def deserialize_mlx_array(data: bytes, metadata: Dict[str, Any]) -> mx.array:
     
     # Convert back to MLX
     mlx_array = mx.array(np_array)
+    
+    # Restore original dtype if it was converted during serialization
+    original_dtype_str = metadata.get('original_dtype')
+    if original_dtype_str and original_dtype_str != str(mlx_array.dtype):
+        # Map string dtype back to MLX dtype
+        if 'bfloat16' in original_dtype_str:
+            mlx_array = mlx_array.astype(mx.bfloat16)
+        elif 'float16' in original_dtype_str:
+            mlx_array = mlx_array.astype(mx.float16)
+        # Add other dtype conversions as needed
     
     # Verify shape
     expected_shape = tuple(metadata['shape'])

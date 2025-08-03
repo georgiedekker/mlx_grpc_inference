@@ -21,3 +21,10 @@ INFO:__main__:Model doesn't have lm_head, checking for tied embeddings...
 INFO:__main__:Used tied embeddings (embed_tokens.as_linear) - logits shape: (1, 17, 151936)
 INFO:__main__:Performance: 17 prompt tokens @ 43.4 tok/s, 10 generated @ 5.1 tok/s, total time: 2.37s
 INFO:     127.0.0.1:55610 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:__main__:👋 Shutting down API server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [56716]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-pukdbo1q'}
+  warnings.warn(

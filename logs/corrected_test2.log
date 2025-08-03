@@ -1,0 +1,23 @@
+INFO:     Started server process [1133]
+INFO:     Waiting for application startup.
+INFO:__main__:🚀 Starting Corrected MLX Inference API...
+INFO:__main__:📦 Loading model: mlx-community/Qwen3-1.7B-8bit
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 107240.73it/s]
+INFO:__main__:✅ Model loaded: 28 layers
+INFO:__main__:✅ Corrected API server ready!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+INFO:__main__:🚀 Generating response for 1 prompt tokens
+INFO:__main__:📝 Formatted prompt: 'Hello'...
+INFO:__main__:✅ Generated response:
+INFO:__main__:   Prompt: 1 tokens @ 732.0 tok/s
+INFO:__main__:   Response: 20 tokens @ 42.3 tok/s
+INFO:__main__:   Content: ': I\'m trying to understand the concept of the "simplified" version of the problem. I'...
+INFO:     127.0.0.1:58235 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:__main__:👋 Shutting down API server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1133]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-mj81mn0v'}
+  warnings.warn(

@@ -1,0 +1,33 @@
+INFO:__main__:Using DLPack-based tensor serialization for dtype preservation
+INFO:     Started server process [1923]
+INFO:     Waiting for application startup.
+INFO:__main__:🚀 Starting Fixed MLX Distributed Inference API...
+INFO:__main__:✅ Config loaded: mlx-community/Qwen3-1.7B-8bit
+INFO:__main__:📦 Loading model and tokenizer...
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 138782.12it/s]
+INFO:__main__:✅ Model loaded: 28 layers
+INFO:__main__:🔗 Connecting to workers...
+INFO:communication.dns_resolver:Resolved mini2.local -> 192.168.2.15 using mdns_native in 3.7ms
+ERROR:__main__:❌ mini2: Connection failed - <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.15:50052: Failed to connect to remote host: connect: Connection refused (61)"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.15:50052: Failed to connect to remote host: connect: Connection refused (61)", grpc_status:14}"
+>
+INFO:communication.dns_resolver:Resolved master.local -> 192.168.2.106 using mdns_native in 1.5ms
+ERROR:__main__:❌ master: Connection failed - <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.DEADLINE_EXCEEDED
+	details = "Deadline Exceeded"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"Deadline Exceeded", grpc_status:4}"
+>
+INFO:__main__:✅ API server ready!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+INFO:__main__:Performance: 11 prompt tokens @ 24952.6 tok/s, 50 generated @ 45.6 tok/s, total time: 1.10s
+INFO:     127.0.0.1:58886 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:__main__:👋 Shutting down API server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1923]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-oyds51dy'}
+  warnings.warn(

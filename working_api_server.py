@@ -22,11 +22,19 @@ sys.path.insert(0, 'src')
 
 from communication import inference_pb2_grpc, inference_pb2
 from communication.dns_resolver import resolve_grpc_target
-from communication.tensor_utils import serialize_mlx_array, deserialize_mlx_array
 from core.config import ClusterConfig
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Import tensor utils after logger is defined
+try:
+    from communication.tensor_utils_dlpack import serialize_mlx_array_dlpack as serialize_mlx_array
+    from communication.tensor_utils_dlpack import deserialize_mlx_array_dlpack as deserialize_mlx_array
+    logger.info("Using DLPack-based tensor serialization for dtype preservation")
+except ImportError:
+    from communication.tensor_utils import serialize_mlx_array, deserialize_mlx_array
+    logger.warning("DLPack serialization not available, using standard method")
 
 # Global variables
 config = None
@@ -101,7 +109,13 @@ async def lifespan(app: FastAPI):
     for worker in workers:
         try:
             target = resolve_grpc_target(worker.hostname, worker.grpc_port)
-            channel = grpc.insecure_channel(target)
+            channel = grpc.insecure_channel(
+                target,
+                options=[
+                    ('grpc.max_send_message_length', 500 * 1024 * 1024),  # 500MB
+                    ('grpc.max_receive_message_length', 500 * 1024 * 1024),
+                ]
+            )
             stub = inference_pb2_grpc.InferenceServiceStub(channel)
             
             # Test connection
@@ -402,84 +416,105 @@ async def create_chat_completion(request: ChatCompletionRequest):
         prompt_processing_time = prompt_end_time - prompt_start_time
         prompt_tokens_per_second = prompt_tokens / prompt_processing_time if prompt_processing_time > 0 else 0
         
-        # Generate tokens
+        # Generate tokens using corrected logic
         generation_start_time = time.time()
-        sampler = make_sampler(temp=request.temperature, top_p=request.top_p)
-        generated_ids = []
         
-        # Multi-token generation with optimizations
-        current_ids = input_ids  # Start with original input
-        max_new_tokens = min(request.max_tokens or 50, 50)  # Cap at 50 for better performance
+        # For single message without role format, use generate directly
+        if len(request.messages) == 1 and request.messages[0].role == "user" and not any(role in prompt for role in ["Human:", "Assistant:", "user:", "assistant:"]):
+            # Use mlx_lm generate for simple prompts
+            response_text = generate(
+                model,
+                tokenizer,
+                prompt=prompt,
+                max_tokens=min(request.max_tokens or 50, 100)
+            )
+            # Extract just the generated part
+            if response_text.startswith(prompt):
+                response_text = response_text[len(prompt):]
+            generated_ids = tokenizer.encode(response_text)
+        else:
+            # For chat format, use manual generation with corrected temperature control
+            sampler = make_sampler(temp=request.temperature, top_p=request.top_p)
+            generated_ids = []
+            current_ids = input_ids
+            max_new_tokens = min(request.max_tokens or 50, 100)
         
-        for token_idx in range(max_new_tokens):
-            # Sample next token from current logits
-            next_token = sampler(logits[:, -1:, :])
-            token_id = next_token.item()
-            generated_ids.append(token_id)
-            
-            # Check for stop tokens
-            if token_id in [tokenizer.eos_token_id] or (request.stop and tokenizer.decode([token_id]) in request.stop):
-                break
+            for token_idx in range(max_new_tokens):
+                # Sample next token from current logits
+                next_token = sampler(logits[:, -1:, :])
+                token_id = next_token.item()
+                generated_ids.append(token_id)
                 
-            # Append new token and continue generation
-            new_token_tensor = mx.array([[token_id]])
-            current_ids = mx.concatenate([current_ids, new_token_tensor], axis=1)
-            
-            # Re-run inference for next token (only through changed parts)
-            # For efficiency, we only need to process the new token through embeddings and layers
-            
-            # Get embedding for new token
-            if hasattr(model, 'model') and hasattr(model.model, 'embed_tokens'):
-                new_embedding = model.model.embed_tokens(new_token_tensor)
-                # Concatenate with previous hidden states after embedding layer
-                # For simplicity, we'll re-run the full forward pass for now
-                # This can be optimized with KV-caching later
+                # Check for stop tokens
+                if token_id in [tokenizer.eos_token_id] or (request.stop and tokenizer.decode([token_id]) in request.stop):
+                    break
+                    
+                # Append new token and continue generation
+                new_token_tensor = mx.array([[token_id]])
+                current_ids = mx.concatenate([current_ids, new_token_tensor], axis=1)
                 
-                # Re-embed all tokens (can be optimized with caching)
-                embeddings = model.model.embed_tokens(current_ids)
+                # Re-run inference for next token (only through changed parts)
+                # For efficiency, we only need to process the new token through embeddings and layers
                 
-                # Process through coordinator's layers
-                hidden_states = embeddings
-                for layer_idx in coordinator_layers:
-                    if hasattr(model, 'model') and hasattr(model.model, 'layers'):
-                        layer_output = model.model.layers[layer_idx](hidden_states)
-                        if isinstance(layer_output, tuple):
-                            hidden_states = layer_output[0]
+                # Get embedding for new token
+                if hasattr(model, 'model') and hasattr(model.model, 'embed_tokens'):
+                    new_embedding = model.model.embed_tokens(new_token_tensor)
+                    # Concatenate with previous hidden states after embedding layer
+                    # For simplicity, we'll re-run the full forward pass for now
+                    # This can be optimized with KV-caching later
+                    
+                    # Re-embed all tokens (can be optimized with caching)
+                    embeddings = model.model.embed_tokens(current_ids)
+                    
+                    # Process through coordinator's layers
+                    hidden_states = embeddings
+                    for layer_idx in coordinator_layers:
+                        if hasattr(model, 'model') and hasattr(model.model, 'layers'):
+                            layer_output = model.model.layers[layer_idx](hidden_states)
+                            if isinstance(layer_output, tuple):
+                                hidden_states = layer_output[0]
+                            else:
+                                hidden_states = layer_output
                         else:
-                            hidden_states = layer_output
+                            layer_output = model.layers[layer_idx](hidden_states)
+                            if isinstance(layer_output, tuple):
+                                hidden_states = layer_output[0]
+                            else:
+                                hidden_states = layer_output
+                    
+                    # Process through workers (generation phase)
+                    hidden_states = await process_through_workers_optimized_for_generation(hidden_states, is_prefill=False)
+                    
+                    # Final norm and get logits
+                    if hasattr(model, 'model') and hasattr(model.model, 'norm'):
+                        hidden_states = model.model.norm(hidden_states)
+                    
+                    # Get logits for next iteration
+                    if hasattr(model, 'lm_head'):
+                        logits = model.lm_head(hidden_states)
+                    elif hasattr(model, 'model') and hasattr(model.model, 'lm_head'):
+                        logits = model.model.lm_head(hidden_states)
                     else:
-                        layer_output = model.layers[layer_idx](hidden_states)
-                        if isinstance(layer_output, tuple):
-                            hidden_states = layer_output[0]
+                        if hasattr(model, 'model') and hasattr(model.model, 'embed_tokens'):
+                            logits = model.model.embed_tokens.as_linear(hidden_states)
                         else:
-                            hidden_states = layer_output
-                
-                # Process through workers (generation phase)
-                hidden_states = await process_through_workers_optimized_for_generation(hidden_states, is_prefill=False)
-                
-                # Final norm and get logits
-                if hasattr(model, 'model') and hasattr(model.model, 'norm'):
-                    hidden_states = model.model.norm(hidden_states)
-                
-                # Get logits for next iteration
-                if hasattr(model, 'lm_head'):
-                    logits = model.lm_head(hidden_states)
-                elif hasattr(model, 'model') and hasattr(model.model, 'lm_head'):
-                    logits = model.model.lm_head(hidden_states)
-                else:
-                    if hasattr(model, 'model') and hasattr(model.model, 'embed_tokens'):
-                        logits = model.model.embed_tokens.as_linear(hidden_states)
-                    else:
-                        break  # Can't continue generation
+                            break  # Can't continue generation
         
         # Track generation time
         generation_end_time = time.time()
         generation_time = generation_end_time - generation_start_time
-        completion_tokens = len(generated_ids)
-        generation_tokens_per_second = completion_tokens / generation_time if generation_time > 0 else 0
         
-        # Decode
-        generated_text = tokenizer.decode(generated_ids) if generated_ids else ""
+        # Handle decoding based on which path we took
+        if 'response_text' in locals():
+            # Used mlx_lm.generate path
+            generated_text = response_text
+            completion_tokens = len(tokenizer.encode(response_text))
+        else:
+            # Used manual generation path
+            completion_tokens = len(generated_ids)
+            generated_text = tokenizer.decode(generated_ids) if generated_ids else ""
+        
+        generation_tokens_per_second = completion_tokens / generation_time if generation_time > 0 else 0
         
         # Log performance metrics
         total_time = time.time() - overall_start_time

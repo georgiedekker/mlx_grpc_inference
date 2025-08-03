@@ -1,0 +1,106 @@
+2025-08-03 02:22:48,762 - __main__ - INFO - ================================================================================
+2025-08-03 02:22:48,763 - __main__ - INFO - Starting comprehensive inference debugging
+2025-08-03 02:22:48,763 - __main__ - INFO - ================================================================================
+2025-08-03 02:22:48,763 - __main__ - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-03 02:22:48,764 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-08-03 02:22:48,919 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "GET /api/models/mlx-community/Qwen3-1.7B-8bit/revision/main HTTP/1.1" 200 6006
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 187804.66it/s]
+2025-08-03 02:22:49,312 - __main__ - INFO - Model type: <class 'mlx_lm.models.qwen3.Model'>
+2025-08-03 02:22:49,312 - __main__ - INFO - Model attributes: ['apply', 'apply_to_modules', 'args', 'children', 'clear', 'copy', 'eval', 'filter_and_map', 'freeze', 'fromkeys', 'get', 'is_module', 'items', 'keys', 'layers', 'leaf_modules', 'load_weights', 'model_type', 'modules', 'named_modules']
+2025-08-03 02:22:49,312 - __main__ - INFO - Model has nested 'model' attribute
+2025-08-03 02:22:49,312 - __main__ - INFO - Inner model type: <class 'mlx_lm.models.qwen3.Qwen3Model'>
+2025-08-03 02:22:49,312 - __main__ - INFO - Inner model attributes: ['apply', 'apply_to_modules', 'args', 'children', 'clear', 'copy', 'eval', 'filter_and_map', 'freeze', 'fromkeys', 'get', 'is_module', 'items', 'keys', 'leaf_modules', 'load_weights', 'modules', 'named_modules', 'num_hidden_layers', 'parameters']
+2025-08-03 02:22:49,312 - __main__ - INFO - Tokenizer type: <class 'mlx_lm.tokenizer_utils.TokenizerWrapper'>
+2025-08-03 02:22:49,361 - __main__ - INFO - Vocabulary size: 151669
+2025-08-03 02:22:49,361 - __main__ - INFO - EOS token ID: 151645
+2025-08-03 02:22:49,362 - __main__ - INFO - Computing weight checksums...
+2025-08-03 02:22:49,369 - __main__ - INFO - First layer q_proj weight checksum: 350bc38b
+2025-08-03 02:22:49,369 - __main__ - INFO - Weight shape: (2048, 512), dtype: mlx.core.uint32
+2025-08-03 02:22:49,964 - __main__ - INFO - Embedding weight checksum: 9201db1a
+2025-08-03 02:22:49,964 - __main__ - INFO - Embedding shape: (151936, 512), dtype: mlx.core.uint32
+2025-08-03 02:22:49,970 - __main__ - INFO - 
+=== Testing tokenization for prompt: 'Hello' ===
+2025-08-03 02:22:49,971 - __main__ - INFO - Token IDs: [9707]
+2025-08-03 02:22:49,971 - __main__ - INFO - Number of tokens: 1
+2025-08-03 02:22:49,971 - __main__ - INFO - Decoded text: 'Hello'
+2025-08-03 02:22:49,971 - __main__ - INFO - Decode matches original: True
+2025-08-03 02:22:49,971 - __main__ - INFO - Input tensor shape: (1,), dtype: mlx.core.int32
+2025-08-03 02:22:49,971 - __main__ - INFO - 
+=== Testing forward pass ===
+2025-08-03 02:22:49,971 - __main__ - INFO - 
+=== Testing embeddings ===
+2025-08-03 02:22:49,971 - __main__ - INFO - Added batch dimension: (1, 1)
+2025-08-03 02:22:49,976 - __main__ - INFO - Embeddings shape: (1, 1, 2048), dtype: mlx.core.bfloat16
+2025-08-03 02:22:49,977 - __main__ - INFO - Embeddings stats - min: -0.0933, max: 0.1416, mean: -0.0001
+2025-08-03 02:22:49,978 - __main__ - INFO - Has NaN: False, Has Inf: False
+2025-08-03 02:22:49,978 - __main__ - INFO - 
+Layer 0:
+2025-08-03 02:22:49,978 - __main__ - INFO -   Input shape: (1, 1, 2048), dtype: mlx.core.bfloat16
+2025-08-03 02:22:49,986 - __main__ - INFO -   Output shape: (1, 1, 2048), dtype: mlx.core.bfloat16
+2025-08-03 02:22:49,987 - __main__ - INFO -   Output stats - min: -3.7812, max: 6.0000, mean: 0.0315
+2025-08-03 02:22:49,987 - __main__ - INFO - 
+Layer 1:
+2025-08-03 02:22:49,987 - __main__ - INFO -   Input shape: (1, 1, 2048), dtype: mlx.core.bfloat16
+2025-08-03 02:22:49,994 - __main__ - INFO -   Output shape: (1, 1, 2048), dtype: mlx.core.bfloat16
+2025-08-03 02:22:49,995 - __main__ - INFO -   Output stats - min: -63.5000, max: 29.1250, mean: -0.0176
+2025-08-03 02:22:49,995 - __main__ - INFO - 
+Layer 2:
+2025-08-03 02:22:49,995 - __main__ - INFO -   Input shape: (1, 1, 2048), dtype: mlx.core.bfloat16
+2025-08-03 02:22:50,001 - __main__ - INFO -   Output shape: (1, 1, 2048), dtype: mlx.core.bfloat16
+2025-08-03 02:22:50,002 - __main__ - INFO -   Output stats - min: -155.0000, max: 12928.0000, mean: 10.6875
+2025-08-03 02:22:50,002 - __main__ - INFO - 
+Layer 3:
+2025-08-03 02:22:50,002 - __main__ - INFO -   Input shape: (1, 1, 2048), dtype: mlx.core.bfloat16
+2025-08-03 02:22:50,009 - __main__ - INFO -   Output shape: (1, 1, 2048), dtype: mlx.core.bfloat16
+2025-08-03 02:22:50,010 - __main__ - INFO -   Output stats - min: -154.0000, max: 12928.0000, mean: 10.6875
+2025-08-03 02:22:50,010 - __main__ - INFO - 
+Layer 4:
+2025-08-03 02:22:50,010 - __main__ - INFO -   Input shape: (1, 1, 2048), dtype: mlx.core.bfloat16
+2025-08-03 02:22:50,016 - __main__ - INFO -   Output shape: (1, 1, 2048), dtype: mlx.core.bfloat16
+2025-08-03 02:22:50,017 - __main__ - INFO -   Output stats - min: -153.0000, max: 12928.0000, mean: 10.6875
+2025-08-03 02:22:50,017 - __main__ - INFO - 
+After norm - shape: (1, 1, 2048), dtype: mlx.core.bfloat16
+2025-08-03 02:22:50,017 - __main__ - INFO - Using tied embeddings for output projection
+2025-08-03 02:22:50,021 - __main__ - INFO - 
+Logits shape: (1, 1, 151936), dtype: mlx.core.bfloat16
+2025-08-03 02:22:50,022 - __main__ - INFO - Logits stats - min: -4.1875, max: 2.1250, mean: -0.7227
+2025-08-03 02:22:50,023 - __main__ - INFO - 
+Top 10 token predictions:
+2025-08-03 02:22:50,234 - __main__ - INFO -   1. Token 1121 ('amp'): logit=2.1250
+2025-08-03 02:22:50,235 - __main__ - INFO -   2. Token 7435 ('.exports'): logit=1.9219
+2025-08-03 02:22:50,236 - __main__ - INFO -   3. Token 290 ('ion'): logit=1.8984
+2025-08-03 02:22:50,237 - __main__ - INFO -   4. Token 1103 ('ian'): logit=1.8594
+2025-08-03 02:22:50,237 - __main__ - INFO -   5. Token 15 ('0'): logit=1.8203
+2025-08-03 02:22:50,237 - __main__ - INFO -   6. Token 2142 ('ism'): logit=1.8203
+2025-08-03 02:22:50,238 - __main__ - INFO -   7. Token 284 (' ='): logit=1.8125
+2025-08-03 02:22:50,238 - __main__ - INFO -   8. Token 350 (' T'): logit=1.7422
+2025-08-03 02:22:50,238 - __main__ - INFO -   9. Token 460 ('ore'): logit=1.7188
+2025-08-03 02:22:50,239 - __main__ - INFO -   10. Token 487 ('ity'): logit=1.7031
+2025-08-03 02:22:50,239 - __main__ - INFO - 
+=== Testing sampling (temp=0.7, top_p=1.0) ===
+2025-08-03 02:22:50,308 - __main__ - INFO - Sampled tokens (5 samples): [24800, 20341, 27724, 106865, 96273]
+2025-08-03 02:22:50,308 - __main__ - INFO - Decoded samples: [' Background', 'rus', 'ukan', '完毕', ' Macy']
+2025-08-03 02:22:50,308 - __main__ - INFO - 
+=== Testing generation methods for 'Hello' ===
+2025-08-03 02:22:50,308 - __main__ - INFO - 
+Method 1: mlx_lm.generate()
+==========
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/debug_coordinator_inference.py", line 308, in <module>
+    debugger.run_all_tests()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/debug_coordinator_inference.py", line 295, in run_all_tests
+    self.test_generation_methods(prompt)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/debug_coordinator_inference.py", line 222, in test_generation_methods
+    response1 = generate(
+        self.model,
+    ...<4 lines>...
+        verbose=True
+    )
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 750, in generate
+    for response in stream_generate(model, tokenizer, prompt, **kwargs):
+                    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 670, in stream_generate
+    token_generator = generate_step(prompt, model, **kwargs)
+TypeError: generate_step() got an unexpected keyword argument 'temp'

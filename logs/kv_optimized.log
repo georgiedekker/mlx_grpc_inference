@@ -1,0 +1,18 @@
+INFO:     Started server process [94264]
+INFO:     Waiting for application startup.
+INFO:__main__:🚀 Starting KV-Cache Optimized MLX Distributed Inference API...
+ERROR:    Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 694, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/api_server_kv_optimized.py", line 104, in lifespan
+    config = ClusterConfig.from_yaml('config/cluster_config.yaml')
+  File "/Users/mini1/Movies/mlx_grpc_inference/src/core/config.py", line 172, in from_yaml
+    name=data['cluster']['name'],
+         ~~~~^^^^^^^^^^^
+KeyError: 'cluster'
+
+ERROR:    Application startup failed. Exiting.

@@ -1,0 +1,22 @@
+device:
+  device_id: "mini1"
+  hostname: "mini1.local"
+  role: "coordinator"
+  capabilities:
+    model: "Apple M4"
+    memory_gb: 16
+    gpu_cores: 10
+    cpu_cores: 10
+    mlx_metal_available: true
+    max_recommended_model_size_gb: 9
+
+network:
+  grpc_port: 50051
+  api_port: 8100
+  coordinator_host: "mini1.local"
+
+performance:
+  batch_size: 1
+  max_sequence_length: 2048
+  tensor_compression: false
+  connection_pool_size: 10
