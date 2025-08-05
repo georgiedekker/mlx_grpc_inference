@@ -1,0 +1,11 @@
+{
+  "model": "mlx-community/Qwen3-1.7B-8bit",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hi mom!"
+    }
+  ],
+  "temperature": 0.2,
+  "max_tokens": 100
+}

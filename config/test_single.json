@@ -1,0 +1,25 @@
+{
+  "cluster": {
+    "name": "single-device-test",
+    "devices": ["mini1"]
+  },
+  "model": {
+    "name": "microsoft/phi-2",
+    "sharding_strategy": "equal",
+    "total_layers": 32
+  },
+  "devices": {
+    "mini1": {
+      "hostname": "localhost",
+      "memory_gb": 16.0,
+      "gpu_cores": 10,
+      "gpu_memory_gb": 12.0,
+      "bandwidth_gbps": 10.0
+    }
+  },
+  "communication": {
+    "master_addr": "localhost",
+    "master_port": 29501,
+    "backend": "gloo"
+  }
+}

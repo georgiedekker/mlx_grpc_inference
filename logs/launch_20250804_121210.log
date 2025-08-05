@@ -1,0 +1,482 @@
+[0;32m[2025-08-04 12:12:10][0m === MLX Distributed Inference Launcher ===
+[0;32m[2025-08-04 12:12:10][0m Timestamp: 20250804_121210
+[0;32m[2025-08-04 12:12:10][0m Log directory: /Users/mini1/Movies/mlx_grpc_inference/logs
+[0;32m[2025-08-04 12:12:10][0m Cleaning up existing processes...
+[0;32m[2025-08-04 12:12:12][0m Configuring network...
+[0;32m[2025-08-04 12:12:12][0m Setting MTU to 9000 on bridge0...
+[1;33m[2025-08-04 12:12:12] WARNING:[0m Could not set MTU
+[0;32m[2025-08-04 12:12:12][0m Launching in single-node mode...
+[0;32m[2025-08-04 12:12:12][0m Single-node launched with PID 79838
+[0;32m[2025-08-04 12:12:12][0m Waiting for API server to start...
+2025-08-04 12:12:13,769 - __main__ - Rank None - INFO - Logging initialized: /Users/mini1/Movies/mlx_grpc_inference/logs/server_init_20250804_121213.log
+2025-08-04 12:12:13,770 - __main__ - Rank None - INFO - Rank 0: Starting API server on port 8100
+INFO:     Started server process [79847]
+INFO:     Waiting for application startup.
+2025-08-04 12:12:13,794 - __main__ - Rank None - INFO - Starting Distributed Inference Server
+2025-08-04 12:12:13,795 - __main__ - Rank None - INFO - Set default device to GPU
+2025-08-04 12:12:13,795 - __main__ - Rank None - INFO - Backend initialization order: ['any']
+2025-08-04 12:12:13,795 - __main__ - Rank None - INFO - Trying backend: any
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO - Logging initialized: /Users/mini1/Movies/mlx_grpc_inference/logs/server_rank0_20250804_121213.log
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO - Initialized: Backend=any, Rank=0/1
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO - Environment variables:
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO -   BACKEND_ORDER=any
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO -   MLX_PINNED_ALLOC=1
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO -   MODEL_NAME=mlx-community/Qwen3-1.7B-8bit
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 377, in <module>
+    uvicorn.run(app, host="0.0.0.0", port=8100)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 580, in run
+    server.run()
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/lifespan/on.py", line 86, in main
+    await app(scope, self.receive, self.send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/middleware/proxy_headers.py", line 29, in __call__
+    return await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 151, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 77, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 49, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 725, in app
+    await self.lifespan(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 694, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 245, in lifespan
+    engine.initialize()
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 133, in initialize
+    self._load_model()
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 162, in _load_model
+    self.model, self.tokenizer = load(model_name, lazy=lazy)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/utils.py", line 258, in load
+    model_path, _ = get_model_path(path_or_hf_repo)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/utils.py", line 102, in get_model_path
+    snapshot_download(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/_snapshot_download.py", line 165, in snapshot_download
+    repo_info = api.repo_info(repo_id=repo_id, repo_type=repo_type, revision=revision)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/hf_api.py", line 2847, in repo_info
+    return method(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/hf_api.py", line 2631, in model_info
+    r = get_session().get(path, headers=headers, timeout=timeout, params=params)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_http.py", line 96, in send
+    return super().send(request, *args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 766, in urlopen
+    conn = self._get_conn(timeout=pool_timeout)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 292, in _get_conn
+    return conn or self._new_conn()
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 1049, in _new_conn
+    log.debug(
+Message: 'Starting new HTTPS connection (%d): %s:%s'
+Arguments: (1, 'huggingface.co', 443)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 377, in <module>
+    uvicorn.run(app, host="0.0.0.0", port=8100)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 580, in run
+    server.run()
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/lifespan/on.py", line 86, in main
+    await app(scope, self.receive, self.send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/middleware/proxy_headers.py", line 29, in __call__
+    return await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 151, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 77, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 49, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 725, in app
+    await self.lifespan(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 694, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 245, in lifespan
+    engine.initialize()
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 133, in initialize
+    self._load_model()
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 162, in _load_model
+    self.model, self.tokenizer = load(model_name, lazy=lazy)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/utils.py", line 258, in load
+    model_path, _ = get_model_path(path_or_hf_repo)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/utils.py", line 102, in get_model_path
+    snapshot_download(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/_snapshot_download.py", line 165, in snapshot_download
+    repo_info = api.repo_info(repo_id=repo_id, repo_type=repo_type, revision=revision)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/hf_api.py", line 2847, in repo_info
+    return method(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/hf_api.py", line 2631, in model_info
+    r = get_session().get(path, headers=headers, timeout=timeout, params=params)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_http.py", line 96, in send
+    return super().send(request, *args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 766, in urlopen
+    conn = self._get_conn(timeout=pool_timeout)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 292, in _get_conn
+    return conn or self._new_conn()
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 1049, in _new_conn
+    log.debug(
+Message: 'Starting new HTTPS connection (%d): %s:%s'
+Arguments: (1, 'huggingface.co', 443)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 377, in <module>
+    uvicorn.run(app, host="0.0.0.0", port=8100)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 580, in run
+    server.run()
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/lifespan/on.py", line 86, in main
+    await app(scope, self.receive, self.send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/middleware/proxy_headers.py", line 29, in __call__
+    return await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 151, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 77, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 49, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 725, in app
+    await self.lifespan(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 694, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 245, in lifespan
+    engine.initialize()
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 133, in initialize
+    self._load_model()
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 162, in _load_model
+    self.model, self.tokenizer = load(model_name, lazy=lazy)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/utils.py", line 258, in load
+    model_path, _ = get_model_path(path_or_hf_repo)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/utils.py", line 102, in get_model_path
+    snapshot_download(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/_snapshot_download.py", line 165, in snapshot_download
+    repo_info = api.repo_info(repo_id=repo_id, repo_type=repo_type, revision=revision)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/hf_api.py", line 2847, in repo_info
+    return method(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/hf_api.py", line 2631, in model_info
+    r = get_session().get(path, headers=headers, timeout=timeout, params=params)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_http.py", line 96, in send
+    return super().send(request, *args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 544, in _make_request
+    log.debug(
+Message: '%s://%s:%s "%s %s %s" %s %s'
+Arguments: ('https', 'huggingface.co', 443, 'GET', '/api/models/mlx-community/Qwen3-1.7B-8bit/revision/main', 'HTTP/1.1', 200, 6006)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 377, in <module>
+    uvicorn.run(app, host="0.0.0.0", port=8100)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 580, in run
+    server.run()
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/lifespan/on.py", line 86, in main
+    await app(scope, self.receive, self.send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/middleware/proxy_headers.py", line 29, in __call__
+    return await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 151, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 77, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 49, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 725, in app
+    await self.lifespan(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 694, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 245, in lifespan
+    engine.initialize()
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 133, in initialize
+    self._load_model()
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 162, in _load_model
+    self.model, self.tokenizer = load(model_name, lazy=lazy)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/utils.py", line 258, in load
+    model_path, _ = get_model_path(path_or_hf_repo)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/utils.py", line 102, in get_model_path
+    snapshot_download(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/_snapshot_download.py", line 165, in snapshot_download
+    repo_info = api.repo_info(repo_id=repo_id, repo_type=repo_type, revision=revision)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/hf_api.py", line 2847, in repo_info
+    return method(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/hf_api.py", line 2631, in model_info
+    r = get_session().get(path, headers=headers, timeout=timeout, params=params)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/huggingface_hub/utils/_http.py", line 96, in send
+    return super().send(request, *args, **kwargs)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 544, in _make_request
+    log.debug(
+Message: '%s://%s:%s "%s %s %s" %s %s'
+Arguments: ('https', 'huggingface.co', 443, 'GET', '/api/models/mlx-community/Qwen3-1.7B-8bit/revision/main', 'HTTP/1.1', 200, 6006)
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 199728.76it/s]
+2025-08-04 12:12:15,843 - __main__ - Rank 0 - INFO - Model loaded successfully
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+INFO:     127.0.0.1:57469 - "GET /health HTTP/1.1" 200 OK
+[0;32m[2025-08-04 12:12:16][0m ✅ API server is ready!
+[0;32m[2025-08-04 12:12:16][0m 
+[0;32m[2025-08-04 12:12:16][0m === Server Health ===
+INFO:     127.0.0.1:57471 - "GET /health HTTP/1.1" 200 OK
+[0;32m[2025-08-04 12:12:16][0m 
+[0;32m[2025-08-04 12:12:16][0m === Testing Generation ===
+2025-08-04 12:12:16,126 - __main__ - Rank 0 - INFO - Chat request: model=mlx-community/Qwen3-1.7B-8bit, max_tokens=50
+2025-08-04 12:12:16,127 - __main__ - Rank 0 - INFO - Starting generation: prompt_len=44, max_tokens=50
+2025-08-04 12:12:16,128 - __main__ - Rank 0 - ERROR - Generation error: generate_step() got an unexpected keyword argument 'temp'
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 195, in generate_text
+    response = generate(
+        self.model,
+    ...<4 lines>...
+        verbose=False
+    )
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 750, in generate
+    for response in stream_generate(model, tokenizer, prompt, **kwargs):
+                    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 670, in stream_generate
+    token_generator = generate_step(prompt, model, **kwargs)
+TypeError: generate_step() got an unexpected keyword argument 'temp'
+2025-08-04 12:12:16,130 - __main__ - Rank 0 - INFO - Response generated: 13 tokens in 0.00s
+INFO:     127.0.0.1:57473 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+{
+    "id": "chatcmpl-any-1754302336",
+    "object": "chat.completion",
+    "created": 1754302336,
+    "model": "mlx-community/Qwen3-1.7B-8bit",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "Error: generate_step() got an unexpected keyword argument 'temp'"
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 14,
+        "completion_tokens": 13,
+        "total_tokens": 27,
+        "tokens_per_second": 5090.2
+    }
+}
+[0;32m[2025-08-04 12:12:16][0m ✅ Generation test completed
+[0;32m[2025-08-04 12:12:16][0m 
+[0;32m[2025-08-04 12:12:16][0m === Distributed inference is running! ===
+[0;32m[2025-08-04 12:12:16][0m API endpoint: http://localhost:8100
+[0;32m[2025-08-04 12:12:16][0m Logs: /Users/mini1/Movies/mlx_grpc_inference/logs/
+[0;32m[2025-08-04 12:12:16][0m 
+[0;32m[2025-08-04 12:12:16][0m To stop:
+[0;32m[2025-08-04 12:12:16][0m   /Users/mini1/Movies/mlx_grpc_inference/launch.sh stop
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-08-04 12:14:48,995 - __main__ - Rank None - INFO - Shutting down...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [79847]
+2025-08-04 12:14:48,996 - __main__ - Rank None - INFO - Received signal 15, shutting down...

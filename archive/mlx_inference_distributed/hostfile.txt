@@ -1,2 +1,0 @@
-mini1.local slots=1
-mini2.local slots=1

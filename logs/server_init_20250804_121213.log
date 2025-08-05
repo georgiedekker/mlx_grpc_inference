@@ -1,0 +1,33 @@
+2025-08-04 12:12:13,769 - __main__ - Rank None - INFO - Logging initialized: /Users/mini1/Movies/mlx_grpc_inference/logs/server_init_20250804_121213.log
+2025-08-04 12:12:13,770 - __main__ - Rank None - INFO - Rank 0: Starting API server on port 8100
+2025-08-04 12:12:13,794 - __main__ - Rank None - INFO - Starting Distributed Inference Server
+2025-08-04 12:12:13,795 - __main__ - Rank None - INFO - Set default device to GPU
+2025-08-04 12:12:13,795 - __main__ - Rank None - INFO - Backend initialization order: ['any']
+2025-08-04 12:12:13,795 - __main__ - Rank None - INFO - Trying backend: any
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO - Logging initialized: /Users/mini1/Movies/mlx_grpc_inference/logs/server_rank0_20250804_121213.log
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO - Initialized: Backend=any, Rank=0/1
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO - Environment variables:
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO -   BACKEND_ORDER=any
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO -   MLX_PINNED_ALLOC=1
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO -   MODEL_NAME=mlx-community/Qwen3-1.7B-8bit
+2025-08-04 12:12:13,887 - __main__ - Rank 0 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-04 12:12:15,843 - __main__ - Rank 0 - INFO - Model loaded successfully
+2025-08-04 12:12:16,126 - __main__ - Rank 0 - INFO - Chat request: model=mlx-community/Qwen3-1.7B-8bit, max_tokens=50
+2025-08-04 12:12:16,127 - __main__ - Rank 0 - INFO - Starting generation: prompt_len=44, max_tokens=50
+2025-08-04 12:12:16,128 - __main__ - Rank 0 - ERROR - Generation error: generate_step() got an unexpected keyword argument 'temp'
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 195, in generate_text
+    response = generate(
+        self.model,
+    ...<4 lines>...
+        verbose=False
+    )
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 750, in generate
+    for response in stream_generate(model, tokenizer, prompt, **kwargs):
+                    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 670, in stream_generate
+    token_generator = generate_step(prompt, model, **kwargs)
+TypeError: generate_step() got an unexpected keyword argument 'temp'
+2025-08-04 12:12:16,130 - __main__ - Rank 0 - INFO - Response generated: 13 tokens in 0.00s
+2025-08-04 12:14:48,995 - __main__ - Rank None - INFO - Shutting down...
+2025-08-04 12:14:48,996 - __main__ - Rank None - INFO - Received signal 15, shutting down...

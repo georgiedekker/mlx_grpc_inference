@@ -1,0 +1,34 @@
+[0;32m[2025-08-04 12:50:41][0m === MLX Distributed Inference Launcher ===
+[0;32m[2025-08-04 12:50:42][0m Timestamp: 20250804_125041
+[0;32m[2025-08-04 12:50:42][0m Log directory: /Users/mini1/Movies/mlx_grpc_inference/logs
+[0;32m[2025-08-04 12:50:42][0m Cleaning up existing processes...
+[0;32m[2025-08-04 12:50:44][0m Configuring network...
+[0;32m[2025-08-04 12:50:44][0m Setting MTU to 9000 on bridge0...
+[0;32m[2025-08-04 12:50:48][0m Testing SSH connectivity to 192.168.5.2...
+SSH OK
+mini2.local
+Python 3.13.5
+[0;32m[2025-08-04 12:50:48][0m ✅ SSH connectivity confirmed
+[0;32m[2025-08-04 12:50:48][0m Testing basic MPI connectivity...
+[0;32m[2025-08-04 12:50:48][0m Running basic MPI test...
+--------------------------------------------------------------------------
+prterun was unable to find the specified executable file, and therefore did
+not launch the job.  This error was first reported for process rank
+1; it may have occurred for other processes as well.
+
+NOTE: A common cause for this error is misspelling a prterun command
+   line parameter option (remember that prterun interprets the first
+   unrecognized command line token as the executable).
+
+   Node:       mini2
+   Executable: /opt/homebrew/bin/uv
+--------------------------------------------------------------------------
+[0;32m[2025-08-04 12:50:49][0m ✅ Basic MPI test passed
+[0;32m[2025-08-04 12:50:49][0m Setting up remote files on 192.168.5.2...
+[0;32m[2025-08-04 12:50:49][0m Copying files to remote...
+[0;32m[2025-08-04 12:50:50][0m Remote setup complete
+[0;32m[2025-08-04 12:50:50][0m Launching with MPI backend over Thunderbolt...
+[0;32m[2025-08-04 12:50:50][0m MPI Environment configured
+[0;32m[2025-08-04 12:50:50][0m MPI launched with PID 83581
+[0;32m[2025-08-04 12:50:50][0m Waiting for API server to start...
+[mini1.local:83580] PRTE ERROR: Not found in file ess_hnp_module.c at line 443

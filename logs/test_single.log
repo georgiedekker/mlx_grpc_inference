@@ -1,0 +1,10 @@
+2025-08-04 14:39:25,824 - __main__ - INFO - Initializing process group: rank=0, world_size=1
+2025-08-04 14:39:25,829 - __main__ - INFO - Process group initialized successfully on rank 0
+2025-08-04 14:39:26,519 - utils.layer_assignment - INFO - 
+Layer assignment using equal strategy:
+2025-08-04 14:39:26,519 - utils.layer_assignment - INFO -   Device mini1 (rank 0): layers 0-31 + embeddings + lm_head
+2025-08-04 14:39:26,519 - __main__ - INFO - Rank 0 assignment: Device mini1 (rank 0): layers 0-31 + embeddings + lm_head
+2025-08-04 14:39:26,520 - __main__ - INFO - Initializing shard on rank 0 with device mps
+2025-08-04 14:39:26,662 - __main__ - INFO - Loading layers 0 to 31
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-ihpk21en'}
+  warnings.warn(

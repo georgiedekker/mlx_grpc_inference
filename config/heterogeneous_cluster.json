@@ -1,0 +1,54 @@
+{
+  "cluster": {
+    "name": "mac-heterogeneous-cluster",
+    "devices": ["mini1", "mini2", "master"]
+  },
+  "model": {
+    "name": "mlx-community/Qwen3-1.7B-8bit",
+    "sharding_strategy": "capability_based",
+    "total_layers": 28
+  },
+  "devices": {
+    "mini1": {
+      "hostname": "mini1",
+      "memory_gb": 16.0,
+      "gpu_cores": 10,
+      "gpu_memory_gb": 12.0,
+      "bandwidth_gbps": 10.0
+    },
+    "mini2": {
+      "hostname": "mini2", 
+      "memory_gb": 16.0,
+      "gpu_cores": 10,
+      "gpu_memory_gb": 12.0,
+      "bandwidth_gbps": 10.0
+    },
+    "master": {
+      "hostname": "master",
+      "memory_gb": 48.0,
+      "gpu_cores": 30,
+      "gpu_memory_gb": 36.0,
+      "bandwidth_gbps": 10.0
+    }
+  },
+  "communication": {
+    "master_addr": "mini1",
+    "master_port": 29501,
+    "backend": "gloo"
+  },
+  "performance": {
+    "num_threads": 8,
+    "batch_size": 1,
+    "pipeline_parallel": true,
+    "micro_batch_size": 1
+  },
+  "memory": {
+    "gradient_checkpointing": false,
+    "cpu_offload": false,
+    "use_fp16": true
+  },
+  "logging": {
+    "level": "INFO",
+    "log_memory_every": 10
+  }
+}

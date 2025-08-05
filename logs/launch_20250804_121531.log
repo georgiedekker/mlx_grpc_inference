@@ -1,0 +1,38 @@
+[0;32m[2025-08-04 12:15:31][0m === MLX Distributed Inference Launcher ===
+[0;32m[2025-08-04 12:15:31][0m Timestamp: 20250804_121531
+[0;32m[2025-08-04 12:15:31][0m Log directory: /Users/mini1/Movies/mlx_grpc_inference/logs
+[0;32m[2025-08-04 12:15:31][0m Cleaning up existing processes...
+[0;32m[2025-08-04 12:15:33][0m Configuring network...
+[0;32m[2025-08-04 12:15:33][0m Setting MTU to 9000 on bridge0...
+[0;32m[2025-08-04 12:15:40][0m Testing SSH connectivity to 192.168.5.2...
+SSH OK
+mini2.local
+zsh:1: command not found: uv
+[0;32m[2025-08-04 12:15:40][0m ✅ SSH connectivity confirmed
+[0;32m[2025-08-04 12:15:40][0m Testing basic MPI connectivity...
+[0;32m[2025-08-04 12:15:40][0m Running basic MPI test...
+--------------------------------------------------------------------------
+prterun was unable to find the specified executable file, and therefore did
+not launch the job.  This error was first reported for process rank
+1; it may have occurred for other processes as well.
+
+NOTE: A common cause for this error is misspelling a prterun command
+   line parameter option (remember that prterun interprets the first
+   unrecognized command line token as the executable).
+
+   Node:       mini2
+   Executable: /opt/homebrew/bin/uv
+--------------------------------------------------------------------------
+[0;32m[2025-08-04 12:15:41][0m ✅ Basic MPI test passed
+[0;32m[2025-08-04 12:15:41][0m Setting up remote files on 192.168.5.2...
+[0;32m[2025-08-04 12:15:41][0m Copying files to remote...
+[0;32m[2025-08-04 12:15:42][0m Remote setup complete
+[0;32m[2025-08-04 12:15:42][0m Launching with Ring backend over Thunderbolt...
+[0;32m[2025-08-04 12:15:42][0m Ring backend launched with PID 80335
+[0;32m[2025-08-04 12:15:42][0m Waiting for API server to start...
+usage: mlx.launch [-h] [--print-python] [--verbose] [--hosts HOSTS]
+                  [--repeat-hosts REPEAT_HOSTS] [--hostfile HOSTFILE]
+                  [--backend {ring,mpi}] [--env ENV] [--mpi-arg MPI_ARG]
+                  [--connections-per-ip CONNECTIONS_PER_IP]
+                  [--starting-port STARTING_PORT] [--cwd CWD]
+mlx.launch: error: Failed to parse hostfile /Users/mini1/Movies/mlx_grpc_inference/logs/hostfile_ring.json ('ssh')

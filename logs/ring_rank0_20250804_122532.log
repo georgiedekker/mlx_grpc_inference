@@ -1,0 +1,36 @@
+2025-08-04 12:25:35,961 - __main__ - INFO - Logging initialized: logs/server_init_20250804_122535.log
+2025-08-04 12:25:35,962 - __main__ - INFO - Rank 0: Starting API server on port 8100
+INFO:     Started server process [81997]
+INFO:     Waiting for application startup.
+2025-08-04 12:25:35,977 - __main__ - INFO - Starting Distributed Inference Server
+2025-08-04 12:25:35,977 - __main__ - INFO - Set default device to GPU
+2025-08-04 12:25:35,977 - __main__ - INFO - Backend initialization order: ['ring']
+2025-08-04 12:25:35,977 - __main__ - INFO - Trying backend: ring
+2025-08-04 12:25:35,978 - __main__ - INFO - Ring env vars detected: RANK=0, SIZE=2
+2025-08-04 12:25:35,979 - __main__ - WARNING - Backend ring failed: [ring] You need to provide via environment variables both a rank (MLX_RANK) and a hostfile (MLX_HOSTFILE) but provided MLX_RANK="" and MLX_HOSTFILE=""
+2025-08-04 12:25:35,979 - __main__ - WARNING - All distributed backends failed, using single-node mode
+2025-08-04 12:25:35,979 - __main__ - INFO - [Rank 0] Logging initialized: logs/server_rank0_20250804_122535.log
+2025-08-04 12:25:35,979 - __main__ - INFO - [Rank 0] Initialized: Backend=single, Rank=0/1
+2025-08-04 12:25:35,979 - __main__ - INFO - [Rank 0] Environment variables:
+2025-08-04 12:25:35,979 - __main__ - INFO - [Rank 0]   BACKEND_ORDER=ring
+2025-08-04 12:25:35,979 - __main__ - INFO - [Rank 0]   MLX_PINNED_ALLOC=1
+2025-08-04 12:25:35,979 - __main__ - INFO - [Rank 0]   MLX_RING_IFACE=bridge0
+2025-08-04 12:25:35,979 - __main__ - INFO - [Rank 0]   MLX_RING_PORT=50000
+2025-08-04 12:25:35,979 - __main__ - INFO - [Rank 0]   MLX_RING_RANK=0
+2025-08-04 12:25:35,979 - __main__ - INFO - [Rank 0]   MLX_RING_SIZE=2
+2025-08-04 12:25:35,979 - __main__ - INFO - [Rank 0]   MODEL_NAME=mlx-community/Qwen3-1.7B-8bit
+2025-08-04 12:25:35,979 - __main__ - INFO - [Rank 0] Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-04 12:25:35,981 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-08-04 12:25:36,188 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "GET /api/models/mlx-community/Qwen3-1.7B-8bit/revision/main HTTP/1.1" 200 6006
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 99864.38it/s]
+2025-08-04 12:25:37,307 - __main__ - INFO - [Rank 0] Model loaded successfully
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+INFO:     127.0.0.1:59533 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59535 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-08-04 12:29:40,864 - __main__ - INFO - Shutting down...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [81997]
+2025-08-04 12:29:40,864 - __main__ - INFO - Received signal 15, shutting down...

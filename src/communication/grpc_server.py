@@ -22,7 +22,7 @@ try:
     from .tensor_utils_dlpack import deserialize_mlx_array_dlpack as deserialize_mlx_array
     logger.info("Using DLPack-based tensor serialization")
 except ImportError:
-    from .tensor_utils import serialize_mlx_array, deserialize_mlx_array
+    from ..utils.tensor_utils import serialize_mlx_array, deserialize_mlx_array
     logger.warning("DLPack serialization not available, using standard method")
 
 
@@ -43,11 +43,15 @@ class InferenceServicer:
             start_time = time.time()
             self.request_count += 1
             
-            # Deserialize input tensor
+            # Deserialize input tensor with full metadata including checksum
             metadata = {
                 'shape': list(request.metadata.shape),
                 'dtype': request.metadata.dtype,
-                'compressed': request.metadata.compressed
+                'compressed': request.metadata.compressed,
+                'original_dtype': request.metadata.original_dtype,
+                'requires_conversion': request.metadata.requires_conversion,
+                'checksum': request.metadata.checksum,
+                'size': request.metadata.size
             }
             input_tensor = deserialize_mlx_array(request.input_tensor, metadata)
             
@@ -79,7 +83,11 @@ class InferenceServicer:
                 metadata=inference_pb2.TensorMetadata(
                     shape=output_metadata['shape'],
                     dtype=output_metadata['dtype'],
-                    compressed=output_metadata['compressed']
+                    compressed=output_metadata['compressed'],
+                    original_dtype=output_metadata.get('original_dtype', ''),
+                    requires_conversion=output_metadata.get('requires_conversion', False),
+                    checksum=output_metadata.get('checksum', ''),
+                    size=output_metadata.get('size', 0)
                 ),
                 processing_time_ms=(time.time() - start_time) * 1000,
                 device_id=self.device_config.device_id
@@ -176,10 +184,14 @@ def create_grpc_server(config: ClusterConfig, device_config: DeviceConfig,
     # Import generated code
     from . import inference_pb2_grpc
     
-    # Create server with increased message size limits
+    # Create server with increased message size limits and keepalive settings
     options = [
         ('grpc.max_send_message_length', 512 * 1024 * 1024),  # 512MB
         ('grpc.max_receive_message_length', 512 * 1024 * 1024),  # 512MB
+        ('grpc.keepalive_time_ms', 10000),  # Send keepalive every 10s
+        ('grpc.keepalive_timeout_ms', 5000),  # Wait 5s for response
+        ('grpc.keepalive_permit_without_calls', True),
+        ('grpc.http2.max_ping_strikes', 0),  # Unlimited pings
     ]
     
     server = grpc.server(

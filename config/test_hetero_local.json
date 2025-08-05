@@ -1,0 +1,32 @@
+{
+  "cluster": {
+    "name": "local-heterogeneous-test",
+    "devices": ["worker1", "worker2"]
+  },
+  "model": {
+    "name": "microsoft/phi-2",
+    "sharding_strategy": "capability_based",
+    "total_layers": 32
+  },
+  "devices": {
+    "worker1": {
+      "hostname": "localhost",
+      "memory_gb": 8.0,
+      "gpu_cores": 5,
+      "gpu_memory_gb": 6.0,
+      "bandwidth_gbps": 100.0
+    },
+    "worker2": {
+      "hostname": "localhost",
+      "memory_gb": 8.0,
+      "gpu_cores": 5,
+      "gpu_memory_gb": 6.0,
+      "bandwidth_gbps": 100.0
+    }
+  },
+  "communication": {
+    "master_addr": "localhost",
+    "master_port": 29502,
+    "backend": "gloo"
+  }
+}

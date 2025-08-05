@@ -1,0 +1,134 @@
+[0;32m[10:53:26][0m Starting TRUE DISTRIBUTED inference (layers split across devices)
+[0;32m[10:53:26][0m Model: mlx-community/Qwen3-1.7B-8bit
+[0;32m[10:53:26][0m Coordinator: mini1 (192.168.5.1)
+[0;32m[10:53:26][0m Worker: mini2 (192.168.5.2)
+[0;32m[10:53:26][0m Stopping all services...
+[0;32m[10:53:27][0m All services stopped
+[0;32m[10:53:27][0m Syncing files to mini2...
+[0;32m[10:53:29][0m Starting worker on mini2 (rank 1)...
+[0;32m[10:53:29][0m Worker started on mini2 (PID: 13770)
+[0;32m[10:53:32][0m Starting coordinator on mini1 (rank 0)...
+[0;32m[10:53:32][0m Coordinator started on mini1 (PID: 79064)
+[0;32m[10:53:32][0m Waiting for services to initialize...
+[0;32m[10:53:42][0m ✓ Coordinator is running
+[0;32m[10:53:42][0m ✓ Worker is running
+[0;32m[10:53:42][0m Testing API endpoint...
+[0;32m[10:53:42][0m ✓ API server is ready
+[0;32m[10:53:42][0m Health check:
+{
+    "status": "healthy",
+    "coordinator": {
+        "device": "mini1",
+        "assigned_layers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+        ]
+    },
+    "workers": {
+        "worker_1": {
+            "healthy": true,
+            "device": "mini2",
+            "assigned_layers": [
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27
+            ]
+        }
+    },
+    "total_devices": 2,
+    "model": "mlx-community/Qwen3-1.7B-8bit"
+}
+[0;32m[10:53:42][0m Distributed inference is running!
+[0;32m[10:53:42][0m API: http://localhost:8100
+[0;32m[10:53:42][0m Logs: ./launch.sh logs [coordinator|worker]
+[0;32m[11:02:06][0m Stopping all services...
+[0;32m[11:02:07][0m All services stopped
+[0;32m[11:02:09][0m Starting TRUE DISTRIBUTED inference (layers split across devices)
+[0;32m[11:02:09][0m Model: mlx-community/Qwen3-1.7B-8bit
+[0;32m[11:02:09][0m Coordinator: mini1 (192.168.5.1)
+[0;32m[11:02:09][0m Worker: mini2 (192.168.5.2)
+[0;32m[11:02:09][0m Stopping all services...
+[0;32m[11:02:10][0m All services stopped
+[0;32m[11:02:10][0m Syncing files to mini2...
+[0;32m[11:02:12][0m Starting worker on mini2 (rank 1)...
+[0;32m[11:02:12][0m Worker started on mini2 (PID: 14149)
+[0;32m[11:02:15][0m Starting coordinator on mini1 (rank 0)...
+[0;32m[11:02:15][0m Coordinator started on mini1 (PID: 79856)
+[0;32m[11:02:15][0m Waiting for services to initialize...
+[0;32m[11:02:25][0m ✓ Coordinator is running
+[0;32m[11:02:26][0m ✓ Worker is running
+[0;32m[11:02:26][0m Testing API endpoint...
+[0;32m[11:02:26][0m ✓ API server is ready
+[0;32m[11:02:26][0m Health check:
+{
+    "status": "healthy",
+    "coordinator": {
+        "device": "mini1",
+        "assigned_layers": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+        ]
+    },
+    "workers": {
+        "worker_1": {
+            "healthy": true,
+            "device": "mini2",
+            "assigned_layers": [
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27
+            ]
+        }
+    },
+    "total_devices": 2,
+    "model": "mlx-community/Qwen3-1.7B-8bit"
+}
+[0;32m[11:02:26][0m Distributed inference is running!
+[0;32m[11:02:26][0m API: http://localhost:8100
+[0;32m[11:02:26][0m Logs: ./launch.sh logs [coordinator|worker]

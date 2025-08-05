@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0finference.proto\x12\rmlx_inference\"\x07\n\x05\x45mpty\"B\n\x0eTensorMetadata\x12\r\n\x05shape\x18\x01 \x03(\x03\x12\r\n\x05\x64type\x18\x02 \x01(\t\x12\x12\n\ncompressed\x18\x03 \x01(\x08\"\xeb\x01\n\x0cLayerRequest\x12\x12\n\nrequest_id\x18\x01 \x01(\t\x12\x14\n\x0cinput_tensor\x18\x02 \x01(\x0c\x12\x15\n\rlayer_indices\x18\x03 \x03(\x05\x12/\n\x08metadata\x18\x04 \x01(\x0b\x32\x1d.mlx_inference.TensorMetadata\x12\x39\n\x07\x63ontext\x18\x05 \x03(\x0b\x32(.mlx_inference.LayerRequest.ContextEntry\x1a.\n\x0c\x43ontextEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x9a\x01\n\rLayerResponse\x12\x12\n\nrequest_id\x18\x01 \x01(\t\x12\x15\n\routput_tensor\x18\x02 \x01(\x0c\x12/\n\x08metadata\x18\x03 \x01(\x0b\x32\x1d.mlx_inference.TensorMetadata\x12\x1a\n\x12processing_time_ms\x18\x04 \x01(\x02\x12\x11\n\tdevice_id\x18\x05 \x01(\t\"\xb0\x01\n\x0cHealthStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x11\n\tdevice_id\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\x12\x39\n\x07\x64\x65tails\x18\x04 \x03(\x0b\x32(.mlx_inference.HealthStatus.DetailsEntry\x1a.\n\x0c\x44\x65tailsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x90\x02\n\nDeviceInfo\x12\x11\n\tdevice_id\x18\x01 \x01(\t\x12\x10\n\x08hostname\x18\x02 \x01(\t\x12\x0c\n\x04rank\x18\x03 \x01(\x05\x12\x0c\n\x04role\x18\x04 \x01(\t\x12\x17\n\x0f\x61ssigned_layers\x18\x05 \x03(\x05\x12\x41\n\x0c\x63\x61pabilities\x18\x06 \x03(\x0b\x32+.mlx_inference.DeviceInfo.CapabilitiesEntry\x12\x17\n\x0fgpu_utilization\x18\x07 \x01(\x02\x12\x17\n\x0fmemory_usage_gb\x18\x08 \x01(\x02\x1a\x33\n\x11\x43\x61pabilitiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x32\xe2\x01\n\x10InferenceService\x12J\n\rProcessLayers\x12\x1b.mlx_inference.LayerRequest\x1a\x1c.mlx_inference.LayerResponse\x12@\n\x0bHealthCheck\x12\x14.mlx_inference.Empty\x1a\x1b.mlx_inference.HealthStatus\x12@\n\rGetDeviceInfo\x12\x14.mlx_inference.Empty\x1a\x19.mlx_inference.DeviceInfob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0finference.proto\x12\rmlx_inference\"\x07\n\x05\x45mpty\"\x97\x01\n\x0eTensorMetadata\x12\r\n\x05shape\x18\x01 \x03(\x03\x12\r\n\x05\x64type\x18\x02 \x01(\t\x12\x12\n\ncompressed\x18\x03 \x01(\x08\x12\x16\n\x0eoriginal_dtype\x18\x04 \x01(\t\x12\x1b\n\x13requires_conversion\x18\x05 \x01(\x08\x12\x10\n\x08\x63hecksum\x18\x06 \x01(\t\x12\x0c\n\x04size\x18\x07 \x01(\x03\"]\n\x0fKVCacheMetadata\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0e\n\x06length\x18\x02 \x01(\x05\x12,\n\x07\x65ntries\x18\x03 \x03(\x0b\x32\x1b.mlx_inference.KVCacheEntry\"\xf7\x01\n\x0cKVCacheEntry\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0e\n\x06offset\x18\x02 \x01(\x03\x12\x0c\n\x04size\x18\x03 \x01(\x03\x12\x30\n\tkeys_meta\x18\x04 \x01(\x0b\x32\x1d.mlx_inference.TensorMetadata\x12\x32\n\x0bvalues_meta\x18\x05 \x01(\x0b\x32\x1d.mlx_inference.TensorMetadata\x12+\n\x04meta\x18\x06 \x01(\x0b\x32\x1d.mlx_inference.TensorMetadata\x12\x14\n\x0c\x63\x61\x63he_offset\x18\x07 \x01(\x03\x12\x12\n\ncache_step\x18\x08 \x01(\x03\"\xbd\x02\n\x0cLayerRequest\x12\x12\n\nrequest_id\x18\x01 \x01(\t\x12\x14\n\x0cinput_tensor\x18\x02 \x01(\x0c\x12\x15\n\rlayer_indices\x18\x03 \x03(\x05\x12/\n\x08metadata\x18\x04 \x01(\x0b\x32\x1d.mlx_inference.TensorMetadata\x12\x39\n\x07\x63ontext\x18\x05 \x03(\x0b\x32(.mlx_inference.LayerRequest.ContextEntry\x12\x15\n\rkv_cache_data\x18\x06 \x01(\x0c\x12\x39\n\x11kv_cache_metadata\x18\x07 \x01(\x0b\x32\x1e.mlx_inference.KVCacheMetadata\x1a.\n\x0c\x43ontextEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xec\x01\n\rLayerResponse\x12\x12\n\nrequest_id\x18\x01 \x01(\t\x12\x15\n\routput_tensor\x18\x02 \x01(\x0c\x12/\n\x08metadata\x18\x03 \x01(\x0b\x32\x1d.mlx_inference.TensorMetadata\x12\x1a\n\x12processing_time_ms\x18\x04 \x01(\x02\x12\x11\n\tdevice_id\x18\x05 \x01(\t\x12\x15\n\rkv_cache_data\x18\x06 \x01(\x0c\x12\x39\n\x11kv_cache_metadata\x18\x07 \x01(\x0b\x32\x1e.mlx_inference.KVCacheMetadata\"\xb0\x01\n\x0cHealthStatus\x12\x0f\n\x07healthy\x18\x01 \x01(\x08\x12\x11\n\tdevice_id\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\x12\x39\n\x07\x64\x65tails\x18\x04 \x03(\x0b\x32(.mlx_inference.HealthStatus.DetailsEntry\x1a.\n\x0c\x44\x65tailsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x90\x02\n\nDeviceInfo\x12\x11\n\tdevice_id\x18\x01 \x01(\t\x12\x10\n\x08hostname\x18\x02 \x01(\t\x12\x0c\n\x04rank\x18\x03 \x01(\x05\x12\x0c\n\x04role\x18\x04 \x01(\t\x12\x17\n\x0f\x61ssigned_layers\x18\x05 \x03(\x05\x12\x41\n\x0c\x63\x61pabilities\x18\x06 \x03(\x0b\x32+.mlx_inference.DeviceInfo.CapabilitiesEntry\x12\x17\n\x0fgpu_utilization\x18\x07 \x01(\x02\x12\x17\n\x0fmemory_usage_gb\x18\x08 \x01(\x02\x1a\x33\n\x11\x43\x61pabilitiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"w\n\x0eTensorTransfer\x12\x11\n\ttensor_id\x18\x01 \x01(\t\x12\r\n\x05shape\x18\x02 \x03(\x03\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\x12\r\n\x05\x64type\x18\x04 \x01(\t\x12\x13\n\x0bsource_rank\x18\x05 \x01(\x05\x12\x11\n\tdest_rank\x18\x06 \x01(\x05\"N\n\x10TransferResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x18\n\x10transfer_time_ms\x18\x03 \x01(\x02\x32\xb4\x02\n\x10InferenceService\x12J\n\rProcessLayers\x12\x1b.mlx_inference.LayerRequest\x1a\x1c.mlx_inference.LayerResponse\x12P\n\x0eTransferTensor\x12\x1d.mlx_inference.TensorTransfer\x1a\x1f.mlx_inference.TransferResponse\x12@\n\x0bHealthCheck\x12\x14.mlx_inference.Empty\x1a\x1b.mlx_inference.HealthStatus\x12@\n\rGetDeviceInfo\x12\x14.mlx_inference.Empty\x1a\x19.mlx_inference.DeviceInfob\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -39,22 +39,30 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_DEVICEINFO_CAPABILITIESENTRY']._serialized_options = b'8\001'
   _globals['_EMPTY']._serialized_start=34
   _globals['_EMPTY']._serialized_end=41
-  _globals['_TENSORMETADATA']._serialized_start=43
-  _globals['_TENSORMETADATA']._serialized_end=109
-  _globals['_LAYERREQUEST']._serialized_start=112
-  _globals['_LAYERREQUEST']._serialized_end=347
-  _globals['_LAYERREQUEST_CONTEXTENTRY']._serialized_start=301
-  _globals['_LAYERREQUEST_CONTEXTENTRY']._serialized_end=347
-  _globals['_LAYERRESPONSE']._serialized_start=350
-  _globals['_LAYERRESPONSE']._serialized_end=504
-  _globals['_HEALTHSTATUS']._serialized_start=507
-  _globals['_HEALTHSTATUS']._serialized_end=683
-  _globals['_HEALTHSTATUS_DETAILSENTRY']._serialized_start=637
-  _globals['_HEALTHSTATUS_DETAILSENTRY']._serialized_end=683
-  _globals['_DEVICEINFO']._serialized_start=686
-  _globals['_DEVICEINFO']._serialized_end=958
-  _globals['_DEVICEINFO_CAPABILITIESENTRY']._serialized_start=907
-  _globals['_DEVICEINFO_CAPABILITIESENTRY']._serialized_end=958
-  _globals['_INFERENCESERVICE']._serialized_start=961
-  _globals['_INFERENCESERVICE']._serialized_end=1187
+  _globals['_TENSORMETADATA']._serialized_start=44
+  _globals['_TENSORMETADATA']._serialized_end=195
+  _globals['_KVCACHEMETADATA']._serialized_start=197
+  _globals['_KVCACHEMETADATA']._serialized_end=290
+  _globals['_KVCACHEENTRY']._serialized_start=293
+  _globals['_KVCACHEENTRY']._serialized_end=540
+  _globals['_LAYERREQUEST']._serialized_start=543
+  _globals['_LAYERREQUEST']._serialized_end=860
+  _globals['_LAYERREQUEST_CONTEXTENTRY']._serialized_start=814
+  _globals['_LAYERREQUEST_CONTEXTENTRY']._serialized_end=860
+  _globals['_LAYERRESPONSE']._serialized_start=863
+  _globals['_LAYERRESPONSE']._serialized_end=1099
+  _globals['_HEALTHSTATUS']._serialized_start=1102
+  _globals['_HEALTHSTATUS']._serialized_end=1278
+  _globals['_HEALTHSTATUS_DETAILSENTRY']._serialized_start=1232
+  _globals['_HEALTHSTATUS_DETAILSENTRY']._serialized_end=1278
+  _globals['_DEVICEINFO']._serialized_start=1281
+  _globals['_DEVICEINFO']._serialized_end=1553
+  _globals['_DEVICEINFO_CAPABILITIESENTRY']._serialized_start=1502
+  _globals['_DEVICEINFO_CAPABILITIESENTRY']._serialized_end=1553
+  _globals['_TENSORTRANSFER']._serialized_start=1555
+  _globals['_TENSORTRANSFER']._serialized_end=1674
+  _globals['_TRANSFERRESPONSE']._serialized_start=1676
+  _globals['_TRANSFERRESPONSE']._serialized_end=1754
+  _globals['_INFERENCESERVICE']._serialized_start=1757
+  _globals['_INFERENCESERVICE']._serialized_end=2065
 # @@protoc_insertion_point(module_scope)

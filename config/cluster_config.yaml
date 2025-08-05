@@ -21,7 +21,7 @@ devices:
       bandwidth_gbps: 200.0
 
   - device_id: mini2
-    hostname: mini2.local
+    hostname: 192.168.5.2  # Thunderbolt Bridge IP for 20 Gb/s connection
     api_port: 8101
     grpc_port: 50052
     role: worker
@@ -53,9 +53,8 @@ devices:
       bandwidth_gbps: 400.0
 
 model:
-  name: "mlx-community/GLM-4.5-4bit"
-  total_layers: 46  # GLM-4.5 has 46 layers
+  name: "mlx-community/Qwen3-1.7B-8bit"
+  total_layers: 28  # Qwen3-1.7B has 28 layers
   layer_distribution:
-    mini1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]  # 15 layers (~13GB)
-    mini2: [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]  # 15 layers (~13GB)
-    master: [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45]  # 16 layers (~16GB) - MacBook Pro has 48GB
+    mini1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]  # 14 layers
+    mini2: [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]  # 14 layers

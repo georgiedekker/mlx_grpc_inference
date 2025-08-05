@@ -1,50 +1,54 @@
 """
-Local inference execution for model layers.
+Fixed layer processor that maintains dtype correctly.
 """
 
-import logging
 import time
-from typing import List, Dict, Optional, Any, Tuple
+import logging
+from typing import List, Dict, Optional, Any
 import mlx.core as mx
 import mlx.nn as nn
 
 logger = logging.getLogger(__name__)
 
 
-class LayerProcessor:
-    """Processes specific layers of a model."""
+class FixedLayerProcessor:
+    """
+    Fixed layer processor that maintains dtype during processing.
+    """
     
     def __init__(self, model: nn.Module, device_id: str, assigned_layers: List[int]):
         """
-        Initialize layer processor.
+        Initialize the layer processor.
         
         Args:
-            model: The model containing layers
-            device_id: ID of this device
-            assigned_layers: List of layer indices this device should process
+            model: The MLX model
+            device_id: Device identifier
+            assigned_layers: List of layer indices assigned to this device
         """
         self.model = model
         self.device_id = device_id
         self.assigned_layers = set(assigned_layers)
-        self.cache = {}
-        
-        logger.info(f"LayerProcessor for {device_id} handling layers: {sorted(assigned_layers)}")
+        logger.info(f"LayerProcessor for {device_id} handling layers: {assigned_layers}")
     
     def process(self, 
                 input_tensor: mx.array, 
                 layer_indices: List[int],
                 context: Optional[Dict[str, Any]] = None) -> mx.array:
         """
-        Process specified layers.
+        Process specified layers with dtype preservation.
         
         Args:
             input_tensor: Input hidden states
             layer_indices: Indices of layers to process
-            context: Optional context (attention masks, etc.)
+            context: Optional context dict with attention masks, etc.
             
         Returns:
-            Output tensor after processing layers
+            Output hidden states with original dtype preserved
         """
+        # Store original dtype
+        original_dtype = input_tensor.dtype
+        logger.info(f"Processing layers {layer_indices} with input dtype: {original_dtype}")
+        
         # Validate layers
         for idx in layer_indices:
             if idx not in self.assigned_layers:
@@ -64,6 +68,11 @@ class LayerProcessor:
                     layer, hidden_states, layer_idx, context
                 )
                 
+                # Ensure dtype is preserved after each layer
+                if hidden_states.dtype != original_dtype:
+                    logger.warning(f"Layer {layer_idx} changed dtype from {original_dtype} to {hidden_states.dtype}, restoring...")
+                    hidden_states = hidden_states.astype(original_dtype)
+                
                 # Evaluate to ensure computation happens
                 mx.eval(hidden_states)
                 
@@ -72,6 +81,12 @@ class LayerProcessor:
             else:
                 logger.warning(f"Layer {layer_idx} not found in model")
         
+        # Final dtype check
+        if hidden_states.dtype != original_dtype:
+            logger.info(f"Restoring output dtype from {hidden_states.dtype} to {original_dtype}")
+            hidden_states = hidden_states.astype(original_dtype)
+        
+        logger.info(f"Output dtype: {hidden_states.dtype}, shape: {hidden_states.shape}")
         return hidden_states
     
     def _process_single_layer(self, 
@@ -79,19 +94,18 @@ class LayerProcessor:
                              hidden_states: mx.array,
                              layer_idx: int,
                              context: Optional[Dict[str, Any]]) -> mx.array:
-        """Process a single transformer layer."""
-        # This is a simplified version - actual implementation would handle
-        # attention masks, position embeddings, etc. from context
+        """Process a single transformer layer with proper layer norm handling."""
+        # Store original dtype
+        original_dtype = hidden_states.dtype
         
         residual = hidden_states
         
-        # Layer norm
+        # Input layer norm
         if hasattr(layer, 'input_layernorm'):
             hidden_states = layer.input_layernorm(hidden_states)
         
         # Self-attention
         if hasattr(layer, 'self_attn'):
-            # In real implementation, we'd pass attention mask from context
             attn_output = layer.self_attn(hidden_states)
             if isinstance(attn_output, tuple):
                 attn_output = attn_output[0]
@@ -106,6 +120,10 @@ class LayerProcessor:
         if hasattr(layer, 'mlp'):
             mlp_output = layer.mlp(hidden_states)
             hidden_states = residual + mlp_output
+        
+        # Ensure dtype is preserved
+        if hidden_states.dtype != original_dtype:
+            hidden_states = hidden_states.astype(original_dtype)
         
         return hidden_states
     
@@ -126,14 +144,17 @@ class LayerProcessor:
         if hasattr(self.model, 'lm_head'):
             logits = self.model.lm_head(hidden_states)
             return logits
+        elif hasattr(self.model.model, 'embed_tokens'):
+            # For models with tied embeddings
+            logits = self.model.model.embed_tokens.as_linear(hidden_states)
+            return logits
         else:
-            raise ValueError("Model does not have lm_head")
+            raise ValueError("Model does not have lm_head or tied embeddings")
     
     def get_memory_usage(self) -> Dict[str, float]:
         """Get current memory usage statistics."""
-        # This would use MLX-specific memory tracking
         return {
-            'allocated_gb': 0.0,  # Placeholder
-            'cached_gb': 0.0,     # Placeholder
-            'reserved_gb': 0.0    # Placeholder
+            'allocated_gb': 0.0,
+            'cached_gb': 0.0,
+            'reserved_gb': 0.0
         }

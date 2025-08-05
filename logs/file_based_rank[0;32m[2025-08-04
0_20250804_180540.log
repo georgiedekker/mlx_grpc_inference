@@ -1,0 +1,8 @@
+2025-08-04 18:05:42,123 - [__main__] Rank [0;32m[2025-08-04
+0 - ERROR - Failed to parse environment variables: invalid literal for int() with base 10: '[2025-08-04\n0'
+2025-08-04 18:05:42,124 - [__main__] Rank [0;32m[2025-08-04
+0 - ERROR - RANK='[0;32m[2025-08-04
+0'
+2025-08-04 18:05:42,124 - [__main__] Rank [0;32m[2025-08-04
+0 - ERROR - WORLD_SIZE='18:05:40][0m
+2'

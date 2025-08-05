@@ -1,0 +1,12 @@
+Usage: ./launch.sh {start|stop|restart|status|logs|test}
+
+Commands:
+  start    - Start distributed inference
+  stop     - Stop all services
+  restart  - Restart all services
+  status   - Show service status
+  logs     - Show logs (coordinator|worker)
+  test     - Test inference API
+
+Environment:
+  MODEL_NAME - Model to use (default: mlx-community/Qwen3-1.7B-8bit)

@@ -10,7 +10,7 @@ import mlx.core as mx
 from dataclasses import dataclass
 
 from ..core.config import DeviceConfig
-from .tensor_utils import serialize_mlx_array, deserialize_mlx_array
+from ..utils.tensor_utils import serialize_mlx_array, deserialize_mlx_array
 from .dns_resolver import get_global_resolver, EnhancedDNSResolver
 
 logger = logging.getLogger(__name__)
@@ -81,6 +81,9 @@ class GRPCInferenceClient:
             ("grpc.keepalive_timeout_ms", 20000),  # More generous timeout
             ("grpc.keepalive_permit_without_calls", False),  # Only ping when there's activity
             ("grpc.http2.min_time_between_pings_ms", 60000),  # Minimum 60s between pings
+            # Enable gRPC compression for reduced network traffic
+            ("grpc.default_compression_algorithm", grpc.Compression.Gzip),
+            ("grpc.default_compression_level", "low"),  # Low level for speed
         ]
 
         # Use enhanced DNS resolution
@@ -156,7 +159,7 @@ class GRPCInferenceClient:
             # Serialize input tensor
             tensor_data, metadata = serialize_mlx_array(input_tensor, compress=compress)
 
-            # Create request
+            # Create request with checksum in metadata
             request = inference_pb2.LayerRequest(
                 request_id=request_id,
                 input_tensor=tensor_data,
@@ -165,6 +168,10 @@ class GRPCInferenceClient:
                     shape=metadata["shape"],
                     dtype=metadata["dtype"],
                     compressed=metadata["compressed"],
+                    original_dtype=metadata.get("original_dtype", ""),
+                    requires_conversion=metadata.get("requires_conversion", False),
+                    checksum=metadata.get("checksum", ""),
+                    size=metadata.get("size", 0),
                 ),
                 context=context or {},
             )
@@ -174,11 +181,15 @@ class GRPCInferenceClient:
             response = self.stub.ProcessLayers(request, timeout=self.timeout)
             rpc_time = (time.time() - start_time) * 1000
 
-            # Deserialize output
+            # Deserialize output with full metadata including checksum
             output_metadata = {
                 "shape": list(response.metadata.shape),
                 "dtype": response.metadata.dtype,
                 "compressed": response.metadata.compressed,
+                "original_dtype": response.metadata.original_dtype,
+                "requires_conversion": response.metadata.requires_conversion,
+                "checksum": response.metadata.checksum,
+                "size": response.metadata.size,
             }
             output_tensor = deserialize_mlx_array(response.output_tensor, output_metadata)
 

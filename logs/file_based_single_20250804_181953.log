@@ -1,0 +1,20 @@
+2025-08-04 18:19:55,191 - [__main__] - INFO - Parsed environment: RANK=0, WORLD_SIZE=1
+2025-08-04 18:19:55,199 - [src.coordination.file_based_coordinator] - INFO - Detected Thunderbolt IP: 192.168.5.1
+2025-08-04 18:19:55,200 - [src.coordination.file_based_coordinator] - INFO - Initialized file-based coordinator: rank=0, world_size=1
+2025-08-04 18:19:55,200 - [__main__] - INFO - Initialized file-based server: rank=0, world_size=1
+2025-08-04 18:19:55,200 - [__main__] - INFO - Initializing file-based coordination...
+2025-08-04 18:19:55,200 - [src.coordination.file_based_coordinator] - INFO - Waiting for 1 nodes to register...
+2025-08-04 18:19:55,200 - [src.coordination.file_based_coordinator] - INFO - All nodes registered and alive
+2025-08-04 18:19:55,203 - [src.coordination.file_based_coordinator] - INFO - Assigned layers: {0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]}
+2025-08-04 18:19:55,203 - [src.coordination.file_based_coordinator] - INFO - Loading layers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+2025-08-04 18:19:57,213 - [src.coordination.file_based_coordinator] - INFO - Loaded 28 layers
+2025-08-04 18:19:57,216 - [src.coordination.file_based_coordinator] - INFO - Distributed inference system initialized successfully
+2025-08-04 18:19:57,216 - [__main__] - INFO - Loading device capabilities...
+2025-08-04 18:19:57,225 - [__main__] - INFO - Loading assigned model layers...
+2025-08-04 18:19:57,226 - [__main__] - INFO - Loading layers [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+2025-08-04 18:19:57,232 - [__main__] - INFO - Loading MLX model: mlx-community/Qwen3-1.7B-8bit
+2025-08-04 18:19:57,232 - [__main__] - ERROR - Failed to load model layers: load_mlx_model_for_pytorch() missing 1 required positional argument: 'device'
+2025-08-04 18:19:57,233 - [__main__] - ERROR - Server initialization failed: load_mlx_model_for_pytorch() missing 1 required positional argument: 'device'
+2025-08-04 18:19:57,233 - [__main__] - ERROR - Server initialization failed
+2025-08-04 18:19:57,233 - [__main__] - INFO - Shutting down server...
+2025-08-04 18:19:57,234 - [src.coordination.file_based_coordinator] - INFO - Cleaned up coordination files

@@ -1,0 +1,1 @@
+- No ONLY use uv, never ever use anything else

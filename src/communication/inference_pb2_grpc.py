@@ -40,6 +40,11 @@ class InferenceServiceStub(object):
                 request_serializer=inference__pb2.LayerRequest.SerializeToString,
                 response_deserializer=inference__pb2.LayerResponse.FromString,
                 _registered_method=True)
+        self.TransferTensor = channel.unary_unary(
+                '/mlx_inference.InferenceService/TransferTensor',
+                request_serializer=inference__pb2.TensorTransfer.SerializeToString,
+                response_deserializer=inference__pb2.TransferResponse.FromString,
+                _registered_method=True)
         self.HealthCheck = channel.unary_unary(
                 '/mlx_inference.InferenceService/HealthCheck',
                 request_serializer=inference__pb2.Empty.SerializeToString,
@@ -58,6 +63,13 @@ class InferenceServiceServicer(object):
 
     def ProcessLayers(self, request, context):
         """Process layers on this worker
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def TransferTensor(self, request, context):
+        """Transfer tensor between nodes
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -84,6 +96,11 @@ def add_InferenceServiceServicer_to_server(servicer, server):
                     servicer.ProcessLayers,
                     request_deserializer=inference__pb2.LayerRequest.FromString,
                     response_serializer=inference__pb2.LayerResponse.SerializeToString,
+            ),
+            'TransferTensor': grpc.unary_unary_rpc_method_handler(
+                    servicer.TransferTensor,
+                    request_deserializer=inference__pb2.TensorTransfer.FromString,
+                    response_serializer=inference__pb2.TransferResponse.SerializeToString,
             ),
             'HealthCheck': grpc.unary_unary_rpc_method_handler(
                     servicer.HealthCheck,
@@ -124,6 +141,33 @@ class InferenceService(object):
             '/mlx_inference.InferenceService/ProcessLayers',
             inference__pb2.LayerRequest.SerializeToString,
             inference__pb2.LayerResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def TransferTensor(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mlx_inference.InferenceService/TransferTensor',
+            inference__pb2.TensorTransfer.SerializeToString,
+            inference__pb2.TransferResponse.FromString,
             options,
             channel_credentials,
             insecure,

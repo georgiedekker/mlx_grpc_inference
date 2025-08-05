@@ -1,0 +1,16 @@
+[0;32m[2025-08-04 12:09:27][0m === MLX Distributed Inference Launcher ===
+[0;32m[2025-08-04 12:09:27][0m Timestamp: 20250804_120927
+[0;32m[2025-08-04 12:09:27][0m Log directory: /Users/mini1/Movies/mlx_grpc_inference/logs
+[0;32m[2025-08-04 12:09:27][0m Cleaning up existing processes...
+[0;32m[2025-08-04 12:09:29][0m Configuring network...
+[0;32m[2025-08-04 12:09:29][0m Setting MTU to 9000 on bridge0...
+[1;33m[2025-08-04 12:09:29] WARNING:[0m Could not set MTU
+[0;32m[2025-08-04 12:09:29][0m Launching in single-node mode...
+[0;32m[2025-08-04 12:09:29][0m Single-node launched with PID 79470
+[0;32m[2025-08-04 12:09:29][0m Waiting for API server to start...
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 16, in <module>
+    import mlx.core as mx
+ModuleNotFoundError: No module named 'mlx'
+[0;31m[2025-08-04 12:10:31] ERROR:[0m API server failed to start after 60 seconds
+[0;31m[2025-08-04 12:10:31] ERROR:[0m Server failed to start. Check logs in /Users/mini1/Movies/mlx_grpc_inference/logs/

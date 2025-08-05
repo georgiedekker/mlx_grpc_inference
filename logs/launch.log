@@ -1,0 +1,9 @@
+--------------------------------------------------------------------------
+prterun was unable to launch the specified application as it lacked
+permissions to execute an executable:
+
+   Executable: /Users/mini1/Movies/mlx_grpc_inference/mpi_wrapper.sh
+   Node: mini2
+
+while attempting to start process rank 1.
+--------------------------------------------------------------------------

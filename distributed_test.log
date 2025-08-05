@@ -1,0 +1,4 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   284  100   126  100   158  58741  73659 --:--:-- --:--:-- --:--:-- 94666100   284  100   126  100   158  56833  71267 --:--:-- --:--:-- --:--:-- 94666
+{"detail":[{"type":"json_invalid","loc":["body",94],"msg":"JSON decode error","input":{},"ctx":{"error":"Invalid \\escape"}}]}

@@ -1,0 +1,2 @@
+2025-08-04 14:39:42,507 - __main__ - INFO - Initializing process group: rank=1, world_size=2
+2025-08-04 14:39:42,514 - __main__ - INFO - Process group initialized successfully on rank 1

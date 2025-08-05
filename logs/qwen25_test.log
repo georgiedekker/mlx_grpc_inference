@@ -1,26 +1,0 @@
-INFO:__main__:Using DLPack-based tensor serialization for dtype preservation
-INFO:     Started server process [3714]
-INFO:     Waiting for application startup.
-INFO:__main__:🚀 Starting Fixed MLX Distributed Inference API...
-INFO:__main__:✅ Config loaded: mlx-community/Qwen2.5-3B-4bit
-INFO:__main__:📦 Loading model and tokenizer...
-Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files:  11%|█         | 1/9 [00:00<00:03,  2.46it/s]Fetching 9 files:  33%|███▎      | 3/9 [00:00<00:01,  5.91it/s]Fetching 9 files:  44%|████▍     | 4/9 [04:40<08:05, 97.02s/it]Fetching 9 files: 100%|██████████| 9/9 [04:40<00:00, 31.18s/it]
-INFO:__main__:✅ Model loaded: 36 layers
-INFO:__main__:🔗 Connecting to workers...
-INFO:communication.dns_resolver:Resolved mini2.local -> 192.168.2.15 using mdns_native in 8.2ms
-ERROR:__main__:❌ mini2: Connection failed - <_InactiveRpcError of RPC that terminated with:
-	status = StatusCode.UNAVAILABLE
-	details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.15:50052: Failed to connect to remote host: connect: Connection refused (61)"
-	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:14, grpc_message:"failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.15:50052: Failed to connect to remote host: connect: Connection refused (61)"}"
->
-INFO:communication.dns_resolver:Resolved master.local -> 192.168.2.106 using mdns_native in 0.9ms
-ERROR:__main__:❌ master: Connection failed - <_InactiveRpcError of RPC that terminated with:
-	status = StatusCode.DEADLINE_EXCEEDED
-	details = "Deadline Exceeded"
-	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:4, grpc_message:"Deadline Exceeded"}"
->
-INFO:__main__:✅ API server ready!
-INFO:     Application startup complete.
-INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
-/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-ceedzy53'}
-  warnings.warn(

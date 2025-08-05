@@ -7,6 +7,9 @@ service InferenceService {
     // Process layers on this worker
     rpc ProcessLayers(LayerRequest) returns (LayerResponse);
     
+    // Transfer tensor between nodes
+    rpc TransferTensor(TensorTransfer) returns (TransferResponse);
+    
     // Health check
     rpc HealthCheck(Empty) returns (HealthStatus);
     
@@ -22,6 +25,28 @@ message TensorMetadata {
     repeated int64 shape = 1;
     string dtype = 2;
     bool compressed = 3;
+    string original_dtype = 4;  // Original dtype before conversion (e.g., bfloat16)
+    bool requires_conversion = 5;  // Whether dtype conversion is needed during deserialization
+    string checksum = 6;  // SHA-256 checksum of tensor data for verification
+    int64 size = 7;  // Size of tensor data in bytes
+}
+
+// KV Cache metadata
+message KVCacheMetadata {
+    string type = 1;  // "empty_cache", "kv_cache", etc.
+    int32 length = 2;
+    repeated KVCacheEntry entries = 3;
+}
+
+message KVCacheEntry {
+    string type = 1;  // "none", "kv_tuple", "kv_object", "tensor"
+    int64 offset = 2;
+    int64 size = 3;
+    TensorMetadata keys_meta = 4;    // For KV entries
+    TensorMetadata values_meta = 5;  // For KV entries
+    TensorMetadata meta = 6;         // For single tensor entries
+    int64 cache_offset = 7;          // KVCache.offset value
+    int64 cache_step = 8;            // KVCache.step value
 }
 
 // Layer processing request
@@ -31,6 +56,8 @@ message LayerRequest {
     repeated int32 layer_indices = 3;
     TensorMetadata metadata = 4;
     map<string, string> context = 5;  // Additional context (e.g., attention mask)
+    bytes kv_cache_data = 6;      // Serialized KV cache
+    KVCacheMetadata kv_cache_metadata = 7;  // KV cache metadata
 }
 
 // Layer processing response
@@ -40,6 +67,8 @@ message LayerResponse {
     TensorMetadata metadata = 3;
     float processing_time_ms = 4;
     string device_id = 5;
+    bytes kv_cache_data = 6;      // Updated KV cache
+    KVCacheMetadata kv_cache_metadata = 7;  // Updated KV cache metadata
 }
 
 // Health status
@@ -60,4 +89,21 @@ message DeviceInfo {
     map<string, string> capabilities = 6;
     float gpu_utilization = 7;
     float memory_usage_gb = 8;
+}
+
+// Tensor transfer message
+message TensorTransfer {
+    string tensor_id = 1;
+    repeated int64 shape = 2;
+    bytes data = 3;
+    string dtype = 4;
+    int32 source_rank = 5;
+    int32 dest_rank = 6;
+}
+
+// Transfer response
+message TransferResponse {
+    bool success = 1;
+    string message = 2;
+    float transfer_time_ms = 3;
 }

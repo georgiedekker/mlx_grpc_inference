@@ -1,161 +1,795 @@
 {
-  "validation_summary": {
-    "total_tests": 4,
-    "passed_tests": 0,
-    "failed_tests": 4,
-    "success_rate": 0.0,
-    "total_execution_time": 1.6284549236297607
-  },
-  "test_results": {
-    "Core Pipeline Validation": {
-      "script": "validate_distributed_pipeline.py",
-      "description": "Validates core pipeline components and identifies issues",
-      "exit_code": 1,
-      "execution_time": 0.8865940570831299,
-      "stdout": "",
-      "stderr": "Traceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/validate_distributed_pipeline.py\", line 21, in <module>\n    from src.coordinator.orchestrator import DistributedOrchestrator, InferenceRequest\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/__init__.py\", line 5, in <module>\n    from .orchestrator import DistributedOrchestrator\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/orchestrator.py\", line 12, in <module>\n    from ..devices import CoordinatorDevice, DeviceManager\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/devices/__init__.py\", line 9, in <module>\n    from .coordinator_device import CoordinatorDevice\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/devices/coordinator_device.py\", line 19, in <module>\n    from ..communication.connection_pool import ConnectionPool\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/connection_pool.py\", line 13, in <module>\n    from .grpc_client import GRPCInferenceClient\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/grpc_client.py\", line 13, in <module>\n    from .tensor_utils import serialize_mlx_array, deserialize_mlx_array\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/tensor_utils.py\", line 9, in <module>\n    import lz4.frame\nModuleNotFoundError: No module named 'lz4'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/validate_distributed_pipeline.py\", line 28, in <module>\n    from coordinator.orchestrator import DistributedOrchestrator, InferenceRequest\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/__init__.py\", line 5, in <module>\n    from .orchestrator import DistributedOrchestrator\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/orchestrator.py\", line 11, in <module>\n    from ..core.config import ClusterConfig, DeviceRole\nImportError: attempted relative import beyond top-level package\n",
-      "success": false
-    },
-    "Tensor Flow Validation": {
-      "script": "test_tensor_flow_validation.py",
-      "description": "Comprehensive tensor serialization and flow testing",
-      "exit_code": 1,
-      "execution_time": 0.09062790870666504,
-      "stdout": "",
-      "stderr": "Traceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/test_tensor_flow_validation.py\", line 22, in <module>\n    from src.communication.tensor_utils import serialize_mlx_array, deserialize_mlx_array\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/tensor_utils.py\", line 9, in <module>\n    import lz4.frame\nModuleNotFoundError: No module named 'lz4'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/test_tensor_flow_validation.py\", line 27, in <module>\n    from communication.tensor_utils import serialize_mlx_array, deserialize_mlx_array\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/tensor_utils.py\", line 9, in <module>\n    import lz4.frame\nModuleNotFoundError: No module named 'lz4'\n",
-      "success": false
-    },
-    "Device Communication Validation": {
-      "script": "test_device_communication.py",
-      "description": "Network connectivity and gRPC communication testing",
-      "exit_code": 1,
-      "execution_time": 0.0967559814453125,
-      "stdout": "",
-      "stderr": "Traceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/test_device_communication.py\", line 22, in <module>\n    from src.communication.grpc_client import ConnectionPool, GRPCInferenceClient\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/grpc_client.py\", line 13, in <module>\n    from .tensor_utils import serialize_mlx_array, deserialize_mlx_array\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/tensor_utils.py\", line 9, in <module>\n    import lz4.frame\nModuleNotFoundError: No module named 'lz4'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/test_device_communication.py\", line 27, in <module>\n    from communication.grpc_client import ConnectionPool, GRPCInferenceClient\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/grpc_client.py\", line 12, in <module>\n    from ..core.config import DeviceConfig\nImportError: attempted relative import beyond top-level package\n",
-      "success": false
-    },
-    "Generation Pipeline Validation": {
-      "script": "test_generation_pipeline.py",
-      "description": "End-to-end generation pipeline and scenario testing",
-      "exit_code": 1,
-      "execution_time": 0.55385422706604,
-      "stdout": "",
-      "stderr": "Traceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/test_generation_pipeline.py\", line 23, in <module>\n    from src.coordinator.orchestrator import DistributedOrchestrator, InferenceRequest\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/__init__.py\", line 5, in <module>\n    from .orchestrator import DistributedOrchestrator\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/orchestrator.py\", line 12, in <module>\n    from ..devices import CoordinatorDevice, DeviceManager\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/devices/__init__.py\", line 9, in <module>\n    from .coordinator_device import CoordinatorDevice\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/devices/coordinator_device.py\", line 19, in <module>\n    from ..communication.connection_pool import ConnectionPool\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/connection_pool.py\", line 13, in <module>\n    from .grpc_client import GRPCInferenceClient\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/grpc_client.py\", line 13, in <module>\n    from .tensor_utils import serialize_mlx_array, deserialize_mlx_array\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/communication/tensor_utils.py\", line 9, in <module>\n    import lz4.frame\nModuleNotFoundError: No module named 'lz4'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/mini1/Movies/mlx_grpc_inference/test_generation_pipeline.py\", line 31, in <module>\n    from coordinator.orchestrator import DistributedOrchestrator, InferenceRequest\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/__init__.py\", line 5, in <module>\n    from .orchestrator import DistributedOrchestrator\n  File \"/Users/mini1/Movies/mlx_grpc_inference/src/coordinator/orchestrator.py\", line 11, in <module>\n    from ..core.config import ClusterConfig, DeviceRole\nImportError: attempted relative import beyond top-level package\n",
-      "success": false
-    }
-  },
-  "key_findings": {
-    "what_works": [],
-    "what_is_broken": [],
-    "performance_notes": [],
-    "infrastructure_status": []
-  },
-  "critical_issues": [
+  "total_tokens": 20,
+  "max_differences": [
+    20.6875,
+    23.5625,
+    31.01953125,
+    35.28125,
+    39.64453125,
+    40.03125,
+    40.89453125,
+    42.03125,
+    41.39453125,
+    42.53125,
+    41.64453125,
+    42.28125,
+    41.14453125,
+    42.53125,
+    39.64453125,
+    42.03125,
+    39.89453125,
+    41.53125,
+    40.14453125,
+    41.03125
+  ],
+  "mean_differences": [
+    3.3204948902130127,
+    4.072359561920166,
+    3.8184573650360107,
+    4.837832927703857,
+    4.456172466278076,
+    5.174377918243408,
+    4.348074436187744,
+    4.948129653930664,
+    4.128732681274414,
+    5.222408771514893,
+    4.155723571777344,
+    5.090874671936035,
+    3.9788825511932373,
+    4.977814197540283,
+    3.8421506881713867,
+    4.938226222991943,
+    3.94514799118042,
+    4.997512340545654,
+    4.014294624328613,
+    5.191440105438232
+  ],
+  "failures": [
     {
-      "severity": "HIGH",
-      "category": "gRPC Communication",
-      "issue": "'str' object has no attribute 'hostname' - prevents device communication",
-      "location": "src/communication/grpc_client.py",
-      "impact": "System cannot communicate between devices",
-      "blocking": true
+      "token_idx": 0,
+      "max_diff": 20.6875,
+      "mean_diff": 3.3204948902130127,
+      "top_differences": [
+        {
+          "vocab_idx": 119188,
+          "single_logit": -12.9375,
+          "dist_logit": 7.75,
+          "difference": 20.6875
+        },
+        {
+          "vocab_idx": 28145,
+          "single_logit": -5.8125,
+          "dist_logit": 12.625,
+          "difference": 18.4375
+        },
+        {
+          "vocab_idx": 31192,
+          "single_logit": -8.625,
+          "dist_logit": 9.625,
+          "difference": 18.25
+        },
+        {
+          "vocab_idx": 57563,
+          "single_logit": -5.71875,
+          "dist_logit": 11.9375,
+          "difference": 17.65625
+        },
+        {
+          "vocab_idx": 103604,
+          "single_logit": -15.6875,
+          "dist_logit": 1.578125,
+          "difference": 17.265625
+        }
+      ]
     },
     {
-      "severity": "HIGH",
-      "category": "Distributed Forward Pass",
-      "issue": "Implementation doesn't return tensors to coordinator for final processing",
-      "location": "src/coordinator/orchestrator.py",
-      "impact": "Generation happens with incomplete data",
-      "blocking": true
+      "token_idx": 1,
+      "max_diff": 23.5625,
+      "mean_diff": 4.072359561920166,
+      "top_differences": [
+        {
+          "vocab_idx": 12212,
+          "single_logit": 7.9375,
+          "dist_logit": -15.625,
+          "difference": 23.5625
+        },
+        {
+          "vocab_idx": 41059,
+          "single_logit": 5.40625,
+          "dist_logit": -16.5,
+          "difference": 21.90625
+        },
+        {
+          "vocab_idx": 14357,
+          "single_logit": 6.625,
+          "dist_logit": -15.0,
+          "difference": 21.625
+        },
+        {
+          "vocab_idx": 86077,
+          "single_logit": 7.8125,
+          "dist_logit": -13.5,
+          "difference": 21.3125
+        },
+        {
+          "vocab_idx": 23350,
+          "single_logit": 4.84375,
+          "dist_logit": -16.25,
+          "difference": 21.09375
+        }
+      ]
     },
     {
-      "severity": "HIGH",
-      "category": "Generation Logic",
-      "issue": "No proper autoregressive generation with distributed forward passes",
-      "location": "Generation pipeline",
-      "impact": "Cannot generate multi-token sequences",
-      "blocking": true
+      "token_idx": 2,
+      "max_diff": 31.01953125,
+      "mean_diff": 3.8184573650360107,
+      "top_differences": [
+        {
+          "vocab_idx": 33465,
+          "single_logit": -0.89453125,
+          "dist_logit": 30.125,
+          "difference": 31.01953125
+        },
+        {
+          "vocab_idx": 63809,
+          "single_logit": -6.4375,
+          "dist_logit": 18.125,
+          "difference": 24.5625
+        },
+        {
+          "vocab_idx": 15249,
+          "single_logit": -0.2421875,
+          "dist_logit": 20.875,
+          "difference": 21.1171875
+        },
+        {
+          "vocab_idx": 73438,
+          "single_logit": -3.734375,
+          "dist_logit": 17.25,
+          "difference": 20.984375
+        },
+        {
+          "vocab_idx": 125302,
+          "single_logit": -8.9375,
+          "dist_logit": 11.625,
+          "difference": 20.5625
+        }
+      ]
     },
     {
-      "severity": "MEDIUM",
-      "category": "Orchestrator Initialization",
-      "issue": "Missing required attributes: connection_pool, model_loader, layer_processor",
-      "location": "src/coordinator/orchestrator.py",
-      "impact": "Orchestrator incomplete",
-      "blocking": false
+      "token_idx": 3,
+      "max_diff": 35.28125,
+      "mean_diff": 4.837832927703857,
+      "top_differences": [
+        {
+          "vocab_idx": 198,
+          "single_logit": 7.46875,
+          "dist_logit": 42.75,
+          "difference": 35.28125
+        },
+        {
+          "vocab_idx": 12212,
+          "single_logit": 8.625,
+          "dist_logit": -17.0,
+          "difference": 25.625
+        },
+        {
+          "vocab_idx": 271,
+          "single_logit": 8.1875,
+          "dist_logit": 32.25,
+          "difference": 24.0625
+        },
+        {
+          "vocab_idx": 86077,
+          "single_logit": 7.96875,
+          "dist_logit": -15.0625,
+          "difference": 23.03125
+        },
+        {
+          "vocab_idx": 102245,
+          "single_logit": 6.5,
+          "dist_logit": -15.4375,
+          "difference": 21.9375
+        }
+      ]
     },
     {
-      "severity": "MEDIUM",
-      "category": "EOS Token Handling",
-      "issue": "Incomplete end-of-sequence token handling",
-      "location": "Generation pipeline",
-      "impact": "Generation may not stop properly",
-      "blocking": false
+      "token_idx": 4,
+      "max_diff": 39.64453125,
+      "mean_diff": 4.456172466278076,
+      "top_differences": [
+        {
+          "vocab_idx": 33465,
+          "single_logit": -0.89453125,
+          "dist_logit": 38.75,
+          "difference": 39.64453125
+        },
+        {
+          "vocab_idx": 63809,
+          "single_logit": -6.4375,
+          "dist_logit": 21.25,
+          "difference": 27.6875
+        },
+        {
+          "vocab_idx": 91255,
+          "single_logit": -3.875,
+          "dist_logit": 23.75,
+          "difference": 27.625
+        },
+        {
+          "vocab_idx": 15249,
+          "single_logit": -0.2421875,
+          "dist_logit": 27.125,
+          "difference": 27.3671875
+        },
+        {
+          "vocab_idx": 73438,
+          "single_logit": -3.734375,
+          "dist_logit": 22.25,
+          "difference": 25.984375
+        }
+      ]
+    },
+    {
+      "token_idx": 5,
+      "max_diff": 40.03125,
+      "mean_diff": 5.174377918243408,
+      "top_differences": [
+        {
+          "vocab_idx": 198,
+          "single_logit": 7.46875,
+          "dist_logit": 47.5,
+          "difference": 40.03125
+        },
+        {
+          "vocab_idx": 86077,
+          "single_logit": 7.96875,
+          "dist_logit": -17.25,
+          "difference": 25.21875
+        },
+        {
+          "vocab_idx": 271,
+          "single_logit": 8.1875,
+          "dist_logit": 33.0,
+          "difference": 24.8125
+        },
+        {
+          "vocab_idx": 33465,
+          "single_logit": -0.89453125,
+          "dist_logit": 22.375,
+          "difference": 23.26953125
+        },
+        {
+          "vocab_idx": 102245,
+          "single_logit": 6.5,
+          "dist_logit": -16.75,
+          "difference": 23.25
+        }
+      ]
+    },
+    {
+      "token_idx": 6,
+      "max_diff": 40.89453125,
+      "mean_diff": 4.348074436187744,
+      "top_differences": [
+        {
+          "vocab_idx": 33465,
+          "single_logit": -0.89453125,
+          "dist_logit": 40.0,
+          "difference": 40.89453125
+        },
+        {
+          "vocab_idx": 91255,
+          "single_logit": -3.875,
+          "dist_logit": 25.25,
+          "difference": 29.125
+        },
+        {
+          "vocab_idx": 63809,
+          "single_logit": -6.4375,
+          "dist_logit": 22.25,
+          "difference": 28.6875
+        },
+        {
+          "vocab_idx": 15249,
+          "single_logit": -0.2421875,
+          "dist_logit": 28.375,
+          "difference": 28.6171875
+        },
+        {
+          "vocab_idx": 73438,
+          "single_logit": -3.734375,
+          "dist_logit": 24.125,
+          "difference": 27.859375
+        }
+      ]
+    },
+    {
+      "token_idx": 7,
+      "max_diff": 42.03125,
+      "mean_diff": 4.948129653930664,
+      "top_differences": [
+        {
+          "vocab_idx": 198,
+          "single_logit": 7.46875,
+          "dist_logit": 49.5,
+          "difference": 42.03125
+        },
+        {
+          "vocab_idx": 271,
+          "single_logit": 8.1875,
+          "dist_logit": 36.75,
+          "difference": 28.5625
+        },
+        {
+          "vocab_idx": 33465,
+          "single_logit": -0.89453125,
+          "dist_logit": 24.375,
+          "difference": 25.26953125
+        },
+        {
+          "vocab_idx": 86077,
+          "single_logit": 7.96875,
+          "dist_logit": -14.6875,
+          "difference": 22.65625
+        },
+        {
+          "vocab_idx": 106799,
+          "single_logit": 6.71875,
+          "dist_logit": -15.9375,
+          "difference": 22.65625
+        }
+      ]
+    },
+    {
+      "token_idx": 8,
+      "max_diff": 41.39453125,
+      "mean_diff": 4.128732681274414,
+      "top_differences": [
+        {
+          "vocab_idx": 33465,
+          "single_logit": -0.89453125,
+          "dist_logit": 40.5,
+          "difference": 41.39453125
+        },
+        {
+          "vocab_idx": 15249,
+          "single_logit": -0.2421875,
+          "dist_logit": 28.375,
+          "difference": 28.6171875
+        },
+        {
+          "vocab_idx": 60126,
+          "single_logit": -1.8046875,
+          "dist_logit": 26.5,
+          "difference": 28.3046875
+        },
+        {
+          "vocab_idx": 91255,
+          "single_logit": -3.875,
+          "dist_logit": 24.25,
+          "difference": 28.125
+        },
+        {
+          "vocab_idx": 73438,
+          "single_logit": -3.734375,
+          "dist_logit": 23.875,
+          "difference": 27.609375
+        }
+      ]
+    },
+    {
+      "token_idx": 9,
+      "max_diff": 42.53125,
+      "mean_diff": 5.222408771514893,
+      "top_differences": [
+        {
+          "vocab_idx": 198,
+          "single_logit": 7.46875,
+          "dist_logit": 50.0,
+          "difference": 42.53125
+        },
+        {
+          "vocab_idx": 271,
+          "single_logit": 8.1875,
+          "dist_logit": 42.0,
+          "difference": 33.8125
+        },
+        {
+          "vocab_idx": 1406,
+          "single_logit": 2.3125,
+          "dist_logit": 28.125,
+          "difference": 25.8125
+        },
+        {
+          "vocab_idx": 33465,
+          "single_logit": -0.89453125,
+          "dist_logit": 24.5,
+          "difference": 25.39453125
+        },
+        {
+          "vocab_idx": 86077,
+          "single_logit": 7.96875,
+          "dist_logit": -15.625,
+          "difference": 23.59375
+        }
+      ]
+    },
+    {
+      "token_idx": 10,
+      "max_diff": 41.64453125,
+      "mean_diff": 4.155723571777344,
+      "top_differences": [
+        {
+          "vocab_idx": 33465,
+          "single_logit": -0.89453125,
+          "dist_logit": 40.75,
+          "difference": 41.64453125
+        },
+        {
+          "vocab_idx": 60126,
+          "single_logit": -1.8046875,
+          "dist_logit": 27.125,
+          "difference": 28.9296875
+        },
+        {
+          "vocab_idx": 15249,
+          "single_logit": -0.2421875,
+          "dist_logit": 28.5,
+          "difference": 28.7421875
+        },
+        {
+          "vocab_idx": 12652,
+          "single_logit": -3.203125,
+          "dist_logit": 25.5,
+          "difference": 28.703125
+        },
+        {
+          "vocab_idx": 63809,
+          "single_logit": -6.4375,
+          "dist_logit": 21.75,
+          "difference": 28.1875
+        }
+      ]
+    },
+    {
+      "token_idx": 11,
+      "max_diff": 42.28125,
+      "mean_diff": 5.090874671936035,
+      "top_differences": [
+        {
+          "vocab_idx": 198,
+          "single_logit": 7.46875,
+          "dist_logit": 49.75,
+          "difference": 42.28125
+        },
+        {
+          "vocab_idx": 271,
+          "single_logit": 8.1875,
+          "dist_logit": 40.0,
+          "difference": 31.8125
+        },
+        {
+          "vocab_idx": 1406,
+          "single_logit": 2.3125,
+          "dist_logit": 26.875,
+          "difference": 24.5625
+        },
+        {
+          "vocab_idx": 86077,
+          "single_logit": 7.96875,
+          "dist_logit": -15.9375,
+          "difference": 23.90625
+        },
+        {
+          "vocab_idx": 114998,
+          "single_logit": 6.625,
+          "dist_logit": -16.625,
+          "difference": 23.25
+        }
+      ]
+    },
+    {
+      "token_idx": 12,
+      "max_diff": 41.14453125,
+      "mean_diff": 3.9788825511932373,
+      "top_differences": [
+        {
+          "vocab_idx": 33465,
+          "single_logit": -0.89453125,
+          "dist_logit": 40.25,
+          "difference": 41.14453125
+        },
+        {
+          "vocab_idx": 12652,
+          "single_logit": -3.203125,
+          "dist_logit": 26.375,
+          "difference": 29.578125
+        },
+        {
+          "vocab_idx": 60126,
+          "single_logit": -1.8046875,
+          "dist_logit": 27.5,
+          "difference": 29.3046875
+        },
+        {
+          "vocab_idx": 36779,
+          "single_logit": -5.65625,
+          "dist_logit": 23.375,
+          "difference": 29.03125
+        },
+        {
+          "vocab_idx": 63809,
+          "single_logit": -6.4375,
+          "dist_logit": 22.375,
+          "difference": 28.8125
+        }
+      ]
+    },
+    {
+      "token_idx": 13,
+      "max_diff": 42.53125,
+      "mean_diff": 4.977814197540283,
+      "top_differences": [
+        {
+          "vocab_idx": 198,
+          "single_logit": 7.46875,
+          "dist_logit": 50.0,
+          "difference": 42.53125
+        },
+        {
+          "vocab_idx": 271,
+          "single_logit": 8.1875,
+          "dist_logit": 38.0,
+          "difference": 29.8125
+        },
+        {
+          "vocab_idx": 86077,
+          "single_logit": 7.96875,
+          "dist_logit": -15.875,
+          "difference": 23.84375
+        },
+        {
+          "vocab_idx": 1406,
+          "single_logit": 2.3125,
+          "dist_logit": 25.125,
+          "difference": 22.8125
+        },
+        {
+          "vocab_idx": 114998,
+          "single_logit": 6.625,
+          "dist_logit": -15.9375,
+          "difference": 22.5625
+        }
+      ]
+    },
+    {
+      "token_idx": 14,
+      "max_diff": 39.64453125,
+      "mean_diff": 3.8421506881713867,
+      "top_differences": [
+        {
+          "vocab_idx": 33465,
+          "single_logit": -0.89453125,
+          "dist_logit": 38.75,
+          "difference": 39.64453125
+        },
+        {
+          "vocab_idx": 63809,
+          "single_logit": -6.4375,
+          "dist_logit": 22.25,
+          "difference": 28.6875
+        },
+        {
+          "vocab_idx": 73438,
+          "single_logit": -3.734375,
+          "dist_logit": 24.875,
+          "difference": 28.609375
+        },
+        {
+          "vocab_idx": 12652,
+          "single_logit": -3.203125,
+          "dist_logit": 25.375,
+          "difference": 28.578125
+        },
+        {
+          "vocab_idx": 60126,
+          "single_logit": -1.8046875,
+          "dist_logit": 26.375,
+          "difference": 28.1796875
+        }
+      ]
+    },
+    {
+      "token_idx": 15,
+      "max_diff": 42.03125,
+      "mean_diff": 4.938226222991943,
+      "top_differences": [
+        {
+          "vocab_idx": 198,
+          "single_logit": 7.46875,
+          "dist_logit": 49.5,
+          "difference": 42.03125
+        },
+        {
+          "vocab_idx": 271,
+          "single_logit": 8.1875,
+          "dist_logit": 36.5,
+          "difference": 28.3125
+        },
+        {
+          "vocab_idx": 86077,
+          "single_logit": 7.96875,
+          "dist_logit": -15.9375,
+          "difference": 23.90625
+        },
+        {
+          "vocab_idx": 114998,
+          "single_logit": 6.625,
+          "dist_logit": -15.875,
+          "difference": 22.5
+        },
+        {
+          "vocab_idx": 108548,
+          "single_logit": 3.9375,
+          "dist_logit": -18.5,
+          "difference": 22.4375
+        }
+      ]
+    },
+    {
+      "token_idx": 16,
+      "max_diff": 39.89453125,
+      "mean_diff": 3.94514799118042,
+      "top_differences": [
+        {
+          "vocab_idx": 33465,
+          "single_logit": -0.89453125,
+          "dist_logit": 39.0,
+          "difference": 39.89453125
+        },
+        {
+          "vocab_idx": 12652,
+          "single_logit": -3.203125,
+          "dist_logit": 25.875,
+          "difference": 29.078125
+        },
+        {
+          "vocab_idx": 73438,
+          "single_logit": -3.734375,
+          "dist_logit": 24.875,
+          "difference": 28.609375
+        },
+        {
+          "vocab_idx": 63809,
+          "single_logit": -6.4375,
+          "dist_logit": 22.125,
+          "difference": 28.5625
+        },
+        {
+          "vocab_idx": 36779,
+          "single_logit": -5.65625,
+          "dist_logit": 22.625,
+          "difference": 28.28125
+        }
+      ]
+    },
+    {
+      "token_idx": 17,
+      "max_diff": 41.53125,
+      "mean_diff": 4.997512340545654,
+      "top_differences": [
+        {
+          "vocab_idx": 198,
+          "single_logit": 7.46875,
+          "dist_logit": 49.0,
+          "difference": 41.53125
+        },
+        {
+          "vocab_idx": 271,
+          "single_logit": 8.1875,
+          "dist_logit": 36.25,
+          "difference": 28.0625
+        },
+        {
+          "vocab_idx": 86077,
+          "single_logit": 7.96875,
+          "dist_logit": -15.6875,
+          "difference": 23.65625
+        },
+        {
+          "vocab_idx": 108548,
+          "single_logit": 3.9375,
+          "dist_logit": -18.875,
+          "difference": 22.8125
+        },
+        {
+          "vocab_idx": 102245,
+          "single_logit": 6.5,
+          "dist_logit": -16.125,
+          "difference": 22.625
+        }
+      ]
+    },
+    {
+      "token_idx": 18,
+      "max_diff": 40.14453125,
+      "mean_diff": 4.014294624328613,
+      "top_differences": [
+        {
+          "vocab_idx": 33465,
+          "single_logit": -0.89453125,
+          "dist_logit": 39.25,
+          "difference": 40.14453125
+        },
+        {
+          "vocab_idx": 12652,
+          "single_logit": -3.203125,
+          "dist_logit": 26.125,
+          "difference": 29.328125
+        },
+        {
+          "vocab_idx": 36779,
+          "single_logit": -5.65625,
+          "dist_logit": 23.125,
+          "difference": 28.78125
+        },
+        {
+          "vocab_idx": 60126,
+          "single_logit": -1.8046875,
+          "dist_logit": 26.875,
+          "difference": 28.6796875
+        },
+        {
+          "vocab_idx": 73438,
+          "single_logit": -3.734375,
+          "dist_logit": 24.75,
+          "difference": 28.484375
+        }
+      ]
+    },
+    {
+      "token_idx": 19,
+      "max_diff": 41.03125,
+      "mean_diff": 5.191440105438232,
+      "top_differences": [
+        {
+          "vocab_idx": 198,
+          "single_logit": 7.46875,
+          "dist_logit": 48.5,
+          "difference": 41.03125
+        },
+        {
+          "vocab_idx": 271,
+          "single_logit": 8.1875,
+          "dist_logit": 36.0,
+          "difference": 27.8125
+        },
+        {
+          "vocab_idx": 86077,
+          "single_logit": 7.96875,
+          "dist_logit": -15.75,
+          "difference": 23.71875
+        },
+        {
+          "vocab_idx": 102245,
+          "single_logit": 6.5,
+          "dist_logit": -16.625,
+          "difference": 23.125
+        },
+        {
+          "vocab_idx": 108548,
+          "single_logit": 3.9375,
+          "dist_logit": -19.0,
+          "difference": 22.9375
+        }
+      ]
     }
   ],
-  "recommendations": [
-    {
-      "priority": "IMMEDIATE",
-      "title": "Fix gRPC Client Bug",
-      "description": "Fix attribute access in GRPCInferenceClient to properly handle device objects",
-      "estimated_effort": "2-4 hours",
-      "files_to_modify": [
-        "src/communication/grpc_client.py"
-      ],
-      "blocking": true
-    },
-    {
-      "priority": "IMMEDIATE",
-      "title": "Implement Proper Distributed Forward Pass",
-      "description": "Modify orchestrator to implement 4-step flow: mini1\u2192mini2\u2192master\u2192mini1",
-      "estimated_effort": "1-2 days",
-      "files_to_modify": [
-        "src/coordinator/orchestrator.py"
-      ],
-      "blocking": true
-    },
-    {
-      "priority": "HIGH",
-      "title": "Add Autoregressive Generation Loop",
-      "description": "Implement iterative token generation with proper EOS handling",
-      "estimated_effort": "1-2 days",
-      "files_to_modify": [
-        "src/coordinator/orchestrator.py",
-        "generation pipeline"
-      ],
-      "blocking": true
-    },
-    {
-      "priority": "MEDIUM",
-      "title": "Initialize Missing Orchestrator Components",
-      "description": "Properly initialize connection_pool, model_loader, and layer_processor",
-      "estimated_effort": "4-8 hours",
-      "files_to_modify": [
-        "src/coordinator/orchestrator.py"
-      ],
-      "blocking": false
-    },
-    {
-      "priority": "LOW",
-      "title": "Add Device Utilization Monitoring",
-      "description": "Implement explicit tracking that all devices process their layers",
-      "estimated_effort": "4-6 hours",
-      "files_to_modify": [
-        "src/coordinator/orchestrator.py",
-        "monitoring components"
-      ],
-      "blocking": false
-    }
-  ],
-  "timestamp": 1754125915.14242,
-  "system_info": {
-    "platform": "MLX distributed inference cluster",
-    "devices": [
-      "mini1 (coordinator)",
-      "mini2 (worker)",
-      "master (worker)"
-    ],
-    "model": "mlx-community/Qwen3-1.7B-8bit",
-    "layer_distribution": "10-9-9",
-    "package_manager": "UV compliant"
+  "summary": {
+    "passed": false,
+    "failed_tokens": 20,
+    "overall_max_diff": 42.53125,
+    "overall_mean_diff": 4.472955381870269
   }
 }

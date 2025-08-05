@@ -1,0 +1,4 @@
+2025-08-04 15:31:24.599 - Rank 0 - INFO - === Starting basic communication test ===
+2025-08-04 15:31:24.599 - Rank 0 - INFO - Hostname: mini1.local
+2025-08-04 15:31:24.599 - Rank 0 - INFO - Rank: 0/2
+2025-08-04 15:31:24.599 - Rank 0 - INFO - Init method: tcp://0.0.0.0:29500

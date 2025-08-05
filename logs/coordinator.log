@@ -1,43 +1,29 @@
-INFO:__main__:Using DLPack-based tensor serialization for dtype preservation
-INFO:     Started server process [680]
+/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/pydantic/_internal/_config.py:373: UserWarning: Valid config keys have changed in V2:
+* 'schema_extra' has been renamed to 'json_schema_extra'
+  warnings.warn(message, UserWarning)
+2025-08-05 13:12:05,412 - [server_distributed] Rank 0 - INFO - Initializing server on rank 0
+2025-08-05 13:12:05,412 - [server_distributed] Rank 0 - INFO - Coordinator connecting to workers...
+2025-08-05 13:12:08,413 - [server_distributed] Rank 0 - INFO - Connecting to worker 1 at 192.168.5.2:50052
+2025-08-05 13:12:08,423 - [server_distributed] Rank 0 - INFO - Worker 1 responded: healthy=True, device=mini2
+2025-08-05 13:12:08,423 - [server_distributed] Rank 0 - INFO - Loading model mlx-community/Qwen3-1.7B-8bit
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1754392328.773513 2754515 fork_posix.cc:71] Other threads are currently calling into gRPC, skipping fork() handlers
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 109734.70it/s]
+2025-08-05 13:12:10,108 - [server_distributed] Rank 0 - INFO - Model loaded, coordinator handling layers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+2025-08-05 13:12:10,109 - [server_distributed] Rank 0 - INFO - Total layers: 28, Workers will handle remaining layers
+2025-08-05 13:12:10,109 - [server_distributed] Rank 0 - INFO - Initialized persistent KV cache with 28 MLX KVCache objects
+2025-08-05 13:12:10,109 - [server_distributed] Rank 0 - INFO - Cache list object ID: 14238545088
+2025-08-05 13:12:10,109 - [server_distributed] Rank 0 - INFO - Individual cache object IDs: [4972658176, 4972636880, 4972638480, 4972552592, 4972552896]... (showing first 5)
+2025-08-05 13:12:10,109 - [server_distributed] Rank 0 - INFO - Server initialized successfully on rank 0
+INFO:     Started server process [87730]
 INFO:     Waiting for application startup.
-INFO:__main__:🚀 Starting MLX Distributed Inference API...
-INFO:__main__:✅ Config loaded: mlx-community/Qwen3-1.7B-8bit
-INFO:__main__:📦 Loading model and tokenizer...
-Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 106035.78it/s]
-INFO:__main__:✅ Model loaded: 28 layers
-INFO:__main__:🔗 Connecting to workers...
-INFO:communication.dns_resolver:Resolved mini2.local -> 192.168.2.15 using mdns_native in 1.6ms
-ERROR:__main__:❌ mini2: Connection failed - <_InactiveRpcError of RPC that terminated with:
-	status = StatusCode.UNAVAILABLE
-	details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.15:50052: Failed to connect to remote host: connect: Connection refused (61)"
-	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.2.15:50052: Failed to connect to remote host: connect: Connection refused (61)", grpc_status:14}"
->
-INFO:communication.dns_resolver:Resolved master.local -> 192.168.2.106 using mdns_native in 1.0ms
-ERROR:__main__:❌ master: Connection failed - <_InactiveRpcError of RPC that terminated with:
-	status = StatusCode.DEADLINE_EXCEEDED
-	details = "Deadline Exceeded"
-	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:4, grpc_message:"Deadline Exceeded"}"
->
-INFO:__main__:✅ API server ready!
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
-INFO:__main__:Hidden states before workers - shape: (1, 11, 2048), dtype: mlx.core.bfloat16
-INFO:__main__:Prefill: Processing through 0 workers
-INFO:__main__:Model doesn't have lm_head, checking for tied embeddings...
-INFO:__main__:Used tied embeddings (embed_tokens.as_linear) - logits shape: (1, 11, 151936)
-INFO:__main__:Performance: 11 prompt tokens @ 12316.4 tok/s, 100 generated @ 24.1 tok/s, total time: 4.15s
-INFO:     127.0.0.1:58015 - "POST /v1/chat/completions HTTP/1.1" 200 OK
-INFO:__main__:Hidden states before workers - shape: (1, 7, 2048), dtype: mlx.core.bfloat16
-INFO:__main__:Prefill: Processing through 0 workers
-INFO:__main__:Model doesn't have lm_head, checking for tied embeddings...
-INFO:__main__:Used tied embeddings (embed_tokens.as_linear) - logits shape: (1, 7, 151936)
-INFO:__main__:Performance: 7 prompt tokens @ 21399.5 tok/s, 20 generated @ 47.2 tok/s, total time: 0.42s
-INFO:     127.0.0.1:58104 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53735 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53737 - "GET /health HTTP/1.1" 200 OK
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
-INFO:__main__:👋 Shutting down API server...
 INFO:     Application shutdown complete.
-INFO:     Finished server process [680]
-/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-weaja1dx'}
+INFO:     Finished server process [87730]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-unojrj9d'}
   warnings.warn(

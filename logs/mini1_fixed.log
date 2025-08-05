@@ -1,0 +1,3 @@
+2025-08-04 16:00:12,988 - Rank 0 - INFO - Initializing distributed: rank=0, world_size=2
+2025-08-04 16:00:12,988 - Rank 0 - INFO - Master: 192.168.5.1:29501
+2025-08-04 16:00:12,988 - Rank 0 - INFO - Init method: tcp://0.0.0.0:29501
