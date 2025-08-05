@@ -37,13 +37,18 @@ class InferenceServiceStub(object):
         """
         self.ProcessLayers = channel.unary_unary(
                 '/mlx_inference.InferenceService/ProcessLayers',
-                request_serializer=inference__pb2.LayerRequest.SerializeToString,
-                response_deserializer=inference__pb2.LayerResponse.FromString,
+                request_serializer=inference__pb2.LayerRequestV2.SerializeToString,
+                response_deserializer=inference__pb2.LayerResponseV2.FromString,
+                _registered_method=True)
+        self.Forward = channel.unary_unary(
+                '/mlx_inference.InferenceService/Forward',
+                request_serializer=inference__pb2.ForwardRequest.SerializeToString,
+                response_deserializer=inference__pb2.ForwardResponse.FromString,
                 _registered_method=True)
         self.HealthCheck = channel.unary_unary(
                 '/mlx_inference.InferenceService/HealthCheck',
-                request_serializer=inference__pb2.Empty.SerializeToString,
-                response_deserializer=inference__pb2.HealthStatus.FromString,
+                request_serializer=inference__pb2.HealthRequest.SerializeToString,
+                response_deserializer=inference__pb2.HealthResponse.FromString,
                 _registered_method=True)
         self.GetDeviceInfo = channel.unary_unary(
                 '/mlx_inference.InferenceService/GetDeviceInfo',
@@ -58,6 +63,13 @@ class InferenceServiceServicer(object):
 
     def ProcessLayers(self, request, context):
         """Process layers on this worker
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Forward(self, request, context):
+        """Forward pass (for embeddings and final projection)
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -82,13 +94,18 @@ def add_InferenceServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'ProcessLayers': grpc.unary_unary_rpc_method_handler(
                     servicer.ProcessLayers,
-                    request_deserializer=inference__pb2.LayerRequest.FromString,
-                    response_serializer=inference__pb2.LayerResponse.SerializeToString,
+                    request_deserializer=inference__pb2.LayerRequestV2.FromString,
+                    response_serializer=inference__pb2.LayerResponseV2.SerializeToString,
+            ),
+            'Forward': grpc.unary_unary_rpc_method_handler(
+                    servicer.Forward,
+                    request_deserializer=inference__pb2.ForwardRequest.FromString,
+                    response_serializer=inference__pb2.ForwardResponse.SerializeToString,
             ),
             'HealthCheck': grpc.unary_unary_rpc_method_handler(
                     servicer.HealthCheck,
-                    request_deserializer=inference__pb2.Empty.FromString,
-                    response_serializer=inference__pb2.HealthStatus.SerializeToString,
+                    request_deserializer=inference__pb2.HealthRequest.FromString,
+                    response_serializer=inference__pb2.HealthResponse.SerializeToString,
             ),
             'GetDeviceInfo': grpc.unary_unary_rpc_method_handler(
                     servicer.GetDeviceInfo,
@@ -122,8 +139,35 @@ class InferenceService(object):
             request,
             target,
             '/mlx_inference.InferenceService/ProcessLayers',
-            inference__pb2.LayerRequest.SerializeToString,
-            inference__pb2.LayerResponse.FromString,
+            inference__pb2.LayerRequestV2.SerializeToString,
+            inference__pb2.LayerResponseV2.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Forward(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mlx_inference.InferenceService/Forward',
+            inference__pb2.ForwardRequest.SerializeToString,
+            inference__pb2.ForwardResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -149,8 +193,8 @@ class InferenceService(object):
             request,
             target,
             '/mlx_inference.InferenceService/HealthCheck',
-            inference__pb2.Empty.SerializeToString,
-            inference__pb2.HealthStatus.FromString,
+            inference__pb2.HealthRequest.SerializeToString,
+            inference__pb2.HealthResponse.FromString,
             options,
             channel_credentials,
             insecure,

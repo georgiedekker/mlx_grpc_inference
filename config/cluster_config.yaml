@@ -43,7 +43,7 @@ devices:
       max_recommended_model_size_gb: 10
     
   - device_id: "master"
-    hostname: "master.local"
+    hostname: "m4.local"
     api_port: 8102
     grpc_port: 50051
     role: "worker"

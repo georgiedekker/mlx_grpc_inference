@@ -1,0 +1,48 @@
+INFO:     Started server process [9795]
+INFO:     Waiting for application startup.
+INFO:__main__:🚀 Starting MLX Distributed Inference API...
+INFO:__main__:✅ Config loaded: mlx-community/Qwen3-1.7B-8bit
+INFO:__main__:📦 Loading model and tokenizer...
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 136277.03it/s]
+INFO:__main__:✅ Model loaded: 28 layers
+INFO:__main__:🔗 Connecting to workers...
+INFO:communication.dns_resolver:Resolved mini2.local -> 169.254.149.32 using mdns_native in 2.0ms
+ERROR:__main__:❌ mini2: Connection failed - <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNIMPLEMENTED
+	details = "Method not implemented!"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:12, grpc_message:"Method not implemented!"}"
+>
+INFO:communication.dns_resolver:Resolved m4.local -> 169.254.100.124 using mdns_native in 0.7ms
+ERROR:__main__:❌ master: Connection failed - <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNIMPLEMENTED
+	details = "Method not implemented!"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"Method not implemented!", grpc_status:12}"
+>
+INFO:__main__:✅ API server ready!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+INFO:__main__:Hidden states before workers - shape: (1, 8, 2048), dtype: mlx.core.bfloat16
+INFO:__main__:Prefill: Processing through 0 workers
+INFO:__main__:Model doesn't have lm_head, checking for tied embeddings...
+INFO:__main__:Used tied embeddings (embed_tokens.as_linear) - logits shape: (1, 8, 151936)
+INFO:__main__:Performance: 8 prompt tokens @ 9697.8 tok/s, 50 generated @ 32.0 tok/s, total time: 1.57s
+INFO:     127.0.0.1:55876 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:__main__:Hidden states before workers - shape: (1, 7, 2048), dtype: mlx.core.bfloat16
+INFO:__main__:Prefill: Processing through 0 workers
+INFO:__main__:Model doesn't have lm_head, checking for tied embeddings...
+INFO:__main__:Used tied embeddings (embed_tokens.as_linear) - logits shape: (1, 7, 151936)
+INFO:__main__:Performance: 7 prompt tokens @ 4830.6 tok/s, 20 generated @ 45.6 tok/s, total time: 0.44s
+INFO:     127.0.0.1:55878 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:__main__:Hidden states before workers - shape: (1, 8, 2048), dtype: mlx.core.bfloat16
+INFO:__main__:Prefill: Processing through 0 workers
+INFO:__main__:Model doesn't have lm_head, checking for tied embeddings...
+INFO:__main__:Used tied embeddings (embed_tokens.as_linear) - logits shape: (1, 8, 151936)
+INFO:__main__:Performance: 8 prompt tokens @ 6746.0 tok/s, 50 generated @ 29.9 tok/s, total time: 1.67s
+INFO:     127.0.0.1:55945 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:__main__:👋 Shutting down API server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [9795]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-j44zikec'}
+  warnings.warn(

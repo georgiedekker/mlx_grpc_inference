@@ -5,10 +5,13 @@ package mlx_inference;
 // Service for distributed inference
 service InferenceService {
     // Process layers on this worker
-    rpc ProcessLayers(LayerRequest) returns (LayerResponse);
+    rpc ProcessLayers(LayerRequestV2) returns (LayerResponseV2);
+    
+    // Forward pass (for embeddings and final projection)
+    rpc Forward(ForwardRequest) returns (ForwardResponse);
     
     // Health check
-    rpc HealthCheck(Empty) returns (HealthStatus);
+    rpc HealthCheck(HealthRequest) returns (HealthResponse);
     
     // Get device information
     rpc GetDeviceInfo(Empty) returns (DeviceInfo);
@@ -16,39 +19,6 @@ service InferenceService {
 
 // Empty message for requests without parameters
 message Empty {}
-
-// Tensor metadata
-message TensorMetadata {
-    repeated int64 shape = 1;
-    string dtype = 2;
-    bool compressed = 3;
-}
-
-// Layer processing request
-message LayerRequest {
-    string request_id = 1;
-    bytes input_tensor = 2;
-    repeated int32 layer_indices = 3;
-    TensorMetadata metadata = 4;
-    map<string, string> context = 5;  // Additional context (e.g., attention mask)
-}
-
-// Layer processing response
-message LayerResponse {
-    string request_id = 1;
-    bytes output_tensor = 2;
-    TensorMetadata metadata = 3;
-    float processing_time_ms = 4;
-    string device_id = 5;
-}
-
-// Health status
-message HealthStatus {
-    bool healthy = 1;
-    string device_id = 2;
-    int64 timestamp = 3;
-    map<string, string> details = 4;
-}
 
 // Device information
 message DeviceInfo {
@@ -60,4 +30,44 @@ message DeviceInfo {
     map<string, string> capabilities = 6;
     float gpu_utilization = 7;
     float memory_usage_gb = 8;
+}
+
+// Tensor message
+message Tensor {
+    bytes data = 1;
+    repeated int64 shape = 2;
+    string dtype = 3;
+}
+
+// Updated layer request to use Tensor
+message LayerRequestV2 {
+    Tensor input_tensor = 1;
+    int32 start_layer = 2;
+    int32 end_layer = 3;
+}
+
+// Updated layer response to use Tensor
+message LayerResponseV2 {
+    Tensor output_tensor = 1;
+}
+
+// Forward request
+message ForwardRequest {
+    repeated int64 input_ids = 1;
+    Tensor input_tensor = 2;
+    bool is_embedding = 3;
+    bool is_final_projection = 4;
+}
+
+// Forward response
+message ForwardResponse {
+    Tensor output = 1;
+}
+
+// Health check request/response
+message HealthRequest {}
+
+message HealthResponse {
+    string status = 1;
+    string message = 2;
 }

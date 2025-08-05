@@ -1,0 +1,16 @@
+#!/bin/bash
+# Launch worker on a device
+# Usage: ./launch_worker.sh <worker_id> <total_workers> [port]
+
+# Ensure PATH includes homebrew
+export PATH=/opt/homebrew/bin:/usr/local/bin:$PATH
+
+WORKER_ID=${1:-1}
+TOTAL_WORKERS=${2:-3}
+PORT=${3:-50051}
+
+# Kill any existing worker processes
+pkill -f "python.*worker.py"
+
+echo "Starting worker $WORKER_ID (of $TOTAL_WORKERS total) on port $PORT..."
+uv run python worker.py $WORKER_ID $TOTAL_WORKERS $PORT

@@ -80,32 +80,15 @@ class LayerProcessor:
                              layer_idx: int,
                              context: Optional[Dict[str, Any]]) -> mx.array:
         """Process a single transformer layer."""
-        # This is a simplified version - actual implementation would handle
-        # attention masks, position embeddings, etc. from context
+        # Call the layer directly - it knows how to process itself
+        # Most modern models (including Qwen3) handle their own internal processing
+        layer_output = layer(hidden_states)
         
-        residual = hidden_states
-        
-        # Layer norm
-        if hasattr(layer, 'input_layernorm'):
-            hidden_states = layer.input_layernorm(hidden_states)
-        
-        # Self-attention
-        if hasattr(layer, 'self_attn'):
-            # In real implementation, we'd pass attention mask from context
-            attn_output = layer.self_attn(hidden_states)
-            if isinstance(attn_output, tuple):
-                attn_output = attn_output[0]
-            hidden_states = residual + attn_output
-            residual = hidden_states
-        
-        # Post-attention layer norm
-        if hasattr(layer, 'post_attention_layernorm'):
-            hidden_states = layer.post_attention_layernorm(hidden_states)
-        
-        # MLP
-        if hasattr(layer, 'mlp'):
-            mlp_output = layer.mlp(hidden_states)
-            hidden_states = residual + mlp_output
+        # Handle if layer returns tuple (hidden_states, attention_weights, ...)
+        if isinstance(layer_output, tuple):
+            hidden_states = layer_output[0]
+        else:
+            hidden_states = layer_output
         
         return hidden_states
     

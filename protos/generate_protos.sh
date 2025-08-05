@@ -6,17 +6,16 @@ cd "$(dirname "$0")"
 echo "Generating Python code from proto files..."
 
 cd ..
-source .venv/bin/activate
-cd protos
 
-python -m grpc_tools.protoc \
-    -I. \
-    --python_out=../src/communication \
-    --grpc_python_out=../src/communication \
-    inference.proto
+# Use uv to run the command
+uv run python -m grpc_tools.protoc \
+    -Iprotos \
+    --python_out=src/communication \
+    --grpc_python_out=src/communication \
+    protos/inference.proto
 
 # Fix imports in generated files
-cd ../src/communication
+cd src/communication
 
 # Update imports to use relative imports
 if [[ "$OSTYPE" == "darwin"* ]]; then

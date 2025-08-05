@@ -1,0 +1,8 @@
+{
+  "model": "mlx-community/Qwen3-1.7B-8bit",
+  "messages": [
+    {"role": "user", "content": "What is 2 + 2? Answer with just the number."}
+  ],
+  "max_tokens": 10,
+  "temperature": 0.1
+}
