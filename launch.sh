@@ -16,10 +16,9 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Worker configurations
-WORKER_NAMES=("mini2" "m4")
+WORKER_NAMES=("mini2")
 WORKER_CONFIGS=(
     "mini2@192.168.5.2:~/Movies/mlx_grpc_inference"
-    "georgedekker@192.168.5.3:~/Movies/mlx_grpc_inference"
 )
 
 # Files to sync to workers
@@ -110,7 +109,7 @@ start_worker() {
     local user_host=$2
     local dest_dir=$3
     local worker_id=$4
-    local total_workers=3
+    local total_workers=2
     
     log "Starting worker on $name (worker $worker_id of $total_workers)..."
     
@@ -140,8 +139,8 @@ start_worker() {
             return 0
         fi
         
-        # Check for errors
-        if ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no $user@$host "cd $dest_dir && grep -q 'error\|Error\|ERROR' worker.log 2>/dev/null"; then
+        # Check for actual errors (not just the word ERROR in logs)
+        if ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no $user@$host "cd $dest_dir && grep -E 'Traceback|Exception|Error:|ERROR -|failed to|cannot' worker.log 2>/dev/null"; then
             error "Worker on $name encountered an error:"
             ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no $user@$host "cd $dest_dir && tail -5 worker.log"
             return 1

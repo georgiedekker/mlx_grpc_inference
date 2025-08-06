@@ -32,12 +32,25 @@ def serialize_mlx_array(array: mx.array,
     start_time = time.time()
     
     # Convert to numpy for serialization
-    # First ensure the array is evaluated
+    # First ensure the array is evaluated and synchronized
     mx.eval(array)
-    # Convert to float32 if needed to avoid dtype issues
-    if array.dtype in [mx.float16, mx.bfloat16]:
+    mx.synchronize()  # CRITICAL: Ensure all operations complete before serialization
+    
+    # Store original dtype for proper reconstruction
+    original_dtype = str(array.dtype)
+    logger.debug(f"Serializing MLX array with dtype: {array.dtype}, shape: {array.shape}")
+    
+    # CRITICAL: Handle bfloat16 specially - NumPy doesn't support it natively
+    if array.dtype == mx.bfloat16:
+        # Convert to float32 for serialization (NumPy doesn't support bfloat16)
+        logger.debug("Converting bfloat16 to float32 for serialization")
         array = array.astype(mx.float32)
-    np_array = np.array(array)
+        np_array = np.array(array, copy=True)
+    else:
+        # For other dtypes, preserve exact representation
+        np_array = np.array(array, copy=True)  # Force copy to ensure data is materialized
+    
+    logger.debug(f"NumPy array dtype: {np_array.dtype}, shape: {np_array.shape}")
     
     # Serialize to bytes first
     raw_data = pickle.dumps(np_array)
@@ -66,6 +79,7 @@ def serialize_mlx_array(array: mx.array,
     metadata = {
         'shape': list(np_array.shape),
         'dtype': str(np_array.dtype),
+        'mlx_dtype': original_dtype,  # CRITICAL: Store MLX dtype for exact reconstruction
         'compressed': compress,
         'original_size': original_size,
         'compressed_size': len(compressed_data),
@@ -111,8 +125,20 @@ def deserialize_mlx_array(data: bytes, metadata: Dict[str, Any]) -> mx.array:
     # Deserialize numpy array
     np_array = pickle.loads(data)
     
-    # Convert back to MLX
+    # Convert back to MLX with the ORIGINAL dtype
     mlx_array = mx.array(np_array)
+    
+    # CRITICAL: Restore original MLX dtype if needed
+    if 'mlx_dtype' in metadata:
+        mlx_dtype_str = metadata['mlx_dtype']
+        
+        # Special handling for bfloat16 (was converted to float32 for serialization)
+        if mlx_dtype_str == 'bfloat16':
+            logger.debug(f"Restoring bfloat16 from {mlx_array.dtype}")
+            mlx_array = mlx_array.astype(mx.bfloat16)
+        elif str(mlx_array.dtype) != mlx_dtype_str:
+            logger.warning(f"Dtype mismatch after deserialization: expected {mlx_dtype_str}, got {mlx_array.dtype}")
+            # For other types, preserve what we got to avoid corruption
     
     # Verify shape
     expected_shape = tuple(metadata['shape'])

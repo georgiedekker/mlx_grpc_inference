@@ -44,6 +44,7 @@ message LayerRequestV2 {
     Tensor input_tensor = 1;
     int32 start_layer = 2;
     int32 end_layer = 3;
+    Tensor attention_mask = 4;  // Optional attention mask
 }
 
 // Updated layer response to use Tensor
@@ -57,6 +58,7 @@ message ForwardRequest {
     Tensor input_tensor = 2;
     bool is_embedding = 3;
     bool is_final_projection = 4;
+    Tensor attention_mask = 5;  // Optional attention mask
 }
 
 // Forward response

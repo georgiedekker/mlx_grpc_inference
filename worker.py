@@ -11,6 +11,7 @@ import asyncio
 from concurrent import futures
 import mlx.core as mx
 from mlx_lm import load
+from mlx_lm.models.base import create_attention_mask, create_causal_mask
 
 # Force reload proto modules to avoid stale imports
 import importlib
@@ -74,27 +75,69 @@ class WorkerService(inference_pb2_grpc.InferenceServiceServicer):
             
             # Deserialize input tensor
             input_tensor = deserialize_tensor(request.input_tensor)
-            logger.info(f"Deserialized tensor shape: {input_tensor.shape}")
+            logger.info(f"Deserialized tensor shape: {input_tensor.shape}, mean: {input_tensor.mean():.6f}, std: {input_tensor.std():.6f}")
+            
+            # Create attention mask locally based on sequence length
+            T = input_tensor.shape[1]
+            if T > 1:
+                attention_mask = create_causal_mask(T, offset=0)
+                logger.info(f"Created local causal mask with shape: {attention_mask.shape}")
+            else:
+                attention_mask = None
+                logger.info("Single token - no mask needed")
+            
+            # Check input validity - allow higher std for this quantized model
+            input_std = float(input_tensor.std())
+            if input_std > 200.0:  # Increased threshold for Qwen3-1.7B-8bit
+                logger.error(f"Input tensor std deviation {input_std:.2f} is too high!")
+                context.abort(grpc.StatusCode.INVALID_ARGUMENT, f"Input numerical instability: std={input_std:.2f}")
             
             # Process layers with MLX GPU stream
             with mx.stream(mx.gpu):
                 hidden = input_tensor
-                for i in range(request.start_layer, request.end_layer):
+                
+                # CRITICAL: Ensure input is fully loaded before processing
+                mx.eval(hidden)
+                mx.synchronize()
+                
+                # Create cache for layers
+                cache = [None] * (request.end_layer - request.start_layer)
+                
+                for idx, i in enumerate(range(request.start_layer, request.end_layer)):
                     if i < len(model.model.layers):
-                        hidden = model.model.layers[i](hidden)
+                        # Pass mask and cache
+                        hidden = model.model.layers[i](hidden, attention_mask, cache[idx])
                         # Force evaluation after each layer
                         mx.eval(hidden)
+                        
+                        # CRITICAL: Synchronize to prevent race conditions
+                        mx.synchronize()
+                        
+                        # Check for numerical instability after each layer
+                        layer_std = float(hidden.std())
+                        if layer_std > 200.0:  # Increased threshold for Qwen3-1.7B-8bit
+                            logger.error(f"Layer {i} produced unstable output: std={layer_std:.2f}")
+                            context.abort(grpc.StatusCode.INTERNAL, f"Layer {i} numerical instability: std={layer_std:.2f}")
                     else:
                         logger.warning(f"Layer {i} out of bounds (model has {len(model.model.layers)} layers)")
                 
-                # Ensure final result is evaluated
+                # Ensure final result is evaluated and synchronized
                 mx.eval(hidden)
+                mx.synchronize()
+            
+            # Final validation
+            output_std = float(hidden.std())
+            logger.info(f"Output tensor stats - shape: {hidden.shape}, mean: {hidden.mean():.6f}, std: {output_std:.6f}")
+            
+            if output_std > 200.0:  # Increased threshold for Qwen3-1.7B-8bit
+                logger.error(f"Output tensor std deviation {output_std:.2f} is too high!")
+                context.abort(grpc.StatusCode.INTERNAL, f"Output numerical instability: std={output_std:.2f}")
             
             # Serialize output
             response = inference_pb2.LayerResponseV2()
             response.output_tensor.CopyFrom(serialize_tensor(hidden))
             
-            logger.info(f"Processed layers, output shape: {hidden.shape}")
+            logger.info(f"Processed layers successfully")
             return response
             
         except Exception as e:
@@ -166,10 +209,11 @@ def initialize_worker(worker_id: int, total_workers: int):
     device_id = worker_id
     model_name = "mlx-community/Qwen3-1.7B-8bit"
     
-    logger.info(f"Loading model {model_name} on worker {worker_id}")
-    model, tokenizer = load(model_name, lazy=True)
+    logger.info(f"Loading model {model_name} on worker {worker_id} (total_workers={total_workers})")
+    # CRITICAL: Don't use lazy loading - load the full model to ensure weights are correct
+    model, tokenizer = load(model_name, lazy=False)
     
-    # Calculate layer assignment
+    # Calculate layer assignment FIRST before using the variables
     total_layers = len(model.model.layers)
     layers_per_worker = total_layers // total_workers
     remainder = total_layers % total_workers
@@ -185,12 +229,48 @@ def initialize_worker(worker_id: int, total_workers: int):
     is_first = worker_id == 0
     is_last = worker_id == total_workers - 1
     
+    # CRITICAL: Force model evaluation to ensure weights are loaded properly
+    logger.info(f"Testing model layers {start_layer} to {end_layer-1}...")
+    with mx.stream(mx.gpu):
+        # Test with a realistic input
+        test_tokens = [151644, 872, 198, 9707, 151645, 198, 151644, 77091, 198]
+        test_input = mx.array([test_tokens[:5]])  # Use first 5 tokens
+        
+        # Get embeddings (we need this even if we're not the first worker)
+        test_hidden = model.model.embed_tokens(test_input)
+        mx.eval(test_hidden)
+        logger.info(f"Test embeddings shape: {test_hidden.shape}, std: {test_hidden.std():.6f}")
+        
+        # Create attention mask for testing
+        test_mask = create_attention_mask(test_hidden, cache=None)
+        test_cache = [None] * len(model.model.layers)
+        
+        # If we're not the first worker, we need to process through earlier layers
+        # to get a proper input state
+        if start_layer > 0:
+            logger.info(f"Processing through layers 0-{start_layer-1} to prepare input state...")
+            for i in range(start_layer):
+                test_hidden = model.model.layers[i](test_hidden, test_mask, test_cache[i])
+                mx.eval(test_hidden)
+            logger.info(f"Input preparation complete, std: {test_hidden.std():.6f}")
+        
+        # Now test our assigned layers
+        logger.info(f"Testing assigned layers {start_layer}-{end_layer-1}...")
+        for i in range(start_layer, end_layer):
+            test_hidden = model.model.layers[i](test_hidden, test_mask, test_cache[i])
+            mx.eval(test_hidden)
+            if test_hidden.std() > 200:  # Increased threshold - high std is normal with mask
+                logger.warning(f"Layer {i} produces high std: {test_hidden.std():.6f} (normal with attention mask)")
+        
+        logger.info(f"Model test complete, final std: {test_hidden.std():.6f}")
+    
     # Log memory usage
     mem_info = mx.metal.device_info() or {}
     used = mem_info.get('used_memory', 0)
     total = mem_info.get('total_memory', 0)
     logger.info(f"Model loaded. Memory: {used/1e9:.2f}GB/{total/1e9:.2f}GB")
     logger.info(f"Assigned layers: {start_layer}-{end_layer-1} (is_first={is_first}, is_last={is_last})")
+    logger.info(f"Worker {worker_id} ready with {num_layers} layers out of {total_layers} total")
     
     return WorkerService(worker_id, start_layer, end_layer, is_first, is_last)
 

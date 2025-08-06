@@ -1,0 +1,32 @@
+2025-08-05 23:08:02,215 - INFO - Loading model configuration from mlx-community/Qwen3-1.7B-8bit
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 46147.60it/s]
+2025-08-05 23:08:03,969 - INFO - Model has 28 layers
+2025-08-05 23:08:03,969 - INFO - Distributing 28 layers across 3 workers
+2025-08-05 23:08:03,969 - INFO - Base layers per worker: 9, remainder: 1
+2025-08-05 23:08:03,969 - INFO - Worker 0 (192.168.5.1:50051): layers 0-9 (10 layers)
+2025-08-05 23:08:03,969 - INFO - Worker 1 (192.168.5.2:50051): layers 10-18 (9 layers)
+2025-08-05 23:08:03,969 - INFO - Worker 2 (192.168.5.3:50051): layers 19-27 (9 layers)
+2025-08-05 23:08:03,969 - INFO - Connecting to worker at 192.168.5.1:50051 (layers 0-9)
+2025-08-05 23:08:03,969 - INFO - Connecting to worker at 192.168.5.2:50051 (layers 10-18)
+2025-08-05 23:08:03,978 - INFO - Connecting to worker at 192.168.5.3:50051 (layers 19-27)
+2025-08-05 23:08:03,978 - INFO - Coordinator initialized successfully
+2025-08-05 23:08:03,979 - INFO - Starting FastAPI server on port 8100
+INFO:     Started server process [32839]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+2025-08-05 23:08:04,012 - INFO - Local gRPC worker service started on port 50051
+ERROR:    [Errno 48] error while attempting to bind on address ('0.0.0.0', 8100): [errno 48] address already in use
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+Exception ignored in: <function Server.__del__ at 0x106197600>
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/aio/_server.py", line 194, in __del__
+    cygrpc.schedule_coro_threadsafe(
+  File "src/python/grpcio/grpc/_cython/_cygrpc/aio/common.pyx.pxi", line 120, in grpc._cython.cygrpc.schedule_coro_threadsafe
+  File "src/python/grpcio/grpc/_cython/_cygrpc/aio/common.pyx.pxi", line 112, in grpc._cython.cygrpc.schedule_coro_threadsafe
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 466, in create_task
+    self._check_closed()
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 556, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+<sys>:0: RuntimeWarning: coroutine 'AioServer.shutdown' was never awaited
