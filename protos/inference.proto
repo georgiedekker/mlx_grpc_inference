@@ -15,6 +15,12 @@ service InferenceService {
     
     // Get device information
     rpc GetDeviceInfo(Empty) returns (DeviceInfo);
+    
+    // AllReduce for tensor parallelism
+    rpc AllReduce(AllReduceRequest) returns (AllReduceResponse);
+    
+    // Initialize tensor parallel model shards
+    rpc InitializeModelShard(ModelShardRequest) returns (ModelShardResponse);
 }
 
 // Empty message for requests without parameters
@@ -39,12 +45,15 @@ message Tensor {
     string dtype = 3;
 }
 
-// Updated layer request to use Tensor
+// Updated layer request to use Tensor with KV cache support
 message LayerRequestV2 {
     Tensor input_tensor = 1;
     int32 start_layer = 2;
     int32 end_layer = 3;
     Tensor attention_mask = 4;  // Optional attention mask
+    string session_id = 5;  // Session ID for KV cache
+    bool is_prompt = 6;  // True for initial prompt, false for generation
+    bool clear_cache = 7;  // Clear cache for this session
 }
 
 // Updated layer response to use Tensor
@@ -52,13 +61,15 @@ message LayerResponseV2 {
     Tensor output_tensor = 1;
 }
 
-// Forward request
+// Forward request with KV cache support
 message ForwardRequest {
     repeated int64 input_ids = 1;
     Tensor input_tensor = 2;
     bool is_embedding = 3;
     bool is_final_projection = 4;
     Tensor attention_mask = 5;  // Optional attention mask
+    string session_id = 6;  // Session ID for KV cache
+    bool is_prompt = 7;  // True for initial prompt, false for generation
 }
 
 // Forward response
@@ -70,6 +81,33 @@ message ForwardResponse {
 message HealthRequest {}
 
 message HealthResponse {
+    string status = 1;
+    string message = 2;
+}
+
+// AllReduce operations for tensor parallelism
+message AllReduceRequest {
+    Tensor tensor = 1;
+    string operation = 2;  // "SUM", "MEAN", "MAX", "MIN", "GATHER", "BROADCAST"
+    string session_id = 3;
+    int32 device_id = 4;
+    int32 world_size = 5;
+}
+
+message AllReduceResponse {
+    Tensor result_tensor = 1;
+    string status = 2;
+}
+
+// Model sharding for tensor parallelism
+message ModelShardRequest {
+    int32 device_id = 1;
+    int32 world_size = 2;
+    string model_name = 3;
+    map<string, Tensor> weight_shards = 4;  // layer_name -> weight tensor
+}
+
+message ModelShardResponse {
     string status = 1;
     string message = 2;
 }

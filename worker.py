@@ -12,6 +12,7 @@ from concurrent import futures
 import mlx.core as mx
 from mlx_lm import load
 from mlx_lm.models.base import create_attention_mask, create_causal_mask
+from mlx_lm.models.cache import KVCache
 
 # Force reload proto modules to avoid stale imports
 import importlib
@@ -48,6 +49,10 @@ def deserialize_tensor(tensor: inference_pb2.Tensor) -> mx.array:
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+# CRITICAL: Set GPU as default device for all operations
+mx.set_default_device(mx.gpu)
+logger.info("Default device set to GPU")
+
 print("WORKER VERSION: 2.0 - Debug ProcessLayers", flush=True)
 
 # Global model state
@@ -55,6 +60,10 @@ model = None
 tokenizer = None
 device_id = None
 assigned_layers = None
+
+# Mask cache to avoid recreating masks
+mask_cache = {}
+MAX_SEQUENCE_LENGTH = 2048  # Maximum sequence length we'll support
 
 class WorkerService(inference_pb2_grpc.InferenceServiceServicer):
     """Worker service for processing model layers."""
@@ -65,26 +74,47 @@ class WorkerService(inference_pb2_grpc.InferenceServiceServicer):
         self.end_layer = end_layer
         self.is_first = is_first
         self.is_last = is_last
-        logger.info(f"Worker {worker_id} initialized for layers {start_layer}-{end_layer-1}")
+        # KV cache storage per session
+        self.kv_caches = {}  # session_id -> {layer_idx -> cache}
+        self.cache_timestamps = {}  # session_id -> last_access_time
+        logger.info(f"Worker {worker_id} initialized for layers {start_layer}-{end_layer-1} with KV cache support")
     
     def ProcessLayers(self, request, context):
-        """Process transformer layers."""
+        """Process transformer layers with KV cache support."""
         try:
-            logger.info(f"ProcessLayers called - start_layer={request.start_layer}, end_layer={request.end_layer}")
+            session_id = request.session_id or "default"
+            is_prompt = request.is_prompt
+            
+            logger.info(f"ProcessLayers - session={session_id}, is_prompt={is_prompt}, layers={request.start_layer}-{request.end_layer}")
             logger.info(f"Input tensor shape: {list(request.input_tensor.shape)}, dtype={request.input_tensor.dtype}")
+            
+            # Handle cache clearing
+            if request.clear_cache and session_id in self.kv_caches:
+                del self.kv_caches[session_id]
+                logger.info(f"Cleared cache for session {session_id}")
             
             # Deserialize input tensor
             input_tensor = deserialize_tensor(request.input_tensor)
-            logger.info(f"Deserialized tensor shape: {input_tensor.shape}, mean: {input_tensor.mean():.6f}, std: {input_tensor.std():.6f}")
+            logger.info(f"Input shape: {input_tensor.shape}, is_prompt={is_prompt}")
             
-            # Create attention mask locally based on sequence length
+            # Get or create KV cache for this session
+            if session_id not in self.kv_caches:
+                self.kv_caches[session_id] = {}
+                logger.info(f"Created new KV cache for session {session_id}")
+            
+            session_cache = self.kv_caches[session_id]
+            
+            # Handle attention mask
             T = input_tensor.shape[1]
-            if T > 1:
-                attention_mask = create_causal_mask(T, offset=0)
-                logger.info(f"Created local causal mask with shape: {attention_mask.shape}")
+            if is_prompt and T > 1:
+                # For prompt processing, use full causal mask
+                if T not in mask_cache:
+                    mask_cache[T] = create_causal_mask(T, offset=0)
+                    logger.info(f"Created causal mask for T={T}")
+                attention_mask = mask_cache[T]
             else:
+                # For single token generation, no mask needed (or use cached position)
                 attention_mask = None
-                logger.info("Single token - no mask needed")
             
             # Check input validity - allow higher std for this quantized model
             input_std = float(input_tensor.std())
@@ -92,7 +122,7 @@ class WorkerService(inference_pb2_grpc.InferenceServiceServicer):
                 logger.error(f"Input tensor std deviation {input_std:.2f} is too high!")
                 context.abort(grpc.StatusCode.INVALID_ARGUMENT, f"Input numerical instability: std={input_std:.2f}")
             
-            # Process layers with MLX GPU stream
+            # Process layers with MLX GPU stream and KV caching
             with mx.stream(mx.gpu):
                 hidden = input_tensor
                 
@@ -100,17 +130,23 @@ class WorkerService(inference_pb2_grpc.InferenceServiceServicer):
                 mx.eval(hidden)
                 mx.synchronize()
                 
-                # Create cache for layers
-                cache = [None] * (request.end_layer - request.start_layer)
-                
                 for idx, i in enumerate(range(request.start_layer, request.end_layer)):
                     if i < len(model.model.layers):
-                        # Pass mask and cache
-                        hidden = model.model.layers[i](hidden, attention_mask, cache[idx])
+                        # Get or create cache for this layer
+                        layer_key = f"layer_{i}"
+                        if is_prompt or layer_key not in session_cache:
+                            # First pass or no cache - create new KVCache object
+                            layer_cache = KVCache()
+                            session_cache[layer_key] = layer_cache
+                        else:
+                            # Use existing cache for incremental generation
+                            layer_cache = session_cache[layer_key]
+                        
+                        # Process layer with cache (cache is updated in-place)
+                        hidden = model.model.layers[i](hidden, attention_mask, layer_cache)
+                        
                         # Force evaluation after each layer
                         mx.eval(hidden)
-                        
-                        # CRITICAL: Synchronize to prevent race conditions
                         mx.synchronize()
                         
                         # Check for numerical instability after each layer
@@ -133,6 +169,9 @@ class WorkerService(inference_pb2_grpc.InferenceServiceServicer):
                 logger.error(f"Output tensor std deviation {output_std:.2f} is too high!")
                 context.abort(grpc.StatusCode.INTERNAL, f"Output numerical instability: std={output_std:.2f}")
             
+            # CRITICAL: Synchronize before serialization
+            mx.synchronize()
+            
             # Serialize output
             response = inference_pb2.LayerResponseV2()
             response.output_tensor.CopyFrom(serialize_tensor(hidden))
@@ -154,6 +193,7 @@ class WorkerService(inference_pb2_grpc.InferenceServiceServicer):
                 with mx.stream(mx.gpu):
                     embeddings = model.model.embed_tokens(input_ids)
                     mx.eval(embeddings)
+                    mx.synchronize()  # Ensure operations complete before serialization
                 
                 response = inference_pb2.ForwardResponse()
                 response.output.CopyFrom(serialize_tensor(embeddings))
@@ -178,6 +218,7 @@ class WorkerService(inference_pb2_grpc.InferenceServiceServicer):
                         logger.error(f"Cannot find output projection. Model type: {type(model)}")
                         raise AttributeError("Cannot find output projection layer")
                     mx.eval(logits)
+                    mx.synchronize()  # Ensure operations complete before serialization
                 
                 response = inference_pb2.ForwardResponse()
                 response.output.CopyFrom(serialize_tensor(logits))
@@ -201,6 +242,35 @@ class WorkerService(inference_pb2_grpc.InferenceServiceServicer):
             status="healthy",
             message=f"Worker {self.worker_id} ready, layers {self.start_layer}-{self.end_layer-1}"
         )
+    
+    def AllReduce(self, request, context):
+        """Handle AllReduce operations for tensor parallelism."""
+        try:
+            operation = request.operation
+            session_id = request.session_id
+            device_id = request.device_id
+            
+            logger.info(f"Worker {self.worker_id} AllReduce: {operation} for session {session_id}")
+            
+            # Deserialize input tensor
+            input_tensor = deserialize_tensor(request.tensor)
+            
+            if operation == "BROADCAST":
+                # Receive broadcast from coordinator
+                response = inference_pb2.AllReduceResponse()
+                response.result_tensor.CopyFrom(serialize_tensor(input_tensor))
+                response.status = "completed"
+                return response
+            else:
+                # For other operations, just echo back (handled by coordinator)
+                response = inference_pb2.AllReduceResponse()
+                response.result_tensor.CopyFrom(serialize_tensor(input_tensor))
+                response.status = "completed"
+                return response
+                
+        except Exception as e:
+            logger.error(f"AllReduce error: {e}")
+            context.abort(grpc.StatusCode.INTERNAL, str(e))
 
 def initialize_worker(worker_id: int, total_workers: int):
     """Initialize worker with model layers."""

@@ -14,11 +14,13 @@ import uvicorn
 import mlx.core as mx
 from mlx_lm import load, generate
 from mlx_lm.models.base import create_attention_mask, create_causal_mask
+from mlx_lm.models.cache import KVCache
 from typing import List, Dict, Any
 from concurrent import futures
 
 from src.communication import inference_pb2, inference_pb2_grpc
 from src.communication.tensor_utils import serialize_mlx_array, deserialize_mlx_array
+from src.performance_monitor import get_monitor, DashboardServer
 
 # Wrapper functions to match proto format
 def serialize_tensor(array: mx.array) -> inference_pb2.Tensor:
@@ -43,6 +45,10 @@ def deserialize_tensor(tensor: inference_pb2.Tensor) -> mx.array:
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+# CRITICAL: Set GPU as default device for all operations
+mx.set_default_device(mx.gpu)
+logger.info("Default device set to GPU")
 
 # FastAPI app
 app = FastAPI(title="MLX Distributed Inference")
@@ -70,6 +76,14 @@ model = None
 tokenizer = None
 worker_stubs = []
 model_config = None
+
+# Mask cache to avoid recreating masks
+mask_cache = {}
+MAX_SEQUENCE_LENGTH = 2048  # Maximum sequence length we'll support
+
+# KV cache storage for local layers
+local_kv_caches = {}  # session_id -> {layer_idx -> cache}
+local_cache_timestamps = {}  # session_id -> last_access_time
 
 # Configuration - default value, can be overridden per request
 DEFAULT_USE_DISTRIBUTED_INFERENCE = 'auto'  # 'always', 'never', 'auto'
@@ -187,12 +201,23 @@ def initialize_coordinator():
     
     logger.info(f"Coordinator initialized successfully with {len(worker_stubs)} workers")
 
-async def distributed_forward(input_ids: mx.array) -> mx.array:
-    """Forward pass through distributed model."""
+async def distributed_forward(input_ids: mx.array, session_id: str = None, is_prompt: bool = True) -> mx.array:
+    """Forward pass through distributed model with KV cache support."""
     current_hidden = None
     total_start = time.time()
+    monitor = get_monitor()
     
-    logger.info(f"Full forward pass with {input_ids.shape[1]} tokens")
+    if session_id is None:
+        import uuid
+        session_id = str(uuid.uuid4())
+    
+    # Monitor memory at start
+    mem_info = mx.metal.device_info() or {}
+    start_memory = mem_info.get('used_memory', 0) / 1e9
+    
+    tokens_count = input_ids.shape[1]
+    pass_type = "prompt" if is_prompt else "incremental"
+    logger.info(f"{pass_type.capitalize()} forward pass with {tokens_count} token(s) - Memory: {start_memory:.2f}GB, session={session_id}")
     
     # DEBUG: Compare with single-device forward pass
     logger.info(f"DEBUG: Input shape: {input_ids.shape}, tokens: {input_ids.tolist()[0][:10] if input_ids.shape[1] > 10 else input_ids.tolist()[0]}...")
@@ -214,17 +239,17 @@ async def distributed_forward(input_ids: mx.array) -> mx.array:
         current_hidden = deserialize_tensor(response.output)
         logger.info(f"DEBUG: After embeddings (remote) - mean: {current_hidden.mean():.6f}, std: {current_hidden.std():.6f}")
     
-    # CRITICAL: Create attention mask after embeddings
-    # For distributed processing, we need the actual mask array, not the "causal" string
+    # Handle attention mask based on pass type
     T = current_hidden.shape[1]
-    if T > 1:
-        # Multi-token: create causal mask
-        attention_mask = create_causal_mask(T, offset=0)
-        logger.info(f"Created causal attention mask with shape: {attention_mask.shape}")
+    if is_prompt and T > 1:
+        # For prompt processing, use full causal mask
+        if T not in mask_cache:
+            mask_cache[T] = create_causal_mask(T, offset=0)
+            logger.info(f"Created and cached causal mask for T={T}")
+        attention_mask = mask_cache[T]
     else:
-        # Single token: no mask needed
+        # For incremental generation, no mask needed (single token)
         attention_mask = None
-        logger.info("No attention mask needed (single token)")
     
     # Process through transformer layers
     for worker_info in worker_stubs:
@@ -234,18 +259,43 @@ async def distributed_forward(input_ids: mx.array) -> mx.array:
         logger.info(f"DEBUG: Before layers {assignment['start_layer']}-{assignment['end_layer']-1} - mean: {current_hidden.mean():.6f}, std: {current_hidden.std():.6f}")
         
         if stub is None:
-            # Local processing
+            # Local processing with KV cache support
             layer_start = time.time()
-            logger.info(f"Processing layers {assignment['start_layer']}-{assignment['end_layer']-1} locally")
+            num_layers = assignment["end_layer"] - assignment["start_layer"]
+            logger.info(f"Processing {num_layers} layers ({assignment['start_layer']}-{assignment['end_layer']-1}) locally, session={session_id}, is_prompt={is_prompt}")
+            
+            # Get or create KV cache for this session
+            if session_id not in local_kv_caches:
+                local_kv_caches[session_id] = {}
+                logger.info(f"Created new local KV cache for session {session_id}")
+            
+            session_cache = local_kv_caches[session_id]
+            
             with mx.stream(mx.gpu):
-                # Create cache for layers
-                cache = [None] * (assignment["end_layer"] - assignment["start_layer"])
-                # Use the mask we created (or None for single token)
+                # Use stored cache for incremental, fresh for prompt
                 for idx, i in enumerate(range(assignment["start_layer"], assignment["end_layer"])):
-                    current_hidden = model.model.layers[i](current_hidden, attention_mask, cache[idx])
+                    layer_key = f"layer_{i}"
+                    
+                    if is_prompt or layer_key not in session_cache:
+                        # First pass or no cache - create new KVCache object
+                        layer_cache = KVCache()
+                        session_cache[layer_key] = layer_cache
+                        if is_prompt:
+                            logger.debug(f"Creating fresh KVCache for layer {i} (prompt)")
+                    else:
+                        # Use existing cache for incremental generation
+                        layer_cache = session_cache[layer_key]
+                        logger.debug(f"Reusing KVCache for layer {i} (incremental)")
+                    
+                    # Process layer with cache (cache is updated in-place)
+                    current_hidden = model.model.layers[i](current_hidden, attention_mask, layer_cache)
+                    
                 mx.eval(current_hidden)
                 mx.synchronize()  # CRITICAL: Ensure all operations complete
-            logger.info(f"Local layers took {time.time() - layer_start:.3f}s")
+            
+            layer_time = time.time() - layer_start
+            layers_per_second = num_layers / layer_time if layer_time > 0 else 0
+            logger.info(f"Local layers took {layer_time:.3f}s ({layers_per_second:.1f} layers/s)")
         else:
             # Remote processing
             layer_start = time.time()
@@ -254,10 +304,15 @@ async def distributed_forward(input_ids: mx.array) -> mx.array:
             # DEBUG: Log what we're sending
             logger.info(f"DEBUG: Sending tensor with shape {current_hidden.shape}, mean: {current_hidden.mean():.6f}, std: {current_hidden.std():.6f}")
             
+            # CRITICAL: Synchronize before serialization to ensure tensor is ready
+            mx.synchronize()
+            
             request = inference_pb2.LayerRequestV2()
             request.input_tensor.CopyFrom(serialize_tensor(current_hidden))
             request.start_layer = assignment["start_layer"]
             request.end_layer = assignment["end_layer"]
+            request.session_id = session_id
+            request.is_prompt = is_prompt
             # Don't send mask - worker will create it locally from sequence length
             
             send_time = time.time()
@@ -344,7 +399,15 @@ async def distributed_forward(input_ids: mx.array) -> mx.array:
     except Exception as e:
         logger.info(f"DEBUG: Error getting top tokens: {e}")
     
-    logger.info(f"Total forward pass took {time.time() - total_start:.3f}s")
+    # Monitor memory at end
+    mem_info = mx.metal.device_info() or {}
+    end_memory = mem_info.get('used_memory', 0) / 1e9
+    memory_delta = end_memory - start_memory
+    
+    elapsed = time.time() - total_start
+    tokens_per_second = input_ids.shape[1] / elapsed if elapsed > 0 else 0
+    
+    logger.info(f"Total forward pass took {elapsed:.3f}s ({tokens_per_second:.1f} tok/s) - Memory delta: {memory_delta:.2f}GB")
     return logits
 
 def generate_single_device(prompt: str, max_tokens: int, temperature: float) -> str:
@@ -356,6 +419,9 @@ def generate_single_device(prompt: str, max_tokens: int, temperature: float) -> 
 
 async def generate_distributed(prompt: str, max_tokens: int, temperature: float) -> tuple[str, dict]:
     """Generate text using distributed model."""
+    # Get performance monitor
+    monitor = get_monitor()
+    
     # Check sequence length to decide strategy
     prompt_tokens = tokenizer.encode(prompt)
     
@@ -368,9 +434,10 @@ async def generate_distributed(prompt: str, max_tokens: int, temperature: float)
         use_distributed = True
     elif use_distributed_setting == 'never':
         use_distributed = False
-    else:  # 'auto' - FORCE DISTRIBUTED FOR TESTING
-        # TEMPORARILY FORCING DISTRIBUTED MODE TO TEST ALL 2 DEVICES
-        use_distributed = True  # Force distributed mode with 2 devices
+    else:  # 'auto' - ALWAYS USE DISTRIBUTED
+        # This is a distributed inference system - we MUST use it
+        # The whole point is to scale to models that don't fit on one device
+        use_distributed = True
     
     if not use_distributed:
         logger.info(f"Using single-device generation with KV cache (prompt_len={len(prompt_tokens)}, max_tokens={max_tokens})")
@@ -388,28 +455,34 @@ async def generate_distributed(prompt: str, max_tokens: int, temperature: float)
         }
         return result, metrics
     
-    # For short prompts, distributed without cache is acceptable
-    logger.info(f"🔥 USING DISTRIBUTED MODE - 2 DEVICES ACTIVE (prompt_len={len(prompt_tokens)}, max_tokens={max_tokens})")
-    logger.info(f"📱 Device 1 (mini1): Processing layers 0-13 locally")
-    logger.info(f"🖥️  Device 2 (mini2): Processing layers 14-27 remotely")
+    # Distributed inference with KV caching
+    logger.info(f"🔥 DISTRIBUTED MODE WITH KV CACHE - 2 DEVICES (prompt_len={len(prompt_tokens)}, max_tokens={max_tokens})")
+    logger.info(f"📱 Device 1 (mini1): Layers 0-13 with KV cache")
+    logger.info(f"🖥️  Device 2 (mini2): Layers 14-27 with KV cache")
     
-    # Use the SAME sampling logic as single-device but with distributed forward
-    # Import the same sampling utilities that single-device uses
     from mlx_lm.sample_utils import make_sampler
     sampler = make_sampler(temp=temperature)
     
-    # Start with just the prompt
+    # Generate session ID for this generation
+    import uuid
+    session_id = str(uuid.uuid4())
+    
+    # Start with the prompt
     input_ids = mx.array(prompt_tokens).reshape(1, -1)
     generated_tokens = []
     
-    logger.info(f"Starting distributed generation with {len(prompt_tokens)} prompt tokens")
+    logger.info(f"Starting distributed generation with KV cache - session {session_id}")
     
     # Track timing for metrics
     prompt_eval_start = time.time()
     
-    # Initial forward pass for the prompt (full pass)
-    logits = await distributed_forward(input_ids)
+    # Initial forward pass for the PROMPT (creates KV cache)
+    logits = await distributed_forward(input_ids, session_id=session_id, is_prompt=True)
     prompt_eval_time = time.time() - prompt_eval_start
+    logger.info(f"Prompt processing took {prompt_eval_time:.3f}s for {len(prompt_tokens)} tokens")
+    
+    # Record prompt evaluation metrics
+    monitor.record_token_generation(session_id, len(prompt_tokens), prompt_eval_time, is_prompt=True)
     
     eval_start = time.time()
     
@@ -432,44 +505,44 @@ async def generate_distributed(prompt: str, max_tokens: int, temperature: float)
     logger.info(f"Step 1: Generated token {next_token_id}")
     
     if next_token_id != tokenizer.eos_token_id and max_tokens > 1:
-        # Add token to sequence
-        input_ids = mx.concatenate([input_ids, next_token.reshape(1, 1)], axis=1)
-        
-        # Generate remaining tokens with FULL CONTEXT (Option 1 - slow but correct)
+        # Generate remaining tokens with INCREMENTAL passes (O(n) with KV cache)
         for step in range(1, max_tokens):
-            # Forward pass with FULL sequence for proper attention context
-            logits = await distributed_forward(input_ids)
+            # CRITICAL: Only pass the LAST generated token for incremental generation
+            # The KV cache maintains the context from previous tokens
+            last_token_tensor = mx.array([[next_token_id]])  # Shape: [1, 1]
             
-            # Use the SAME sampling logic as single-device mode
+            # Incremental forward pass with KV cache (only processes 1 token!)
+            logits = await distributed_forward(last_token_tensor, session_id=session_id, is_prompt=False)
+            
+            # Sample next token
             with mx.stream(mx.gpu):
-                # Get logits for the last position only
+                # Get logits for the single token we just processed
                 last_logits = logits[0, -1:, :]  # Keep batch dimension
                 
-                # DEBUG: Check logits before sampling
-                logger.info(f"DEBUG: Logits shape before sampling: {last_logits.shape}, mean: {last_logits.mean():.3f}, std: {last_logits.std():.3f}")
-                
-                # Sample using MLX's sampler (same as single-device)
+                # Sample using MLX's sampler
                 next_token = sampler(last_logits)
                 mx.eval(next_token)
                 
                 next_token_id = int(next_token[0].item())
                 
-                # DEBUG: Decode the token to see what it is
-                token_text = tokenizer.decode([next_token_id])
-                logger.info(f"DEBUG: Sampled token {next_token_id} = '{token_text}'")
+                # DEBUG: Log generation progress
+                if step % 10 == 0:
+                    token_text = tokenizer.decode([next_token_id])
+                    logger.info(f"Step {step+1}: Generated token {next_token_id} = '{token_text}'")
             
             generated_tokens.append(next_token_id)
-            logger.info(f"Step {step+1}: Generated token {next_token_id}")
             
             # Stop if EOS token
             if next_token_id == tokenizer.eos_token_id:
                 logger.info(f"Hit EOS token, stopping generation at {step+1} tokens")
                 break
-            
-            # Add new token to sequence for next iteration
-            input_ids = mx.concatenate([input_ids, next_token.reshape(1, 1)], axis=1)
     
     eval_time = time.time() - eval_start
+    
+    # Record generation metrics
+    eval_time = time.time() - eval_start
+    monitor.record_token_generation(session_id, len(generated_tokens), eval_time, is_prompt=False)
+    monitor.end_session(session_id)
     
     # Decode the same way as single-device
     generated_text = tokenizer.decode(generated_tokens)
@@ -573,24 +646,57 @@ class LocalWorkerService(inference_pb2_grpc.InferenceServiceServicer):
     """Local worker service for processing layers on coordinator."""
     
     def ProcessLayers(self, request, context):
-        """Process transformer layers locally."""
+        """Process transformer layers locally with KV cache support."""
         try:
+            session_id = request.session_id or "default"
+            is_prompt = request.is_prompt
+            
+            logger.info(f"LocalWorkerService.ProcessLayers - session={session_id}, is_prompt={is_prompt}, layers={request.start_layer}-{request.end_layer}")
+            
+            # Handle cache clearing
+            if request.clear_cache and session_id in local_kv_caches:
+                del local_kv_caches[session_id]
+                logger.info(f"Cleared local cache for session {session_id}")
+            
             input_tensor = deserialize_tensor(request.input_tensor)
             
-            # Create attention mask locally based on sequence length
+            # Get or create KV cache for this session
+            if session_id not in local_kv_caches:
+                local_kv_caches[session_id] = {}
+                logger.info(f"Created new local KV cache for session {session_id}")
+            
+            session_cache = local_kv_caches[session_id]
+            
+            # Handle attention mask based on pass type
             T = input_tensor.shape[1]
-            if T > 1:
-                attention_mask = create_causal_mask(T, offset=0)
+            if is_prompt and T > 1:
+                # For prompt processing, use full causal mask
+                if T not in mask_cache:
+                    mask_cache[T] = create_causal_mask(T, offset=0)
+                attention_mask = mask_cache[T]
             else:
+                # For incremental generation, no mask needed (single token)
                 attention_mask = None
             
             with mx.stream(mx.gpu):
                 hidden = input_tensor
-                # Create cache for layers
-                cache = [None] * (request.end_layer - request.start_layer)
+                
                 for idx, i in enumerate(range(request.start_layer, request.end_layer)):
-                    hidden = model.model.layers[i](hidden, attention_mask, cache[idx])
+                    layer_key = f"layer_{i}"
+                    
+                    if is_prompt or layer_key not in session_cache:
+                        # First pass or no cache - create new KVCache object
+                        layer_cache = KVCache()
+                        session_cache[layer_key] = layer_cache
+                    else:
+                        # Use existing cache for incremental generation
+                        layer_cache = session_cache[layer_key]
+                    
+                    # Process layer with cache (cache is updated in-place)
+                    hidden = model.model.layers[i](hidden, attention_mask, layer_cache)
+                
                 mx.eval(hidden)
+                mx.synchronize()  # CRITICAL: Ensure all operations complete before serialization
             
             response = inference_pb2.LayerResponseV2()
             response.output_tensor.CopyFrom(serialize_tensor(hidden))
@@ -604,6 +710,65 @@ class LocalWorkerService(inference_pb2_grpc.InferenceServiceServicer):
         """Health check."""
         return inference_pb2.HealthResponse(status="healthy")
     
+    def AllReduce(self, request, context):
+        """Handle AllReduce operations for tensor parallelism."""
+        try:
+            operation = request.operation
+            session_id = request.session_id
+            device_id = request.device_id
+            
+            logger.info(f"AllReduce operation: {operation} from device {device_id} for session {session_id}")
+            
+            # Deserialize input tensor
+            input_tensor = deserialize_tensor(request.tensor)
+            
+            # For now, implement simple gather-broadcast pattern
+            # This is called on the coordinator (device 0)
+            if operation == "GATHER":
+                # Store the tensor from the worker
+                if not hasattr(self, '_allreduce_buffers'):
+                    self._allreduce_buffers = {}
+                
+                if session_id not in self._allreduce_buffers:
+                    self._allreduce_buffers[session_id] = {}
+                
+                self._allreduce_buffers[session_id][device_id] = input_tensor
+                
+                # Check if we have all tensors
+                if len(self._allreduce_buffers[session_id]) == request.world_size - 1:
+                    # We have all worker tensors, now sum them
+                    # Note: coordinator's tensor is handled separately
+                    tensors = list(self._allreduce_buffers[session_id].values())
+                    result = mx.sum(mx.stack(tensors), axis=0)
+                    
+                    # Clean up buffer
+                    del self._allreduce_buffers[session_id]
+                    
+                    # Return summed result
+                    response = inference_pb2.AllReduceResponse()
+                    response.result_tensor.CopyFrom(serialize_tensor(result))
+                    response.status = "completed"
+                    return response
+                else:
+                    # Still waiting for other devices
+                    response = inference_pb2.AllReduceResponse()
+                    response.status = "pending"
+                    return response
+                    
+            elif operation == "BROADCAST":
+                # Broadcast the result back to workers
+                response = inference_pb2.AllReduceResponse()
+                response.result_tensor.CopyFrom(serialize_tensor(input_tensor))
+                response.status = "completed"
+                return response
+                
+            else:
+                context.abort(grpc.StatusCode.UNIMPLEMENTED, f"Operation {operation} not implemented")
+                
+        except Exception as e:
+            logger.error(f"AllReduce error: {e}")
+            context.abort(grpc.StatusCode.INTERNAL, str(e))
+    
     def Forward(self, request, context):
         """Handle special forward passes (embeddings, final projection)."""
         try:
@@ -614,6 +779,7 @@ class LocalWorkerService(inference_pb2_grpc.InferenceServiceServicer):
                 with mx.stream(mx.gpu):
                     embeddings = model.model.embed_tokens(input_ids)
                     mx.eval(embeddings)
+                    mx.synchronize()  # Ensure operations complete before serialization
                 
                 response = inference_pb2.ForwardResponse()
                 response.output.CopyFrom(serialize_tensor(embeddings))
@@ -638,6 +804,7 @@ class LocalWorkerService(inference_pb2_grpc.InferenceServiceServicer):
                         logger.error(f"Cannot find output projection in LocalWorkerService")
                         raise AttributeError("Cannot find output projection layer")
                     mx.eval(logits)
+                    mx.synchronize()  # Ensure operations complete before serialization
                 
                 response = inference_pb2.ForwardResponse()
                 response.output.CopyFrom(serialize_tensor(logits))
