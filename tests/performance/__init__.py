@@ -1,1 +1,0 @@
-"""Performance and load tests for distributed inference system."""

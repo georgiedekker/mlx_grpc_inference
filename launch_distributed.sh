@@ -1,28 +1,38 @@
 #!/bin/bash
-# Launch distributed MLX inference with MPI over Thunderbolt
 
-# Set Thunderbolt-specific optimizations
-export OMPI_MCA_btl_tcp_if_include=bridge0
-export OMPI_MCA_btl=self,tcp
-export OMPI_MCA_btl_tcp_endpoint_cache=65536
+echo "============================================"
+echo "MLX DISTRIBUTED INFERENCE (mini1 + mini2)"
+echo "============================================"
+echo ""
 
-# Optional: Set socket buffer sizes for better throughput (requires sudo)
-# Uncomment these lines if you want to optimize network buffers:
-# sudo sysctl -w kern.ipc.maxsockbuf=16777216
-# sudo sysctl -w net.inet.tcp.sendspace=4194304
-# sudo sysctl -w net.inet.tcp.recvspace=4194304
+# Ensure we're in the right directory
+cd /Users/mini1/Movies/mlx_grpc_inference
 
-# Kill any existing processes
-pkill -f "python.*server.py"
+# Copy server to mini2
+echo "Syncing server.py to mini2..."
+scp -q server.py 192.168.5.2:/Users/mini2/
 
-# Set MLX distributed environment variables
-export MLX_MASTER_ADDR=192.168.5.1
-export MLX_MASTER_PORT=29500
+# Create a wrapper script that uses local Python on each machine
+cat > run_server_wrapper.py << 'EOF'
+#!/usr/bin/env python3
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import server
+server.main()
+EOF
 
-# Launch with mpirun directly
-echo "Launching distributed inference across 3 devices..."
-mpirun -n 3 \
-    --hostfile hosts.txt \
-    --mca btl_tcp_if_include bridge0 \
-    --mca btl self,tcp \
-    uv run python server.py
+# Copy wrapper to mini2
+scp -q run_server_wrapper.py 192.168.5.2:/Users/mini2/
+
+echo "Starting distributed server..."
+echo "  Rank 0: mini1 (layers 0-13)"
+echo "  Rank 1: mini2 (layers 14-27)"
+echo "  API: http://localhost:8100"
+echo ""
+
+# Run with mpirun directly to avoid path issues
+mpirun -n 2 \
+  --host mini1.local,mini2.local \
+  --map-by rankfile:file=rankfile \
+  bash -c 'cd $(hostname -s | grep -q mini1 && echo /Users/mini1/Movies/mlx_grpc_inference || echo /Users/mini2) && .venv/bin/python server.py'

@@ -1,0 +1,30 @@
+2025-08-07 14:15:07,321 - INFO - ============================================================
+2025-08-07 14:15:07,321 - INFO - WORKING MLX DISTRIBUTED INFERENCE
+2025-08-07 14:15:07,321 - INFO - Using Python 3.13.5
+2025-08-07 14:15:07,321 - INFO - Model: mlx-community/Qwen3-1.7B-8bit
+2025-08-07 14:15:07,321 - INFO - ============================================================
+2025-08-07 14:15:07,403 - INFO - 🚀 Rank 0/1 on mini1.local
+2025-08-07 14:15:07,403 - INFO - Rank 0: Loading model mlx-community/Qwen3-1.7B-8bit...
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 134337.14it/s]
+2025-08-07 14:15:08,020 - INFO - ============================================================
+2025-08-07 14:15:08,020 - INFO - ✅ DISTRIBUTED INFERENCE READY
+2025-08-07 14:15:08,020 - INFO - ✅ Model: mlx-community/Qwen3-1.7B-8bit
+2025-08-07 14:15:08,020 - INFO - ✅ Devices: 1 GPUs
+2025-08-07 14:15:08,020 - INFO - ✅ Memory: 1.70 GB on rank 0
+2025-08-07 14:15:08,020 - INFO - ============================================================
+2025-08-07 14:15:08,021 - INFO - Starting API server on http://0.0.0.0:8100
+INFO:     Started server process [33978]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55863 - "GET /health HTTP/1.1" 200 OK
+2025-08-07 14:15:33,499 - INFO - Generating 20 tokens from 15 prompt tokens
+2025-08-07 14:15:34,015 - INFO - ✅ Generated 20 tokens in 0.52s
+2025-08-07 14:15:34,015 - INFO - ✅ Speed: 50.1 tokens/sec
+INFO:     127.0.0.1:55891 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [33978]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-qv7tbglq'}
+  warnings.warn(

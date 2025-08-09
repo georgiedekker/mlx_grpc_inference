@@ -1,0 +1,21 @@
+[32m[INFO] Preparing a thunderbolt ring for mini1.local, mini2.local [0m
+[32m[INFO] Getting connectivity from mini1.local [0m
+[32m[INFO] Getting connectivity from mini2.local [0m
+[32m[INFO] Getting interface names from mini1.local [0m
+[32m[INFO] Getting interface names from mini2.local [0m
+[32m[INFO] Extracting rings from the parsed connectivity [0m
+Traceback (most recent call last):
+  File "/opt/homebrew/bin/mlx.distributed_config", line 8, in <module>
+    sys.exit(distributed_config())
+             ~~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/lib/python3.13/site-packages/mlx/distributed_run.py", line 712, in distributed_config
+    prepare_tb_ring(args, hosts)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.13/site-packages/mlx/distributed_run.py", line 532, in prepare_tb_ring
+    rings = extract_rings(tb_hosts, uuid_reverse_index)
+  File "/opt/homebrew/lib/python3.13/site-packages/mlx/distributed_run.py", line 116, in extract_rings
+    rings.append(normalize(concretize(ring, used_ports)))
+                           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.13/site-packages/mlx/distributed_run.py", line 89, in concretize
+    raise RuntimeError("Couldn't concretize the cycle")
+RuntimeError: Couldn't concretize the cycle

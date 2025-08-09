@@ -7,10 +7,9 @@ requires-python = ">=3.11"
 dependencies = [
     "mlx>=0.21.0",
     "mlx-lm>=0.20.0",
+    "mpi4py>=3.1.0",
     "fastapi>=0.115.0",
     "uvicorn[standard]>=0.34.0",
-    "grpcio>=1.68.0",
-    "grpcio-tools>=1.68.0",
     "pydantic>=2.10.0",
     "pyyaml>=6.0.2",
     "rich>=13.9.0",
