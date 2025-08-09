@@ -1,0 +1,7 @@
+MINIMAL WORKER STARTED
+Minimal worker listening on port 50052
+✓ ProcessLayers called!
+✓ Request type: <class 'inference_pb2.LayerRequestV2'>
+✓ start_layer: 10
+✓ end_layer: 11
+✓ Returning response

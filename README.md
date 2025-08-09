@@ -1,53 +1,53 @@
-# MLX Distributed Inference System
+# MLX Native Distributed Inference
 
-A clean, production-ready distributed inference system for MLX models across Apple Silicon devices using gRPC.
+Clean implementation of distributed inference using MLX's native pipeline parallelism across Thunderbolt-connected M4 Mac minis.
 
-## Features
-
-- Distributed inference across 3 Apple Silicon devices (M4)
-- Model sharding with intelligent layer distribution
-- gRPC-based tensor communication
-- OpenAI-compatible REST API
-- Real-time GPU monitoring
-- Fault tolerance and graceful degradation
-
-## Quick Start
+## Setup
 
 1. Install dependencies:
 ```bash
-uv venv
-source .venv/bin/activate
-uv pip install -e .
+pip install mlx mlx-lm mpi4py fastapi uvicorn
 ```
 
-2. Configure cluster:
+2. Ensure SSH access to mini2:
 ```bash
-cp config/cluster_config.yaml.example config/cluster_config.yaml
-# Edit with your device settings
+ssh-copy-id 192.168.5.2
 ```
 
-3. Start the cluster:
+3. Install MPI on both machines:
 ```bash
-./scripts/start_cluster.sh
+brew install open-mpi
 ```
 
-4. Test inference:
+## Usage
+
+Start the distributed server:
+```bash
+./launch.sh
+```
+
+Test the API:
 ```bash
 curl -X POST http://localhost:8100/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -d '{
-    "model": "mlx-community/Qwen3-1.7B-8bit",
-    "messages": [{"role": "user", "content": "Hello!"}],
-    "max_tokens": 100
-  }'
+  -d '{"messages": [{"role": "user", "content": "Hello"}], "max_tokens": 50}'
 ```
 
-## Architecture
+## Files
 
-See [ARCHITECTURE_PLAN.md](ARCHITECTURE_PLAN.md) for detailed system design.
+- `server.py` - MLX native distributed inference server with accurate token metrics
+- `launch.sh` - Launch script that sets up and runs distributed inference
+- `pyproject.toml` - Python dependencies
 
-## Hardware Setup
+## Configuration
 
-- **Device 1 (Coordinator)**: mini1.local - Apple M4, 16GB RAM
-- **Device 2 (Worker)**: mini2.local - Apple M4, 16GB RAM  
-- **Device 3 (Worker)**: master.local - Apple M4, 16GB RAM
+- Model: `mlx-community/Qwen3-1.7B-8bit` (default)
+- Devices: mini1 (192.168.5.1) + mini2 (192.168.5.2)
+- Port: 8100
+
+## Features
+
+- OpenAI-compatible API
+- Accurate token metrics (separate prompt vs generation timing)
+- Pipeline parallelism across devices
+- GPU acceleration on both M4 Mac minis

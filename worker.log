@@ -1,0 +1,69 @@
+2025-08-06 16:51:34,465 - INFO - Default device set to GPU
+WORKER VERSION: 2.0 - Debug ProcessLayers
+2025-08-06 16:51:34,465 - INFO - Loading model mlx-community/Qwen3-1.7B-8bit on worker 1 (total_workers=2)
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 112682.79it/s]
+2025-08-06 16:51:35,006 - INFO - Testing model layers 14 to 27...
+2025-08-06 16:51:35,015 - INFO - Test embeddings shape: (1, 5, 2048), std: 0.027222
+2025-08-06 16:51:35,015 - INFO - Processing through layers 0-13 to prepare input state...
+2025-08-06 16:51:35,054 - INFO - Input preparation complete, std: 169.000000
+2025-08-06 16:51:35,054 - INFO - Testing assigned layers 14-27...
+2025-08-06 16:51:35,094 - INFO - Model test complete, final std: 62.250000
+2025-08-06 16:51:35,094 - INFO - Model loaded. Memory: 0.00GB/0.00GB
+2025-08-06 16:51:35,094 - INFO - Assigned layers: 14-27 (is_first=False, is_last=True)
+2025-08-06 16:51:35,094 - INFO - Worker 1 ready with 14 layers out of 28 total
+2025-08-06 16:51:35,094 - INFO - Worker 1 initialized for layers 14-27 with KV cache support
+2025-08-06 16:51:35,095 - INFO - Worker 1 gRPC server started on port 50051
+2025-08-06 16:51:43,475 - INFO - ProcessLayers - session=0e4fade0, is_prompt=True, layers=14-28
+2025-08-06 16:51:43,475 - INFO - Input tensor shape: [1, 13, 2048], dtype=float32
+2025-08-06 16:51:43,476 - INFO - Input shape: (1, 13, 2048), is_prompt=True
+2025-08-06 16:51:43,476 - INFO - Created new KV cache for session 0e4fade0
+2025-08-06 16:51:43,476 - INFO - Created causal mask for T=13
+2025-08-06 16:51:43,601 - INFO - Output tensor stats - shape: (1, 13, 2048), mean: 0.714430, std: 64.886864
+2025-08-06 16:51:43,605 - INFO - Processed layers successfully
+2025-08-06 16:51:45,183 - INFO - ProcessLayers - session=2d661d63, is_prompt=True, layers=14-28
+2025-08-06 16:51:45,183 - INFO - Input tensor shape: [1, 13, 2048], dtype=float32
+2025-08-06 16:51:45,184 - INFO - Input shape: (1, 13, 2048), is_prompt=True
+2025-08-06 16:51:45,184 - INFO - Created new KV cache for session 2d661d63
+2025-08-06 16:51:45,300 - INFO - Output tensor stats - shape: (1, 13, 2048), mean: 0.714430, std: 64.886864
+2025-08-06 16:51:45,305 - INFO - Processed layers successfully
+2025-08-06 16:51:46,407 - INFO - ProcessLayers - session=f1b8d274, is_prompt=True, layers=14-28
+2025-08-06 16:51:46,408 - INFO - Input tensor shape: [1, 13, 2048], dtype=float32
+2025-08-06 16:51:46,408 - INFO - Input shape: (1, 13, 2048), is_prompt=True
+2025-08-06 16:51:46,408 - INFO - Created new KV cache for session f1b8d274
+2025-08-06 16:51:46,504 - INFO - Output tensor stats - shape: (1, 13, 2048), mean: 0.714430, std: 64.886864
+2025-08-06 16:51:46,510 - INFO - Processed layers successfully
+2025-08-06 16:51:47,587 - INFO - ProcessLayers - session=7ea0d83b, is_prompt=True, layers=14-28
+2025-08-06 16:51:47,587 - INFO - Input tensor shape: [1, 13, 2048], dtype=float32
+2025-08-06 16:51:47,587 - INFO - Input shape: (1, 13, 2048), is_prompt=True
+2025-08-06 16:51:47,587 - INFO - Created new KV cache for session 7ea0d83b
+2025-08-06 16:51:47,664 - INFO - Output tensor stats - shape: (1, 13, 2048), mean: 0.714430, std: 64.886864
+2025-08-06 16:51:47,670 - INFO - Processed layers successfully
+2025-08-06 16:51:48,606 - INFO - ProcessLayers - session=133c40f9, is_prompt=True, layers=14-28
+2025-08-06 16:51:48,606 - INFO - Input tensor shape: [1, 13, 2048], dtype=float32
+2025-08-06 16:51:48,606 - INFO - Input shape: (1, 13, 2048), is_prompt=True
+2025-08-06 16:51:48,606 - INFO - Created new KV cache for session 133c40f9
+2025-08-06 16:51:48,686 - INFO - Output tensor stats - shape: (1, 13, 2048), mean: 0.714430, std: 64.886864
+2025-08-06 16:51:48,689 - INFO - Processed layers successfully
+2025-08-06 16:52:41,130 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 16:53:41,135 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 16:54:41,140 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 16:55:41,145 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 16:56:41,149 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 16:57:41,155 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 16:58:41,160 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 16:59:41,165 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:00:41,170 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:02:41,180 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:03:41,186 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:04:41,192 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:05:41,196 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:06:41,200 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:07:41,205 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:08:41,209 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:09:41,213 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:10:41,218 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:12:41,226 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:13:41,231 - INFO - Health check - Memory: 0.00GB/0.00GB
+2025-08-06 17:14:41,236 - INFO - Health check - Memory: 0.00GB/0.00GB
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-lphruji4'}
+  warnings.warn(

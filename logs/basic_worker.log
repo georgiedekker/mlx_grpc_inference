@@ -1,0 +1,204 @@
+INFO:__main__:Worker mini2 loading model...
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 61680.94it/s]
+INFO:__main__:Worker mini2 ready to process layers 10-18
+INFO:__main__:Worker mini2 listening on port 50051
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    raise NotImplementedError('Method not implemented!')
+NotImplementedError: Method not implemented!
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    raise NotImplementedError('Method not implemented!')
+NotImplementedError: Method not implemented!
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    raise NotImplementedError('Method not implemented!')
+NotImplementedError: Method not implemented!
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    raise NotImplementedError('Method not implemented!')
+NotImplementedError: Method not implemented!
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    raise NotImplementedError('Method not implemented!')
+NotImplementedError: Method not implemented!
+ERROR:grpc._common:Exception deserializing message!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_common.py", line 89, in _transform
+    return transformer(message)
+google.protobuf.message.DecodeError: Error parsing message with type 'mlx_inference.LayerRequest'
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    raise NotImplementedError('Method not implemented!')
+NotImplementedError: Method not implemented!
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    raise NotImplementedError('Method not implemented!')
+NotImplementedError: Method not implemented!
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    raise NotImplementedError('Method not implemented!')
+NotImplementedError: Method not implemented!
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    def Forward(self, request, context):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: Method not implemented!
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    def Forward(self, request, context):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: Method not implemented!
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    def Forward(self, request, context):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: Method not implemented!
+ERROR:grpc._common:Exception deserializing message!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_common.py", line 89, in _transform
+    return transformer(message)
+google.protobuf.message.DecodeError: Error parsing message with type 'mlx_inference.LayerRequest'
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    def Forward(self, request, context):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: Method not implemented!
+ERROR:grpc._common:Exception deserializing message!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_common.py", line 89, in _transform
+    return transformer(message)
+google.protobuf.message.DecodeError: Error parsing message with type 'mlx_inference.LayerRequest'
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    def Forward(self, request, context):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: Method not implemented!
+ERROR:grpc._common:Exception deserializing message!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_common.py", line 89, in _transform
+    return transformer(message)
+google.protobuf.message.DecodeError: Error parsing message with type 'mlx_inference.LayerRequest'
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    def Forward(self, request, context):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: Method not implemented!
+ERROR:grpc._common:Exception deserializing message!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_common.py", line 89, in _transform
+    return transformer(message)
+google.protobuf.message.DecodeError: Error parsing message with type 'mlx_inference.LayerRequest'
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    def Forward(self, request, context):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: Method not implemented!
+ERROR:grpc._server:Exception calling application: Ran out of input
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/basic_distributed_inference.py", line 46, in ProcessLayers
+    hidden_states = deserialize_mlx_array(request.input_tensor, metadata)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/tensor_utils.py", line 112, in deserialize_mlx_array
+    np_array = pickle.loads(data)
+EOFError: Ran out of input
+ERROR:grpc._common:Exception deserializing message!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_common.py", line 89, in _transform
+    return transformer(message)
+google.protobuf.message.DecodeError: Error parsing message with type 'mlx_inference.LayerRequest'
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    def Forward(self, request, context):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: Method not implemented!
+ERROR:grpc._common:Exception deserializing message!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_common.py", line 89, in _transform
+    return transformer(message)
+google.protobuf.message.DecodeError: Error parsing message with type 'mlx_inference.LayerRequest'
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 78, in GetDeviceInfo
+    def HealthCheck(self, request, context):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: Method not implemented!
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    def Forward(self, request, context):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: Method not implemented!
+ERROR:grpc._common:Exception deserializing message!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_common.py", line 89, in _transform
+    return transformer(message)
+google.protobuf.message.DecodeError: Error parsing message with type 'mlx_inference.LayerRequest'
+ERROR:grpc._server:Exception calling application: Method not implemented!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_server.py", line 610, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/communication/inference_pb2_grpc.py", line 71, in HealthCheck
+    def Forward(self, request, context):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: Method not implemented!
+ERROR:grpc._common:Exception deserializing message!
+Traceback (most recent call last):
+  File "/Users/mini2/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/grpc/_common.py", line 89, in _transform
+    return transformer(message)
+google.protobuf.message.DecodeError: Error parsing message with type 'mlx_inference.LayerRequest'
+/Users/mini2/.local/share/uv/python/cpython-3.13.5-macos-aarch64-none/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-394_ae5d'}
+  warnings.warn(

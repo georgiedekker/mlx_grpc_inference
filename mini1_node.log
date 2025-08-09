@@ -1,0 +1,29 @@
+2025-08-07 13:58:18,199 - INFO - Node mini1: Loading shard layers 0-13
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/exo_node.py", line 308, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/exo_node.py", line 300, in main
+    node.load_model()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/exo_node.py", line 81, in load_model
+    self.model = load_sharded_model(str(self.model_path), self.shard, lazy=False)
+                 ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/sharded_model_loader.py", line 150, in load_sharded_model
+    model = ShardedQwen2(args, shard)
+  File "/Users/mini1/Movies/mlx_grpc_inference/sharded_model_loader.py", line 82, in __init__
+    self.model = ShardedQwen2Model(args, shard)
+                 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/sharded_model_loader.py", line 39, in __init__
+    if self.shard.contains_layer(i):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Shard' object has no attribute 'contains_layer'

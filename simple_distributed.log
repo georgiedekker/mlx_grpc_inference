@@ -1,0 +1,13 @@
+INFO:__main__:Rank 1/2 initialized
+INFO:__main__:Rank 1: Loading model mlx-community/Qwen3-1.7B-8bit
+INFO:__main__:Rank 0/2 initialized
+INFO:__main__:Rank 0: Loading model mlx-community/Qwen3-1.7B-8bit
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 67288.30it/s]
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 22336.53it/s]
+INFO:__main__:Rank 0: GPU memory = 1.70 GB
+INFO:__main__:Rank 1: GPU memory = 1.70 GB
+INFO:__main__:All-gather result: array([1, 2], dtype=float32)
+INFO:__main__:✅ Both GPUs are communicating successfully!
+INFO:__main__:Rank 0: Generating response...
+INFO:__main__:Generated: 
+INFO:__main__:✅ Generation successful using 2 GPUs

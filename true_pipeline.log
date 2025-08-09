@@ -1,0 +1,56 @@
+2025-08-06 23:50:52,399 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-06 23:50:52,404 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-06 23:50:52,456 - INFO - Distributed initialized: rank=0, world_size=2
+2025-08-06 23:50:52,456 - INFO - Rank 0: Downloading model metadata...
+2025-08-06 23:50:52,483 - INFO - Distributed initialized: rank=1, world_size=2
+2025-08-06 23:50:52,483 - INFO - Rank 1: Downloading model metadata...
+2025-08-06 23:50:52,457 - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-08-06 23:50:52,485 - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-08-06 23:50:52,634 - DEBUG - https://huggingface.co:443 "GET /api/models/mlx-community/Qwen3-1.7B-8bit/revision/main HTTP/1.1" 200 6006
+2025-08-06 23:50:52,663 - DEBUG - https://huggingface.co:443 "GET /api/models/mlx-community/Qwen3-1.7B-8bit/revision/main HTTP/1.1" 200 6006
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 147816.88it/s]
+2025-08-06 23:50:52,650 - INFO - Rank 0: Lazy loading model to determine sharding...
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 102612.94it/s]
+2025-08-06 23:50:52,683 - INFO - Rank 1: Lazy loading model to determine sharding...
+2025-08-06 23:50:52,667 - WARNING - Model mlx-community/Qwen3-1.7B-8bit doesn't have native pipeline() support
+2025-08-06 23:50:52,667 - INFO - Adding TRUE pipeline parallelism with MPI...
+2025-08-06 23:50:52,667 - INFO - Added TRUE pipeline parallelism to Qwen3Model
+2025-08-06 23:50:52,667 - INFO - ✅ TRUE pipeline parallelism added!
+2025-08-06 23:50:52,667 - INFO - Rank 0: Applying pipeline sharding...
+2025-08-06 23:50:52,667 - INFO - Setting up TRUE pipeline: rank 0/2
+2025-08-06 23:50:52,667 - INFO - Rank 0: Will process layers 0-13
+2025-08-06 23:50:52,667 - INFO - Rank 0: Ready for pipeline parallelism
+2025-08-06 23:50:52,668 - INFO - Rank 0: Downloading 1 weight files for this shard...
+2025-08-06 23:50:52,705 - WARNING - Model mlx-community/Qwen3-1.7B-8bit doesn't have native pipeline() support
+2025-08-06 23:50:52,705 - INFO - Adding TRUE pipeline parallelism with MPI...
+2025-08-06 23:50:52,705 - INFO - Added TRUE pipeline parallelism to Qwen3Model
+2025-08-06 23:50:52,705 - INFO - ✅ TRUE pipeline parallelism added!
+2025-08-06 23:50:52,705 - INFO - Rank 1: Applying pipeline sharding...
+2025-08-06 23:50:52,705 - INFO - Setting up TRUE pipeline: rank 1/2
+2025-08-06 23:50:52,705 - INFO - Rank 1: Will process layers 14-27
+2025-08-06 23:50:52,705 - INFO - Rank 1: Ready for pipeline parallelism
+2025-08-06 23:50:52,706 - INFO - Rank 1: Downloading 1 weight files for this shard...
+2025-08-06 23:50:52,794 - DEBUG - https://huggingface.co:443 "GET /api/models/mlx-community/Qwen3-1.7B-8bit/revision/main HTTP/1.1" 200 6006
+Fetching 1 files:   0%|          | 0/1 [00:00<?, ?it/s]Fetching 1 files: 100%|██████████| 1/1 [00:00<00:00, 13148.29it/s]
+2025-08-06 23:50:52,833 - DEBUG - https://huggingface.co:443 "GET /api/models/mlx-community/Qwen3-1.7B-8bit/revision/main HTTP/1.1" 200 6006
+Fetching 1 files:   0%|          | 0/1 [00:00<?, ?it/s]Fetching 1 files: 100%|██████████| 1/1 [00:00<00:00, 2309.64it/s]
+2025-08-06 23:50:53,070 - INFO - Rank 0: Loading model weights for this shard...
+2025-08-06 23:50:53,111 - INFO - Rank 1: Loading model weights for this shard...
+2025-08-06 23:50:53,160 - INFO - Rank 0: GPU memory after loading = 1.70 GB
+2025-08-06 23:50:53,191 - INFO - Rank 1: GPU memory after loading = 1.70 GB
+2025-08-06 23:50:53,191 - INFO - Rank 0: Ready for distributed inference!
+2025-08-06 23:50:53,192 - INFO - Starting API server on rank 0
+2025-08-06 23:50:53,221 - INFO - Rank 1: Ready for distributed inference!
+2025-08-06 23:50:53,222 - INFO - Worker rank 1 ready for distributed processing
+[32mINFO[0m:     Started server process [[36m8665[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8100[0m (Press CTRL+C to quit)
+2025-08-06 23:51:18,557 - ERROR - Error in chat completion: maximum recursion depth exceeded
+[32mINFO[0m:     127.0.0.1:58603 - "[1mPOST /v1/chat/completions HTTP/1.1[0m" [91m500 Internal Server Error[0m
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m8665[0m]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-srn4jxin'}
+  warnings.warn(

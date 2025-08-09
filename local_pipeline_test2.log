@@ -1,0 +1,76 @@
+2025-08-07 00:10:31,222 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-07 00:10:32,169 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-07 00:10:32,171 - INFO - Distributed initialized: rank=1, world_size=2
+2025-08-07 00:10:32,171 - INFO - Rank 1: Downloading model metadata...
+2025-08-07 00:10:32,171 - INFO - Distributed initialized: rank=0, world_size=2
+2025-08-07 00:10:32,171 - INFO - Rank 0: Downloading model metadata...
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 216480.21it/s]
+2025-08-07 00:10:32,358 - INFO - Rank 1: Loading model structure...
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 222214.78it/s]
+2025-08-07 00:10:32,362 - INFO - Rank 0: Loading model structure...
+2025-08-07 00:10:32,370 - INFO - Rank 1: Adding TRUE pipeline parallelism...
+2025-08-07 00:10:32,371 - INFO - Added TRUE pipeline parallelism to Qwen3Model
+2025-08-07 00:10:32,371 - INFO - Rank 1: Will process layers 14-27 (14 layers)
+2025-08-07 00:10:32,371 - INFO - Rank 1: Downloading 1 weight files for layers...
+2025-08-07 00:10:32,374 - INFO - Rank 0: Adding TRUE pipeline parallelism...
+2025-08-07 00:10:32,374 - INFO - Added TRUE pipeline parallelism to Qwen3Model
+2025-08-07 00:10:32,374 - INFO - Rank 0: Will process layers 0-13 (14 layers)
+2025-08-07 00:10:32,374 - INFO - Rank 0: Downloading 1 weight files for layers...
+Fetching 1 files:   0%|          | 0/1 [00:00<?, ?it/s]Fetching 1 files: 100%|██████████| 1/1 [00:00<00:00, 9177.91it/s]
+Fetching 1 files:   0%|          | 0/1 [00:00<?, ?it/s]Fetching 1 files: 100%|██████████| 1/1 [00:00<00:00, 27060.03it/s]
+2025-08-07 00:10:32,807 - INFO - Rank 1: Loading model weights...
+2025-08-07 00:10:32,821 - INFO - Rank 0: Loading model weights...
+2025-08-07 00:10:32,872 - INFO - Rank 1: GPU memory = 0.70 GB
+2025-08-07 00:10:32,908 - INFO - Rank 0: GPU memory = 1.01 GB
+2025-08-07 00:10:32,908 - INFO - Rank 0: Ready for TRUE pipeline parallel inference!
+2025-08-07 00:10:32,908 - INFO - Rank 1: Ready for TRUE pipeline parallel inference!
+2025-08-07 00:10:32,908 - INFO - Worker rank 1 ready for distributed processing with MPI
+2025-08-07 00:10:32,909 - INFO - Starting API server on rank 0
+INFO:     Started server process [11007]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+INFO:     127.0.0.1:60362 - "GET /health HTTP/1.1" 200 OK
+2025-08-07 00:11:18,985 - INFO - Rank 0: GPU memory before = 1.01 GB
+2025-08-07 00:11:18,986 - ERROR - Error in chat completion: 'NoneType' object is not callable
+2025-08-07 00:11:18,987 - ERROR - Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 378, in chat_completions
+    result = generate_pipeline_parallel(
+        prompt,
+        max_tokens=request.max_tokens,
+        temperature=request.temperature
+    )
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 206, in generate_pipeline_parallel
+    for i, response in enumerate(stream_generate(
+                       ~~~~~~~~~^^^^^^^^^^^^^^^^^
+        model,
+        ^^^^^^
+    ...<3 lines>...
+        sampler=sampler
+        ^^^^^^^^^^^^^^^
+    )):
+    ^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 683, in stream_generate
+    for n, (token, logprobs, from_draft) in enumerate(token_generator):
+                                            ~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 673, in <genexpr>
+    (token, logprobs, False) for token, logprobs in token_generator
+                                                    ^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 434, in generate_step
+    y, logprobs = _step(input_tokens=prompt, input_embeddings=input_embeddings)
+                  ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 384, in _step
+    logits = _model_call(
+        input_tokens=input_tokens[None],
+    ...<2 lines>...
+        ),
+    )
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 378, in _model_call
+    return model(input_tokens, cache=prompt_cache)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/models/qwen3.py", line 175, in __call__
+    out = self.model(inputs, mask, cache)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/models/qwen3.py", line 155, in __call__
+    h = layer(h, mask, c)
+TypeError: 'NoneType' object is not callable
+
+INFO:     127.0.0.1:60400 - "POST /v1/chat/completions HTTP/1.1" 500 Internal Server Error

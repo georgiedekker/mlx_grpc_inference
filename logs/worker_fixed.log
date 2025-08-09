@@ -1,0 +1,228 @@
+2025-08-05 17:30:52,247 - src.devices.device_factory - INFO - Initialized device factory for cluster: mlx-inference-cluster
+2025-08-05 17:30:52,247 - src.devices.base_device - INFO - Initialized worker device: mini2
+2025-08-05 17:30:52,247 - src.devices.worker_device - INFO - Initialized worker device: mini2
+2025-08-05 17:30:52,247 - src.devices.device_factory - INFO - Created worker device: mini2 (WorkerDevice)
+2025-08-05 17:30:52,247 - __main__ - INFO - Initializing worker server for mini2 with device abstraction
+2025-08-05 17:30:52,247 - __main__ - INFO - Starting worker server with device abstraction...
+2025-08-05 17:30:52,247 - src.devices.base_device - INFO - Initializing device mini2...
+2025-08-05 17:30:52,247 - src.devices.worker_device - INFO - Initializing worker-specific components...
+2025-08-05 17:30:52,247 - src.devices.worker_device - INFO - Worker mini2 assigned layers: [10, 11, 12, 13, 14, 15, 16, 17, 18]
+2025-08-05 17:30:52,247 - src.devices.worker_device - INFO - Worker device components initialized
+2025-08-05 17:30:52,247 - src.devices.base_device - INFO - Loading model for device mini2...
+2025-08-05 17:30:52,247 - src.model.sharding - INFO - Device mini1 assigned layers [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+2025-08-05 17:30:52,247 - src.model.sharding - INFO - Device mini2 assigned layers [10, 11, 12, 13, 14, 15, 16, 17, 18]
+2025-08-05 17:30:52,247 - src.model.sharding - INFO - Device master assigned layers [19, 20, 21, 22, 23, 24, 25, 26, 27]
+2025-08-05 17:30:52,247 - src.model.loader - INFO - Loading model shard for mini2: layers [10, 11, 12, 13, 14, 15, 16, 17, 18]
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 127100.12it/s]
+2025-08-05 17:30:53,525 - src.model.loader - INFO - Model shard loaded for mini2
+2025-08-05 17:30:53,525 - src.model.inference - INFO - LayerProcessor for mini2 handling layers: [10, 11, 12, 13, 14, 15, 16, 17, 18]
+2025-08-05 17:30:53,525 - src.devices.base_device - INFO - Model loaded with layers: [10, 11, 12, 13, 14, 15, 16, 17, 18]
+2025-08-05 17:30:53,525 - src.devices.worker_device - INFO - Initializing worker communication...
+2025-08-05 17:30:53,525 - src.devices.worker_device - INFO - Starting gRPC server on port 50051
+2025-08-05 17:30:53,545 - src.communication.grpc_server - INFO - gRPC server created for mini2 on [::]:50051
+2025-08-05 17:30:53,546 - src.communication.grpc_server - INFO - gRPC server started on port 50051
+2025-08-05 17:32:06,120 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-6fc8892d
+2025-08-05 17:32:06,319 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-3e2bfc13
+2025-08-05 17:32:06,444 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-08787225
+2025-08-05 17:32:06,565 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-c2b3d51c
+2025-08-05 17:32:06,668 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-cd385664
+2025-08-05 17:32:06,772 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-1cb84982
+2025-08-05 17:32:06,887 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-32154120
+2025-08-05 17:32:07,006 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-c1439361
+2025-08-05 17:32:07,127 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-5f8addc0
+2025-08-05 17:32:07,242 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f4830b0f
+2025-08-05 17:32:07,346 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-a7bb6401
+2025-08-05 17:32:07,442 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-7d799300
+2025-08-05 17:32:07,533 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-a193157f
+2025-08-05 17:32:07,633 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-d5da10df
+2025-08-05 17:32:07,732 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-c9ac0001
+2025-08-05 17:32:07,835 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-632f4e75
+2025-08-05 17:32:07,937 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-2d33f70e
+2025-08-05 17:32:08,026 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-640cd857
+2025-08-05 17:32:08,130 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-4298e910
+2025-08-05 17:32:08,238 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-e974462f
+2025-08-05 17:32:08,337 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-512dd378
+2025-08-05 17:32:08,438 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-89418494
+2025-08-05 17:32:08,547 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-8ca75ce8
+2025-08-05 17:32:08,660 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-9fa62ac8
+2025-08-05 17:32:08,772 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-092feac5
+2025-08-05 17:32:08,913 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-d66466d1
+2025-08-05 17:32:09,046 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-48b61b0f
+2025-08-05 17:32:09,168 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-a85aac77
+2025-08-05 17:32:09,307 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-bbbcc151
+2025-08-05 17:32:09,456 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-1b5638ef
+2025-08-05 17:32:09,584 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-24e8d6f8
+2025-08-05 17:32:09,732 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-c9d54374
+2025-08-05 17:32:09,875 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-15bc8476
+2025-08-05 17:32:10,016 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-8022a24f
+2025-08-05 17:32:10,153 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-5b1afcf7
+2025-08-05 17:32:10,313 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-1e16d963
+2025-08-05 17:32:10,456 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-9016eaed
+2025-08-05 17:32:10,606 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-5b9fb353
+2025-08-05 17:32:10,775 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-0dd5501d
+2025-08-05 17:32:10,935 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-e8c044f2
+2025-08-05 17:32:11,096 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-1f7d70ae
+2025-08-05 17:32:11,222 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-a39d6f47
+2025-08-05 17:32:11,354 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-8e3e008b
+2025-08-05 17:32:11,512 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-cbfdf45f
+2025-08-05 17:32:11,645 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f48acf3d
+2025-08-05 17:32:11,779 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-a3e5152e
+2025-08-05 17:32:11,927 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-ffed9743
+2025-08-05 17:32:12,084 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-3bb7245f
+2025-08-05 17:32:12,257 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-949cbc50
+2025-08-05 17:32:12,412 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-66ecdad2
+2025-08-05 17:32:12,565 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-1f10c73a
+2025-08-05 17:32:21,573 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-4a609d4b
+2025-08-05 17:32:21,746 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-dbe141dd
+2025-08-05 17:32:21,868 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-453372da
+2025-08-05 17:32:21,949 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-fee9e48b
+2025-08-05 17:32:22,043 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-e70737bb
+2025-08-05 17:32:22,142 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-8e3dd2be
+2025-08-05 17:32:22,236 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-2998088a
+2025-08-05 17:32:22,342 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-74f7aac5
+2025-08-05 17:32:22,463 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-0b35f824
+2025-08-05 17:32:22,583 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-b558a2c5
+2025-08-05 17:32:22,677 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-0fe58279
+2025-08-05 17:32:22,769 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-d2a5aa95
+2025-08-05 17:32:22,864 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f9a2f99d
+2025-08-05 17:32:22,955 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-0ae15085
+2025-08-05 17:32:23,047 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-a03241be
+2025-08-05 17:32:23,161 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-e8924584
+2025-08-05 17:32:23,257 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-4cce3c02
+2025-08-05 17:32:23,361 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-bacf2640
+2025-08-05 17:32:23,471 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-1c0174cf
+2025-08-05 17:32:23,587 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-919ca91b
+2025-08-05 17:32:23,705 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-5676ec5a
+2025-08-05 17:32:23,814 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-865992f7
+2025-08-05 17:32:23,932 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-e04c2678
+2025-08-05 17:32:24,052 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-163d12d8
+2025-08-05 17:32:24,146 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-b1621e85
+2025-08-05 17:32:24,281 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-eef0b9b0
+2025-08-05 17:32:24,455 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-1c94ba04
+2025-08-05 17:32:24,618 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-8a7fd341
+2025-08-05 17:32:24,767 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-c9364194
+2025-08-05 17:32:24,889 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-02c6ea11
+2025-08-05 17:32:25,017 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-bb7bf3b1
+2025-08-05 17:32:25,147 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-d47c6b33
+2025-08-05 17:32:25,278 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f53e309e
+2025-08-05 17:32:25,420 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-16efbaf3
+2025-08-05 17:32:25,577 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f565e015
+2025-08-05 17:32:25,730 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-914f19f1
+2025-08-05 17:32:25,856 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-1018c8d8
+2025-08-05 17:32:25,999 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-c6c4c8f4
+2025-08-05 17:32:26,134 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-674c85e8
+2025-08-05 17:32:26,262 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-db520d52
+2025-08-05 17:32:26,417 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-62f26caa
+2025-08-05 17:32:26,568 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-140c95ff
+2025-08-05 17:32:26,731 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-56ba8387
+2025-08-05 17:32:26,868 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-38857ef5
+2025-08-05 17:32:27,009 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-e4605293
+2025-08-05 17:32:27,159 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-840bc338
+2025-08-05 17:32:27,315 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-a5a1e9c5
+2025-08-05 17:32:27,453 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-91b119be
+2025-08-05 17:32:27,600 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-8748d62e
+2025-08-05 17:32:27,737 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-98653342
+2025-08-05 17:32:27,902 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-5cf62236
+2025-08-05 17:34:19,722 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-d1917692
+2025-08-05 17:34:19,891 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-1f66757a
+2025-08-05 17:34:20,027 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-ce1d56a7
+2025-08-05 17:34:20,147 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-92b909df
+2025-08-05 17:34:20,258 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-6301b1d7
+2025-08-05 17:34:20,380 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-87b82eb5
+2025-08-05 17:34:20,486 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-83f19019
+2025-08-05 17:34:20,605 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-a07f853a
+2025-08-05 17:34:20,736 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-df5565d5
+2025-08-05 17:34:20,862 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f91b638e
+2025-08-05 17:34:20,987 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-8216f216
+2025-08-05 17:34:21,093 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f8d8b753
+2025-08-05 17:34:21,196 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-6969b84e
+2025-08-05 17:34:21,304 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f1d7c32f
+2025-08-05 17:34:21,402 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-dbb8677c
+2025-08-05 17:34:21,502 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f55b7d41
+2025-08-05 17:34:21,610 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-d51df577
+2025-08-05 17:34:21,712 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f7f3b162
+2025-08-05 17:34:21,817 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-46022d09
+2025-08-05 17:34:21,927 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-521b23f8
+2025-08-05 17:34:22,041 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-09cef797
+2025-08-05 17:34:22,157 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-d5948917
+2025-08-05 17:34:22,279 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-c4fdb72a
+2025-08-05 17:34:22,398 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-3147fc2e
+2025-08-05 17:34:22,506 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-b82ad3bc
+2025-08-05 17:34:22,614 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-485659db
+2025-08-05 17:34:22,784 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-cf61956b
+2025-08-05 17:34:22,944 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-32159cc0
+2025-08-05 17:34:23,119 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-38db228a
+2025-08-05 17:34:23,279 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-a6784f5a
+2025-08-05 17:34:23,432 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-a6dfb1dd
+2025-08-05 17:34:23,590 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-06082728
+2025-08-05 17:34:23,745 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-1be18174
+2025-08-05 17:34:23,886 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-894132dc
+2025-08-05 17:34:24,046 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-4dbc675a
+2025-08-05 17:34:24,225 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-bef2fc21
+2025-08-05 17:34:24,414 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f567a204
+2025-08-05 17:34:24,589 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-8172809c
+2025-08-05 17:34:24,751 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-0230f574
+2025-08-05 17:34:24,917 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-13bdee8d
+2025-08-05 17:34:25,073 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-6b5ddf50
+2025-08-05 17:34:25,236 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-361449c0
+2025-08-05 17:34:25,394 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-d6847109
+2025-08-05 17:34:25,554 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-81fb63f5
+2025-08-05 17:34:25,716 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-a4a99971
+2025-08-05 17:34:25,891 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-afceefd4
+2025-08-05 17:34:26,079 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-e67a4841
+2025-08-05 17:34:26,232 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-0545fc21
+2025-08-05 17:34:26,389 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-c6bde942
+2025-08-05 17:34:26,548 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-c9b2b4d6
+2025-08-05 17:34:26,707 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-323b93f3
+2025-08-05 17:34:26,853 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-b59ffcff
+2025-08-05 17:34:26,956 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-d1ee0bbf
+2025-08-05 17:34:27,080 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-50625542
+2025-08-05 17:34:27,192 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-9175a85a
+2025-08-05 17:34:27,281 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-2c91dec9
+2025-08-05 17:34:27,379 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-cd47f873
+2025-08-05 17:34:27,474 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-8929de44
+2025-08-05 17:34:27,577 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-817a5b88
+2025-08-05 17:34:27,689 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-3b5e149e
+2025-08-05 17:34:27,818 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-2eedf0bb
+2025-08-05 17:34:27,950 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-d0f8e1f0
+2025-08-05 17:34:28,058 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-16398cd0
+2025-08-05 17:34:28,157 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-583ffe4d
+2025-08-05 17:34:28,262 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-6d785ec8
+2025-08-05 17:34:28,360 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-fe0d06da
+2025-08-05 17:34:28,462 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-0f57c2ad
+2025-08-05 17:34:28,565 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-dac78c3f
+2025-08-05 17:34:28,682 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-6c7cd497
+2025-08-05 17:34:28,783 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-4644a6a7
+2025-08-05 17:34:28,882 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-eb0c90c7
+2025-08-05 17:34:28,982 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-fb21fc53
+2025-08-05 17:34:29,085 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-2617c308
+2025-08-05 17:34:29,191 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-db2e3a23
+2025-08-05 17:34:29,316 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-fc5febea
+2025-08-05 17:34:29,440 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-426e1335
+2025-08-05 17:34:29,565 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-58ab3d0d
+2025-08-05 17:34:29,671 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-d83ff853
+2025-08-05 17:34:29,833 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f88837d5
+2025-08-05 17:34:29,981 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-3191d420
+2025-08-05 17:34:30,128 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-b013d5dc
+2025-08-05 17:34:30,271 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-6cbb956f
+2025-08-05 17:34:30,430 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-b7c3f5a3
+2025-08-05 17:34:30,573 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-55664a84
+2025-08-05 17:34:30,730 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-b2205946
+2025-08-05 17:34:30,890 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-0d78d4b1
+2025-08-05 17:34:31,048 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-75ea5a31
+2025-08-05 17:34:31,197 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-8146399a
+2025-08-05 17:34:31,329 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-a7cd6801
+2025-08-05 17:34:31,483 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-9fa40d43
+2025-08-05 17:34:31,625 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-61a6f4a6
+2025-08-05 17:34:31,780 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-ddef2286
+2025-08-05 17:34:31,932 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f6238b06
+2025-08-05 17:34:32,068 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-238e5e43
+2025-08-05 17:34:32,215 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-5f15370d
+2025-08-05 17:34:32,341 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-eb5c7234
+2025-08-05 17:34:32,483 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-1fb38777
+2025-08-05 17:34:32,632 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-f84a71b7
+2025-08-05 17:34:32,793 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-13ac2fde
+2025-08-05 17:34:32,924 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-87a6bd94
+2025-08-05 17:34:33,073 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-81d06ff4
+2025-08-05 17:34:33,232 - src.communication.grpc_server - INFO - Processing layers [10, 11, 12, 13, 14, 15, 16, 17, 18] for request api-dc86517b
+2025-08-05 17:37:02,203 - __main__ - INFO - Received shutdown signal

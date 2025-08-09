@@ -1,0 +1,59 @@
+2025-08-06 23:45:26,450 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-06 23:45:26,444 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-06 23:45:26,497 - INFO - Distributed initialized: rank=0, world_size=2
+2025-08-06 23:45:26,497 - INFO - Rank 0: Downloading model metadata...
+2025-08-06 23:45:26,519 - INFO - Distributed initialized: rank=1, world_size=2
+2025-08-06 23:45:26,519 - INFO - Rank 1: Downloading model metadata...
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 109655.01it/s]
+2025-08-06 23:45:26,706 - INFO - Rank 0: Lazy loading model to determine sharding...
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 75573.05it/s]
+2025-08-06 23:45:26,735 - INFO - Rank 1: Lazy loading model to determine sharding...
+2025-08-06 23:45:26,724 - WARNING - Model mlx-community/Qwen3-1.7B-8bit doesn't have native pipeline() support
+2025-08-06 23:45:26,724 - INFO - Adding custom pipeline() implementation...
+2025-08-06 23:45:26,724 - INFO - Added pipeline() method to Qwen3Model
+2025-08-06 23:45:26,724 - INFO - ✅ Custom pipeline() method added successfully!
+2025-08-06 23:45:26,724 - INFO - Rank 0: Applying pipeline sharding...
+2025-08-06 23:45:26,724 - INFO - Applying pipeline parallelism: rank 0/2
+2025-08-06 23:45:26,724 - INFO - Found 28 transformer layers
+2025-08-06 23:45:26,724 - INFO - Rank 0: Assigned layers 0-13
+2025-08-06 23:45:26,724 - INFO - Rank 0: Owns layers [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+2025-08-06 23:45:26,724 - INFO - Rank 0: has_embeddings=True, has_output=False
+2025-08-06 23:45:26,724 - INFO - Rank 0: Pipeline setup complete
+2025-08-06 23:45:26,725 - INFO - Rank 0: Downloading 1 weight files for this shard...
+2025-08-06 23:45:26,759 - WARNING - Model mlx-community/Qwen3-1.7B-8bit doesn't have native pipeline() support
+2025-08-06 23:45:26,759 - INFO - Adding custom pipeline() implementation...
+2025-08-06 23:45:26,759 - INFO - Added pipeline() method to Qwen3Model
+2025-08-06 23:45:26,759 - INFO - ✅ Custom pipeline() method added successfully!
+2025-08-06 23:45:26,759 - INFO - Rank 1: Applying pipeline sharding...
+2025-08-06 23:45:26,759 - INFO - Applying pipeline parallelism: rank 1/2
+2025-08-06 23:45:26,759 - INFO - Found 28 transformer layers
+2025-08-06 23:45:26,759 - INFO - Rank 1: Assigned layers 14-27
+2025-08-06 23:45:26,759 - INFO - Rank 1: Owns layers [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+2025-08-06 23:45:26,759 - INFO - Rank 1: has_embeddings=False, has_output=True
+2025-08-06 23:45:26,759 - INFO - Rank 1: Pipeline setup complete
+2025-08-06 23:45:26,760 - INFO - Rank 1: Downloading 1 weight files for this shard...
+Fetching 1 files:   0%|          | 0/1 [00:00<?, ?it/s]Fetching 1 files: 100%|██████████| 1/1 [00:00<00:00, 12372.58it/s]
+Fetching 1 files:   0%|          | 0/1 [00:00<?, ?it/s]Fetching 1 files: 100%|██████████| 1/1 [00:00<00:00, 5159.05it/s]
+2025-08-06 23:45:27,131 - INFO - Rank 0: Loading model weights for this shard...
+2025-08-06 23:45:27,200 - INFO - Rank 1: Loading model weights for this shard...
+2025-08-06 23:45:27,221 - INFO - Rank 0: GPU memory after loading = 1.70 GB
+2025-08-06 23:45:27,281 - INFO - Rank 1: GPU memory after loading = 1.70 GB
+2025-08-06 23:45:27,274 - INFO - Rank 0: Ready for distributed inference!
+2025-08-06 23:45:27,274 - INFO - Starting API server on rank 0
+2025-08-06 23:45:27,298 - INFO - Rank 1: Ready for distributed inference!
+2025-08-06 23:45:27,299 - INFO - Worker rank 1 ready for distributed processing
+[32mINFO[0m:     Started server process [[36m8329[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8100[0m (Press CTRL+C to quit)
+2025-08-06 23:45:55,667 - INFO - ✅ Generated 20 tokens using 2 GPUs
+2025-08-06 23:45:55,667 - INFO - Prompt: 15 tokens, 164.2 tok/s
+2025-08-06 23:45:55,667 - INFO - Generation: 20 tokens, 51.1 tok/s
+2025-08-06 23:45:55,667 - INFO - Peak memory: 1.71 GB
+[32mINFO[0m:     127.0.0.1:57901 - "[1mPOST /v1/chat/completions HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m8329[0m]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-cwmzcnqb'}
+  warnings.warn(

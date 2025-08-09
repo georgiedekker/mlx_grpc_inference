@@ -1,0 +1,81 @@
+2025-08-06 23:24:01,759 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-06 23:24:01,786 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-06 23:24:01,838 - INFO - Distributed initialized: rank=0, world_size=2
+2025-08-06 23:24:01,838 - INFO - Rank 0: Loading model from /Users/mini1/.cache/huggingface/hub/models--mlx-community--Qwen3-1.7B-8bit/snapshots/8c24f6782a91421513803ce527a27dcc560ab904
+2025-08-06 23:24:01,846 - INFO - Distributed initialized: rank=1, world_size=2
+2025-08-06 23:24:01,846 - INFO - Rank 1: Loading model from /Users/mini2/.cache/huggingface/hub/models--mlx-community--Qwen3-1.7B-8bit/snapshots/8c24f6782a91421513803ce527a27dcc560ab904
+2025-08-06 23:24:02,101 - INFO - Rank 1: Replacing model with pipelined version including MPI
+2025-08-06 23:24:02,101 - INFO - Setting up pipeline for rank 1/2
+2025-08-06 23:24:02,101 - INFO - Rank 1: Layers 14-27 of 28
+2025-08-06 23:24:02,101 - INFO - Rank 1: Pipeline with MPI communication ready!
+2025-08-06 23:24:02,102 - INFO - Rank 0: Replacing model with pipelined version including MPI
+2025-08-06 23:24:02,102 - INFO - Setting up pipeline for rank 0/2
+2025-08-06 23:24:02,102 - INFO - Rank 0: Layers 0-13 of 28
+2025-08-06 23:24:02,102 - INFO - Rank 0: Pipeline with MPI communication ready!
+2025-08-06 23:24:02,181 - INFO - Rank 1: GPU memory after loading = 1.70 GB
+2025-08-06 23:24:02,188 - INFO - Rank 0: GPU memory after loading = 1.70 GB
+2025-08-06 23:24:02,235 - INFO - Rank 0: Ready for distributed inference with MPI!
+2025-08-06 23:24:02,236 - INFO - Starting API server on rank 0
+2025-08-06 23:24:02,247 - INFO - Rank 1: Ready for distributed inference with MPI!
+2025-08-06 23:24:02,247 - INFO - Worker rank 1 ready for distributed processing with MPI
+[32mINFO[0m:     Started server process [[36m6816[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8100[0m (Press CTRL+C to quit)
+2025-08-06 23:24:17,230 - INFO - Rank 0: GPU memory before = 1.70 GB
+2025-08-06 23:24:17,231 - INFO - Rank 0: Sending activations shape (1, 9, 2048) to rank 1
+2025-08-06 23:24:17,291 - INFO - Rank 0: Send complete
+2025-08-06 23:24:17,294 - ERROR - Error in chat completion: [quantized_matmul] Last dimension of first input with shape (..., 151936) does not match the expanded quantized matrix (2048, 151936) computed from shape (151936,512) with group_size=64, bits=8 and transpose=true
+2025-08-06 23:24:17,295 - ERROR - Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 531, in chat_completions
+    result = generate_distributed(
+        prompt,
+        max_tokens=request.max_tokens,
+        temperature=request.temperature
+    )
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 369, in generate_distributed
+    for response in stream_generate(
+                    ~~~~~~~~~~~~~~~^
+        model,
+        ^^^^^^
+    ...<3 lines>...
+        sampler=sampler
+        ^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 683, in stream_generate
+    for n, (token, logprobs, from_draft) in enumerate(token_generator):
+                                            ~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 673, in <genexpr>
+    (token, logprobs, False) for token, logprobs in token_generator
+                                                    ^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 434, in generate_step
+    y, logprobs = _step(input_tokens=prompt, input_embeddings=input_embeddings)
+                  ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 384, in _step
+    logits = _model_call(
+        input_tokens=input_tokens[None],
+    ...<2 lines>...
+        ),
+    )
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/generate.py", line 378, in _model_call
+    return model(input_tokens, cache=prompt_cache)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/models/qwen3.py", line 177, in __call__
+    out = self.model.embed_tokens.as_linear(out)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx/nn/layers/quantized.py", line 116, in as_linear
+    return mx.quantized_matmul(
+           ~~~~~~~~~~~~~~~~~~~^
+        x,
+        ^^
+    ...<5 lines>...
+        bits=self.bits,
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+ValueError: [quantized_matmul] Last dimension of first input with shape (..., 151936) does not match the expanded quantized matrix (2048, 151936) computed from shape (151936,512) with group_size=64, bits=8 and transpose=true
+
+[32mINFO[0m:     127.0.0.1:55103 - "[1mPOST /v1/chat/completions HTTP/1.1[0m" [91m500 Internal Server Error[0m
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m6816[0m]

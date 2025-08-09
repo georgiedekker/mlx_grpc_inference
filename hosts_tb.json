@@ -1,0 +1,12 @@
+[
+    {
+        "ssh": "mini1.local",
+        "ips": ["192.168.5.1"],
+        "cwd": "/Users/mini1/Movies/mlx_grpc_inference"
+    },
+    {
+        "ssh": "mini2@192.168.5.2", 
+        "ips": ["192.168.5.2"],
+        "cwd": "/Users/mini2/Movies/mlx_grpc_inference"
+    }
+]

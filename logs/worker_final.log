@@ -1,0 +1,36 @@
+2025-08-05 17:46:35,378 - src.devices.device_factory - INFO - Initialized device factory for cluster: mlx-inference-cluster
+2025-08-05 17:46:35,378 - src.devices.base_device - INFO - Initialized worker device: mini2
+2025-08-05 17:46:35,378 - src.devices.worker_device - INFO - Initialized worker device: mini2
+2025-08-05 17:46:35,378 - src.devices.device_factory - INFO - Created worker device: mini2 (WorkerDevice)
+2025-08-05 17:46:35,378 - __main__ - INFO - Initializing worker server for mini2 with device abstraction
+2025-08-05 17:46:35,378 - __main__ - INFO - Starting worker server with device abstraction...
+2025-08-05 17:46:35,378 - src.devices.base_device - INFO - Initializing device mini2...
+2025-08-05 17:46:35,378 - src.devices.worker_device - INFO - Initializing worker-specific components...
+2025-08-05 17:46:35,378 - src.devices.worker_device - INFO - Worker mini2 assigned layers: [10, 11, 12, 13, 14, 15, 16, 17, 18]
+2025-08-05 17:46:35,378 - src.devices.worker_device - INFO - Worker device components initialized
+2025-08-05 17:46:35,378 - src.devices.base_device - INFO - Loading model for device mini2...
+2025-08-05 17:46:35,379 - src.model.sharding - INFO - Device mini1 assigned layers [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+2025-08-05 17:46:35,379 - src.model.sharding - INFO - Device mini2 assigned layers [10, 11, 12, 13, 14, 15, 16, 17, 18]
+2025-08-05 17:46:35,379 - src.model.sharding - INFO - Device master assigned layers [19, 20, 21, 22, 23, 24, 25, 26, 27]
+2025-08-05 17:46:35,379 - src.model.loader - INFO - Loading model shard for mini2: layers [10, 11, 12, 13, 14, 15, 16, 17, 18]
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 69775.85it/s]
+2025-08-05 17:46:36,523 - src.model.loader - INFO - Model shard loaded for mini2
+2025-08-05 17:46:36,524 - src.model.inference - INFO - LayerProcessor for mini2 handling layers: [10, 11, 12, 13, 14, 15, 16, 17, 18]
+2025-08-05 17:46:36,524 - src.devices.base_device - INFO - Model loaded with layers: [10, 11, 12, 13, 14, 15, 16, 17, 18]
+2025-08-05 17:46:36,524 - src.devices.worker_device - INFO - Initializing worker communication...
+2025-08-05 17:46:36,524 - src.devices.worker_device - INFO - Starting gRPC server on port 50051
+2025-08-05 17:46:36,541 - src.communication.grpc_server - INFO - gRPC server created for mini2 on [::]:50051
+2025-08-05 17:46:36,543 - src.communication.grpc_server - INFO - gRPC server started on port 50051
+2025-08-05 17:51:19,984 - __main__ - INFO - Received shutdown signal
+2025-08-05 17:51:19,989 - __main__ - INFO - Received shutdown signal
+Exception ignored in atexit callback <bound method finalize._exitfunc of <class 'weakref.finalize'>>:
+Traceback (most recent call last):
+  File "/Users/mini2/.local/share/uv/python/cpython-3.13.5-macos-aarch64-none/lib/python3.13/weakref.py", line 649, in _exitfunc
+    import gc
+  File "/Users/mini2/Movies/mlx_grpc_inference/src/worker/worker_server.py", line 156, in signal_handler
+    asyncio.create_task(server.shutdown())
+  File "/Users/mini2/.local/share/uv/python/cpython-3.13.5-macos-aarch64-none/lib/python3.13/asyncio/tasks.py", line 407, in create_task
+    loop = events.get_running_loop()
+RuntimeError: no running event loop
+<sys>:0: RuntimeWarning: coroutine 'WorkerServer.shutdown' was never awaited
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback

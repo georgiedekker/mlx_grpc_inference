@@ -1,0 +1,101 @@
+2025-08-07 13:35:15,840 - INFO - 🚀 Rank 0/2 on mini1.local
+2025-08-07 13:35:15,840 - INFO - Model path: /Users/mini1/.cache/huggingface/hub/models--mlx-community--Qwen3-1.7B-8bit/snapshots/8c24f6782a91421513803ce527a27dcc560ab904
+2025-08-07 13:35:15,840 - INFO - Rank 0: Loading layers 0-13 (first shard with embeddings)
+2025-08-07 13:35:15,840 - INFO - Rank 0: Loading sharded model...
+2025-08-07 13:35:15,831 - INFO - 🚀 Rank 1/2 on mini2.local
+2025-08-07 13:35:15,831 - INFO - Model path: /Users/mini2/.cache/huggingface/hub/models--mlx-community--Qwen3-1.7B-8bit/snapshots/8c24f6782a91421513803ce527a27dcc560ab904
+2025-08-07 13:35:15,831 - INFO - Rank 1: Loading layers 14-27 (last shard with LM head)
+2025-08-07 13:35:15,831 - INFO - Rank 1: Loading sharded model...
+2025-08-07 13:35:16,234 - INFO - Rank 0: GPU memory used: 0.95 GB
+2025-08-07 13:35:16,234 - INFO - Rank 0: Synchronizing...
+2025-08-07 13:35:16,420 - INFO - Rank 1: GPU memory used: 2.63 GB
+2025-08-07 13:35:16,420 - INFO - Rank 1: Synchronizing...
+2025-08-07 13:35:16,546 - INFO - Rank 0: Ready
+2025-08-07 13:35:16,547 - INFO - ============================================================
+2025-08-07 13:35:16,547 - INFO - ✅ DISTRIBUTED SHARDED INFERENCE READY
+2025-08-07 13:35:16,547 - INFO - ✅ Model: mlx-community/Qwen3-1.7B-8bit
+2025-08-07 13:35:16,547 - INFO - ✅ Devices: 2 GPUs
+2025-08-07 13:35:16,547 - INFO - ✅ Rank 0: Layers 0-13 + embeddings
+2025-08-07 13:35:16,547 - INFO - ✅ Rank 1: Layers 14-27 + LM head
+2025-08-07 13:35:16,547 - INFO - ============================================================
+2025-08-07 13:35:16,547 - INFO - Starting API server on http://0.0.0.0:8100
+2025-08-07 13:35:16,540 - INFO - Rank 1: Ready
+2025-08-07 13:35:16,540 - INFO - Worker rank 1 running in distributed mode
+[32mINFO[0m:     Started server process [[36m30183[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8100[0m (Press CTRL+C to quit)
+[32mINFO[0m:     127.0.0.1:50722 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+2025-08-07 13:35:34,881 - INFO - Generating 20 tokens from 12 prompt tokens
+[32mINFO[0m:     127.0.0.1:50724 - "[1mPOST /v1/chat/completions HTTP/1.1[0m" [91m500 Internal Server Error[0m
+[31mERROR[0m:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/protocols/http/httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/fastapi/routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/distributed_server.py", line 334, in chat_completions
+    result = generate_distributed(
+        prompt=prompt,
+        max_tokens=request.max_tokens,
+        temperature=request.temperature
+    )
+  File "/Users/mini1/Movies/mlx_grpc_inference/distributed_server.py", line 247, in generate_distributed
+    logits = distributed_forward(prompt_tokens, cache)
+  File "/Users/mini1/Movies/mlx_grpc_inference/distributed_server.py", line 171, in distributed_forward
+    output = model(inputs, use_cache)
+  File "/Users/mini1/Movies/mlx_grpc_inference/sharded_model_loader.py", line 95, in __call__
+    out = self.model(inputs, cache)
+  File "/Users/mini1/Movies/mlx_grpc_inference/sharded_model_loader.py", line 65, in __call__
+    h = layer(h, mask, c)
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx_lm/models/qwen2.py", line 115, in __call__
+    r = self.self_attn(self.input_layernorm(x), mask, cache)
+                       ~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/.venv/lib/python3.13/site-packages/mlx/nn/layers/normalization.py", line 143, in __call__
+    return mx.fast.rms_norm(x, self["weight"], self.eps)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: [rms_norm] (*weight) must have the same size as the last dimension of x but has 2048 elements.
