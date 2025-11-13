@@ -1,24 +1,19 @@
 #!/usr/bin/env python3
-"""Test model structure to understand lm_head access."""
+"""Test model structure to understand layer arrangement"""
 from mlx_lm import load
 
-model_name = "mlx-community/Qwen3-1.7B-8bit"
-print(f"Loading {model_name}...")
-model, tokenizer = load(model_name, lazy=True)
+model, tokenizer = load("mlx-community/Qwen3-1.7B-8bit")
 
-print("\nModel structure:")
-print(f"Type of model: {type(model)}")
-print(f"Model attributes: {[x for x in dir(model) if not x.startswith('_')]}")
-
-if hasattr(model, 'lm_head'):
-    print(f"\n✓ model.lm_head exists")
-elif hasattr(model, 'model') and hasattr(model.model, 'lm_head'):
-    print(f"\n✓ model.model.lm_head exists")
-else:
-    print("\n✗ lm_head not found in expected locations")
-    
-# Check what the model object actually has
-print(f"\nChecking model components:")
+print(f"Model type: {type(model)}")
+print(f"Has layers: {hasattr(model, 'layers')}")
 if hasattr(model, 'model'):
-    print(f"  model.model type: {type(model.model)}")
-    print(f"  model.model attributes: {[x for x in dir(model.model) if not x.startswith('_') and not x.startswith('layers')][:10]}")
+    print(f"Model.model type: {type(model.model)}")
+    print(f"Model.model has layers: {hasattr(model.model, 'layers')}")
+    if hasattr(model.model, 'layers'):
+        print(f"Number of layers: {len(model.model.layers)}")
+        print(f"Layer 0 type: {type(model.model.layers[0])}")
+        
+print("\nModel structure:")
+for name, module in model.named_modules():
+    if name:
+        print(f"  {name}: {type(module).__name__}")

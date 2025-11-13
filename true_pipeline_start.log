@@ -1,0 +1,35 @@
+[0;34m=== 🚀 Auto-Discovery MLX Distributed Inference ===[0m
+[0;34m🔧 Optimizing system for MLX distributed inference...[0m
+[0;32m✓ GPU memory limit already optimized: 100000MB[0m
+[0;32m✅ System optimized for MLX[0m
+[0;34m🔍 Discovering Apple Silicon devices...[0m
+Local machine Thunderbolt IP: 192.168.5.1
+Testing 192.168.5.1 (local)...
+  ✓ Local machine
+  🍎 Apple Silicon detected: Apple M4
+  💾 Memory: 16 GB
+  🏷️  Hostname: mini1.local
+Scanning Thunderbolt network for remote device...
+Checking Thunderbolt devices: 192.168.5.1 192.168.5.2
+Testing 192.168.5.2 (remote)...
+  ✓ SSH accessible
+  🍎 Apple Silicon detected: Apple M4
+  💾 Memory: 16 GB
+  🏷️  Hostname: mini2.local
+
+[0;32m🎯 Discovery Complete![0m
+Found 2 Apple Silicon devices:
+  • 192.168.5.1
+  • 192.168.5.2
+Total cluster memory: 32GB
+
+[0;32m🚀 Using DeepSeek-R1 with NATIVE pipeline() support[0m
+[0;34mThis model supports TRUE pipeline parallelism[0m
+[0;34mTotal cluster memory: 32GB[0m
+[0;31m❌ Model not found: mlx-community/DeepSeek-R1-3bit[0m
+[0;33mThis model is REQUIRED for pipeline parallelism.[0m
+[0;33mPlease download it first with:[0m
+[0;34mcd ~/Movies/mlx_grpc_inference && source .venv/bin/activate[0m
+[0;34mpython -c "from mlx_lm import load; load('mlx-community/DeepSeek-R1-3bit')"[0m
+
+[0;33mNote: This is a ~15GB download and may take a while.[0m

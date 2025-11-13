@@ -1,2 +1,0 @@
-usage: grpc_server.py [-h] [--device-id DEVICE_ID] [--port PORT]
-grpc_server.py: error: unrecognized arguments: --rank=1

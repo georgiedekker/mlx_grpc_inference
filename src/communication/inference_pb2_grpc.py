@@ -55,6 +55,16 @@ class InferenceServiceStub(object):
                 request_serializer=inference__pb2.Empty.SerializeToString,
                 response_deserializer=inference__pb2.DeviceInfo.FromString,
                 _registered_method=True)
+        self.AllReduce = channel.unary_unary(
+                '/mlx_inference.InferenceService/AllReduce',
+                request_serializer=inference__pb2.AllReduceRequest.SerializeToString,
+                response_deserializer=inference__pb2.AllReduceResponse.FromString,
+                _registered_method=True)
+        self.InitializeModelShard = channel.unary_unary(
+                '/mlx_inference.InferenceService/InitializeModelShard',
+                request_serializer=inference__pb2.ModelShardRequest.SerializeToString,
+                response_deserializer=inference__pb2.ModelShardResponse.FromString,
+                _registered_method=True)
 
 
 class InferenceServiceServicer(object):
@@ -89,6 +99,20 @@ class InferenceServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def AllReduce(self, request, context):
+        """AllReduce for tensor parallelism
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def InitializeModelShard(self, request, context):
+        """Initialize tensor parallel model shards
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InferenceServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -111,6 +135,16 @@ def add_InferenceServiceServicer_to_server(servicer, server):
                     servicer.GetDeviceInfo,
                     request_deserializer=inference__pb2.Empty.FromString,
                     response_serializer=inference__pb2.DeviceInfo.SerializeToString,
+            ),
+            'AllReduce': grpc.unary_unary_rpc_method_handler(
+                    servicer.AllReduce,
+                    request_deserializer=inference__pb2.AllReduceRequest.FromString,
+                    response_serializer=inference__pb2.AllReduceResponse.SerializeToString,
+            ),
+            'InitializeModelShard': grpc.unary_unary_rpc_method_handler(
+                    servicer.InitializeModelShard,
+                    request_deserializer=inference__pb2.ModelShardRequest.FromString,
+                    response_serializer=inference__pb2.ModelShardResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -222,6 +256,60 @@ class InferenceService(object):
             '/mlx_inference.InferenceService/GetDeviceInfo',
             inference__pb2.Empty.SerializeToString,
             inference__pb2.DeviceInfo.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AllReduce(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mlx_inference.InferenceService/AllReduce',
+            inference__pb2.AllReduceRequest.SerializeToString,
+            inference__pb2.AllReduceResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def InitializeModelShard(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mlx_inference.InferenceService/InitializeModelShard',
+            inference__pb2.ModelShardRequest.SerializeToString,
+            inference__pb2.ModelShardResponse.FromString,
             options,
             channel_credentials,
             insecure,

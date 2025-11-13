@@ -1,6 +1,0 @@
-2025-08-01 15:41:04,140 - __main__ - INFO - Starting distributed inference server: master:50051
-2025-08-01 15:41:04,140 - device_capabilities - INFO - Detecting capabilities for device: mini1
-2025-08-01 15:41:04,333 - device_capabilities - INFO - Detected profile: DeviceProfile(device_id='mini1', hostname='mini1.local', model='Apple M4', memory_gb=16.0, gpu_cores=10, cpu_cores=10, cpu_performance_cores=4, cpu_efficiency_cores=6, neural_engine_cores=16, bandwidth_gbps=None, mlx_metal_available=True, max_recommended_model_size_gb=12.8)
-2025-08-01 15:41:04,333 - __main__ - INFO - Detected capabilities: DeviceProfile(device_id='mini1', hostname='mini1.local', model='Apple M4', memory_gb=16.0, gpu_cores=10, cpu_cores=10, cpu_performance_cores=4, cpu_efficiency_cores=6, neural_engine_cores=16, bandwidth_gbps=None, mlx_metal_available=True, max_recommended_model_size_gb=12.8)
-2025-08-01 15:41:04,333 - __main__ - INFO - Initialized inference server on master:50051
-2025-08-01 15:41:04,338 - __main__ - INFO - gRPC server started on [::]:50051

@@ -1,0 +1,40 @@
+2025-08-07 14:20:02,199 - INFO - ============================================================
+2025-08-07 14:20:02,199 - INFO - WORKING MLX DISTRIBUTED INFERENCE
+2025-08-07 14:20:02,199 - INFO - Using Python 3.13.5
+2025-08-07 14:20:02,199 - INFO - Model: mlx-community/Qwen3-1.7B-8bit
+2025-08-07 14:20:02,199 - INFO - ============================================================
+2025-08-07 14:20:02,279 - INFO - 🚀 Rank 0/1 on mini1.local
+2025-08-07 14:20:02,279 - INFO - Rank 0: Loading model mlx-community/Qwen3-1.7B-8bit...
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 95808.97it/s]
+2025-08-07 14:20:02,978 - INFO - ============================================================
+2025-08-07 14:20:02,978 - INFO - ✅ DISTRIBUTED INFERENCE READY
+2025-08-07 14:20:02,978 - INFO - ✅ Model: mlx-community/Qwen3-1.7B-8bit
+2025-08-07 14:20:02,978 - INFO - ✅ Devices: 1 GPUs
+2025-08-07 14:20:02,978 - INFO - ✅ Memory: 1.70 GB on rank 0
+2025-08-07 14:20:02,978 - INFO - ============================================================
+2025-08-07 14:20:02,979 - INFO - Starting API server on http://0.0.0.0:8100
+INFO:     Started server process [34872]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
+INFO:     127.0.0.1:56547 - "GET /health HTTP/1.1" 200 OK
+2025-08-07 14:20:27,042 - INFO - Generating 50 tokens from 15 prompt tokens
+2025-08-07 14:20:28,155 - INFO - ✅ Generated 50 tokens in 1.11s
+2025-08-07 14:20:28,155 - INFO - ✅ Speed: 49.9 tokens/sec
+INFO:     127.0.0.1:56574 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56882 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56882 - "GET /openapi.json HTTP/1.1" 200 OK
+2025-08-07 14:21:50,274 - INFO - Generating 100 tokens from 11 prompt tokens
+2025-08-07 14:21:52,634 - INFO - ✅ Generated 100 tokens in 2.36s
+2025-08-07 14:21:52,634 - INFO - ✅ Speed: 44.9 tokens/sec
+INFO:     127.0.0.1:56953 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2025-08-07 14:22:09,639 - INFO - Generating 100 tokens from 12 prompt tokens
+2025-08-07 14:22:12,025 - INFO - ✅ Generated 100 tokens in 2.39s
+2025-08-07 14:22:12,025 - INFO - ✅ Speed: 44.3 tokens/sec
+INFO:     127.0.0.1:57022 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [34872]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-5bsiq_33'}
+  warnings.warn(

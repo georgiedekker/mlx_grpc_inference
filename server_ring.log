@@ -1,0 +1,48 @@
+2025-08-06 23:32:08,695 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-06 23:32:08,725 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-06 23:32:08,779 - INFO - Distributed initialized: rank=0, world_size=2
+2025-08-06 23:32:08,779 - INFO - Rank 0: Loading model from /Users/mini1/.cache/huggingface/hub/models--mlx-community--Qwen3-1.7B-8bit/snapshots/8c24f6782a91421513803ce527a27dcc560ab904
+2025-08-06 23:32:08,792 - INFO - Distributed initialized: rank=1, world_size=2
+2025-08-06 23:32:08,793 - INFO - Rank 1: Loading model from /Users/mini2/.cache/huggingface/hub/models--mlx-community--Qwen3-1.7B-8bit/snapshots/8c24f6782a91421513803ce527a27dcc560ab904
+2025-08-06 23:32:09,044 - INFO - Rank 1: Replacing model with pipelined version including MPI
+2025-08-06 23:32:09,044 - INFO - Setting up pipeline for rank 1/2
+2025-08-06 23:32:09,044 - INFO - Rank 1: Layers 14-27 of 28
+2025-08-06 23:32:09,044 - INFO - Rank 1: Pipeline with MPI communication ready!
+2025-08-06 23:32:09,045 - INFO - Rank 0: Replacing model with pipelined version including MPI
+2025-08-06 23:32:09,045 - INFO - Setting up pipeline for rank 0/2
+2025-08-06 23:32:09,045 - INFO - Rank 0: Layers 0-13 of 28
+2025-08-06 23:32:09,045 - INFO - Rank 0: Pipeline with MPI communication ready!
+2025-08-06 23:32:09,123 - INFO - Rank 1: GPU memory after loading = 1.70 GB
+2025-08-06 23:32:09,131 - INFO - Rank 0: GPU memory after loading = 1.70 GB
+2025-08-06 23:32:09,151 - INFO - Rank 0: Ready for distributed inference with MPI!
+2025-08-06 23:32:09,151 - INFO - Starting API server on rank 0
+2025-08-06 23:32:09,168 - INFO - Rank 1: Ready for distributed inference with MPI!
+2025-08-06 23:32:09,168 - INFO - Worker rank 1 ready for distributed processing with MPI
+[32mINFO[0m:     Started server process [[36m7744[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8100[0m (Press CTRL+C to quit)
+2025-08-06 23:32:20,471 - INFO - Rank 0: GPU memory before = 1.70 GB
+2025-08-06 23:32:20,472 - INFO - Rank 0: Processing with 2 GPUs in distributed mode
+2025-08-06 23:32:20,502 - INFO - Rank 0: Processing with 2 GPUs in distributed mode
+2025-08-06 23:32:20,563 - INFO - Rank 0: Processing with 2 GPUs in distributed mode
+2025-08-06 23:32:20,576 - INFO - Rank 0: Processing with 2 GPUs in distributed mode
+2025-08-06 23:32:20,591 - INFO - Rank 0: Processing with 2 GPUs in distributed mode
+2025-08-06 23:32:20,603 - INFO - Rank 0: Processing with 2 GPUs in distributed mode
+2025-08-06 23:32:20,615 - INFO - Rank 0: Processing with 2 GPUs in distributed mode
+2025-08-06 23:32:20,628 - INFO - Rank 0: Processing with 2 GPUs in distributed mode
+2025-08-06 23:32:20,640 - INFO - Rank 0: Processing with 2 GPUs in distributed mode
+2025-08-06 23:32:20,652 - INFO - Rank 0: Processing with 2 GPUs in distributed mode
+2025-08-06 23:32:20,664 - INFO - Rank 0: Processing with 2 GPUs in distributed mode
+2025-08-06 23:32:20,690 - INFO - Rank 0: GPU memory after = 1.71 GB
+2025-08-06 23:32:20,690 - INFO - Rank 0: Memory delta = 0.003 GB
+2025-08-06 23:32:20,690 - INFO - Response type: <class 'mlx_lm.generate.GenerationResponse'>, has text: True
+2025-08-06 23:32:20,690 - INFO - Text content: '' (length: 0)
+2025-08-06 23:32:20,690 - INFO - Prompt: 9 tokens in 0.00s = 99.8 tok/s
+2025-08-06 23:32:20,690 - INFO - Generation: 10 tokens in 0.22s = 86.6 tok/s
+2025-08-06 23:32:20,690 - INFO - ✅ Using 2 GPUs with pipeline parallelism and MPI!
+[32mINFO[0m:     127.0.0.1:56646 - "[1mPOST /v1/chat/completions HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m7744[0m]

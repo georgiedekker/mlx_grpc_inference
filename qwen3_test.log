@@ -1,0 +1,73 @@
+✅ Added pipeline() support to Qwen3Model
+Loading model: mlx-community/Qwen3-1.7B-8bit
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 256794.12it/s]
+✅ Added pipeline() support to Qwen3Model
+Loading model: mlx-community/Qwen3-1.7B-8bit
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 249991.63it/s]
+Rank 0/2 on mini1.local
+Rank 0: Processing layers 0 to 13 (total: 14 layers)
+Rank 0: GPU memory = 1.01 GB
+Rank 0: Synchronized and ready
+==================================================
+Prompt: What is 2+2?
+==================================================
+Generating...
+Rank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+Rank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+衔Rank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+ؤRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+_ProRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+romiseRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+anonymousRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+enhRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+aysRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+anonymousRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+帐号Rank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+逍遥Rank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+opusRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+opusRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+-samaRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+-samaRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+-samaRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+-samaRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+-samaRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+-samaRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+-samaRank 0: Processed 6/14 layers
+Rank 0: Processed 11/14 layers
+-sama
+==================================================
+Generated 20 tokens in 0.31s
+Speed: 85.3 tokens/sec
+Memory: 1.11 GB
+✅ Used 2 GPUs with pipeline parallelism!
+[ring] Receiving from socket 13 failed with errno 54
+[ring] Receiving from socket 13 failed with errno 54
+[ring] Receiving from socket 13 failed with errno 54
+[ring] Receiving from socket 13 failed with errno 54
+[ring] Receiving from socket 13 failed with errno 54
+[ring] Receiving from socket 13 failed with errno 54
+[ring] Receiving from socket 13 failed with errno 54
+[ring] Receiving from socket 13 failed with errno 54
+[ring] Receiving from socket 13 failed with errno 54
+[ring] Receiving from socket 13 failed with errno 54
+[ring] Too many send/recv errors. Aborting...

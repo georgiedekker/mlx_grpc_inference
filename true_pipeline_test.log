@@ -1,0 +1,15 @@
+Usage: ./launch.sh {start|stop|restart|discover|status|logs|discovery-logs}
+
+  start          - Auto-discover devices and start distributed server
+  stop           - Stop the distributed server on all devices
+  restart        - Restart with fresh device discovery
+  discover       - Discover available Apple Silicon devices
+  status         - Show server status
+  logs           - Follow server logs
+  discovery-logs - Follow discovery logs
+
+🚀 Auto-Discovery Features:
+  • Automatically finds Apple Silicon devices on network
+  • Selects optimal model based on total cluster memory
+  • Generates hostfile for discovered devices
+  • Supports heterogeneous clusters (M1/M2/M3/M4 mix)

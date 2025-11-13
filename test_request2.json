@@ -1,9 +1,0 @@
-{
-  "model": "mlx-community/Qwen3-1.7B-8bit",
-  "messages": [
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "Hello! How are you?"}
-  ],
-  "max_tokens": 30,
-  "temperature": 0.3
-}

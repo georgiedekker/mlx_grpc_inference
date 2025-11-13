@@ -1,0 +1,77 @@
+2025-08-06 23:53:14,526 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-06 23:53:14,525 - INFO - Loading model: mlx-community/Qwen3-1.7B-8bit
+2025-08-06 23:53:14,577 - INFO - Distributed initialized: rank=0, world_size=2
+2025-08-06 23:53:14,577 - INFO - Rank 0: Downloading model metadata...
+2025-08-06 23:53:14,606 - INFO - Distributed initialized: rank=1, world_size=2
+2025-08-06 23:53:14,606 - INFO - Rank 1: Downloading model metadata...
+2025-08-06 23:53:14,579 - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-08-06 23:53:14,607 - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-08-06 23:53:14,764 - DEBUG - https://huggingface.co:443 "GET /api/models/mlx-community/Qwen3-1.7B-8bit/revision/main HTTP/1.1" 200 6006
+2025-08-06 23:53:14,796 - DEBUG - https://huggingface.co:443 "GET /api/models/mlx-community/Qwen3-1.7B-8bit/revision/main HTTP/1.1" 200 6006
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 173857.16it/s]
+2025-08-06 23:53:14,775 - INFO - Rank 0: Lazy loading model to determine sharding...
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 113743.84it/s]
+2025-08-06 23:53:14,818 - INFO - Rank 1: Lazy loading model to determine sharding...
+2025-08-06 23:53:14,792 - WARNING - Model mlx-community/Qwen3-1.7B-8bit doesn't have native pipeline() support
+2025-08-06 23:53:14,792 - INFO - Adding distributed forward to ensure both GPUs are used...
+2025-08-06 23:53:14,792 - INFO - Added distributed forward to Qwen3Model
+2025-08-06 23:53:14,792 - INFO - ✅ Distributed forward added - both GPUs will participate!
+2025-08-06 23:53:14,792 - INFO - Rank 0: Applying pipeline sharding...
+2025-08-06 23:53:14,792 - INFO - Distributed setup: rank 0/2
+2025-08-06 23:53:14,792 - INFO - Rank 0: Ready for distributed processing
+2025-08-06 23:53:14,793 - INFO - Rank 0: Downloading 1 weight files for this shard...
+2025-08-06 23:53:14,833 - WARNING - Model mlx-community/Qwen3-1.7B-8bit doesn't have native pipeline() support
+2025-08-06 23:53:14,833 - INFO - Adding distributed forward to ensure both GPUs are used...
+2025-08-06 23:53:14,833 - INFO - Added distributed forward to Qwen3Model
+2025-08-06 23:53:14,833 - INFO - ✅ Distributed forward added - both GPUs will participate!
+2025-08-06 23:53:14,833 - INFO - Rank 1: Applying pipeline sharding...
+2025-08-06 23:53:14,833 - INFO - Distributed setup: rank 1/2
+2025-08-06 23:53:14,834 - INFO - Rank 1: Ready for distributed processing
+2025-08-06 23:53:14,835 - INFO - Rank 1: Downloading 1 weight files for this shard...
+2025-08-06 23:53:14,964 - DEBUG - https://huggingface.co:443 "GET /api/models/mlx-community/Qwen3-1.7B-8bit/revision/main HTTP/1.1" 200 6006
+Fetching 1 files:   0%|          | 0/1 [00:00<?, ?it/s]Fetching 1 files: 100%|██████████| 1/1 [00:00<00:00, 2288.22it/s]
+2025-08-06 23:53:14,943 - DEBUG - https://huggingface.co:443 "GET /api/models/mlx-community/Qwen3-1.7B-8bit/revision/main HTTP/1.1" 200 6006
+Fetching 1 files:   0%|          | 0/1 [00:00<?, ?it/s]Fetching 1 files: 100%|██████████| 1/1 [00:00<00:00, 10230.01it/s]
+2025-08-06 23:53:15,244 - INFO - Rank 1: Loading model weights for this shard...
+2025-08-06 23:53:15,219 - INFO - Rank 0: Loading model weights for this shard...
+2025-08-06 23:53:15,324 - INFO - Rank 1: GPU memory after loading = 1.70 GB
+2025-08-06 23:53:15,309 - INFO - Rank 0: GPU memory after loading = 1.70 GB
+2025-08-06 23:53:15,346 - INFO - Rank 0: Ready for distributed inference!
+2025-08-06 23:53:15,347 - INFO - Starting API server on rank 0
+2025-08-06 23:53:15,377 - INFO - Rank 1: Ready for distributed inference!
+2025-08-06 23:53:15,377 - INFO - Worker rank 1 ready for distributed processing
+[32mINFO[0m:     Started server process [[36m8888[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8100[0m (Press CTRL+C to quit)
+2025-08-06 23:53:42,214 - DEBUG - Token 1: text='<think>'
+2025-08-06 23:53:42,214 - DEBUG - Token 1: decoded='<think>'
+2025-08-06 23:53:42,237 - DEBUG - Token 2: text='
+'
+2025-08-06 23:53:42,237 - DEBUG - Token 2: decoded='
+'
+2025-08-06 23:53:42,261 - DEBUG - Token 3: text='Okay'
+2025-08-06 23:53:42,261 - DEBUG - Token 3: decoded='Okay'
+2025-08-06 23:53:42,280 - DEBUG - Token 4: text=','
+2025-08-06 23:53:42,280 - DEBUG - Token 4: decoded=','
+2025-08-06 23:53:42,302 - DEBUG - Token 5: text=' the'
+2025-08-06 23:53:42,302 - DEBUG - Token 5: decoded=' the'
+2025-08-06 23:53:42,316 - INFO - ✅ Generated 5 tokens using 2 GPUs
+2025-08-06 23:53:42,316 - INFO - Prompt: 10 tokens, 114.7 tok/s
+2025-08-06 23:53:42,316 - INFO - Generation: 5 tokens, 56.7 tok/s
+2025-08-06 23:53:42,316 - INFO - Peak memory: 1.70 GB
+2025-08-06 23:53:42,316 - INFO - Generated text: '<think>
+Okay, the the' (length: 21)
+[32mINFO[0m:     127.0.0.1:58879 - "[1mPOST /v1/chat/completions HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m8888[0m]
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-h64we1ep'}
+  warnings.warn(
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-eo6ngt6a'}
+  warnings.warn(
+--------------------------------------------------------------------------
+prterun noticed that process rank 1 with PID 54689 on node mini2 exited on
+signal 15 (Terminated: 15).
+--------------------------------------------------------------------------

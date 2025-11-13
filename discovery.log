@@ -1,0 +1,17 @@
+
+Local machine Thunderbolt IP: 192.168.5.1
+Testing 192.168.5.1 (local)...
+  ✓ Local machine
+  🍎 Apple Silicon detected: Apple M4
+  💾 Memory: 16 GB
+  🏷️  Hostname: mini1.local
+Checking Thunderbolt devices: 192.168.5.1 192.168.5.2
+Testing 192.168.5.2 (remote)...
+  ✓ SSH accessible
+  🍎 Apple Silicon detected: Apple M4
+  💾 Memory: 16 GB
+  🏷️  Hostname: mini2.local
+Hostfile contents:
+[
+    {"ssh": "192.168.5.2", "ips": ["192.168.5.2"]}
+]

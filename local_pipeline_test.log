@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 17, in <module>
+    from mlx_lm import stream_generate
+ModuleNotFoundError: No module named 'mlx_lm'
+[33m[WARN] Node with rank 0 exited with code 1 [0m
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 17, in <module>
+    from mlx_lm import stream_generate
+ModuleNotFoundError: No module named 'mlx_lm'
+[33m[WARN] Node with rank 1 exited with code 1 [0m

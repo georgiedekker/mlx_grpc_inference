@@ -1,24 +1,0 @@
-2025-08-05 23:15:08,894 - INFO - Loading model configuration from mlx-community/Qwen3-1.7B-8bit
-Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 95808.97it/s]
-2025-08-05 23:15:09,406 - INFO - Model has 28 layers
-2025-08-05 23:15:09,406 - INFO - Distributing 28 layers across 3 workers
-2025-08-05 23:15:09,406 - INFO - Base layers per worker: 9, remainder: 1
-2025-08-05 23:15:09,406 - INFO - Worker 0 (192.168.5.1:50051): layers 0-9 (10 layers)
-2025-08-05 23:15:09,406 - INFO - Worker 1 (192.168.5.2:50051): layers 10-18 (9 layers)
-2025-08-05 23:15:09,406 - INFO - Worker 2 (192.168.5.3:50051): layers 19-27 (9 layers)
-2025-08-05 23:15:09,406 - INFO - Connecting to worker at 192.168.5.1:50051 (layers 0-9)
-2025-08-05 23:15:09,406 - INFO - Connecting to worker at 192.168.5.2:50051 (layers 10-18)
-2025-08-05 23:15:09,408 - INFO - Connecting to worker at 192.168.5.3:50051 (layers 19-27)
-2025-08-05 23:15:09,408 - INFO - Coordinator initialized successfully
-2025-08-05 23:15:09,408 - INFO - Starting FastAPI server on port 8100
-INFO:     Started server process [33444]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-2025-08-05 23:15:09,420 - INFO - Local gRPC worker service started on port 50051
-INFO:     Uvicorn running on http://0.0.0.0:8100 (Press CTRL+C to quit)
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [33444]
-/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-hxbjnrbj'}
-  warnings.warn(

@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0finference.proto\x12\rmlx_inference\"\x07\n\x05\x45mpty\"\x90\x02\n\nDeviceInfo\x12\x11\n\tdevice_id\x18\x01 \x01(\t\x12\x10\n\x08hostname\x18\x02 \x01(\t\x12\x0c\n\x04rank\x18\x03 \x01(\x05\x12\x0c\n\x04role\x18\x04 \x01(\t\x12\x17\n\x0f\x61ssigned_layers\x18\x05 \x03(\x05\x12\x41\n\x0c\x63\x61pabilities\x18\x06 \x03(\x0b\x32+.mlx_inference.DeviceInfo.CapabilitiesEntry\x12\x17\n\x0fgpu_utilization\x18\x07 \x01(\x02\x12\x17\n\x0fmemory_usage_gb\x18\x08 \x01(\x02\x1a\x33\n\x11\x43\x61pabilitiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"4\n\x06Tensor\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12\r\n\x05shape\x18\x02 \x03(\x03\x12\r\n\x05\x64type\x18\x03 \x01(\t\"\x94\x01\n\x0eLayerRequestV2\x12+\n\x0cinput_tensor\x18\x01 \x01(\x0b\x32\x15.mlx_inference.Tensor\x12\x13\n\x0bstart_layer\x18\x02 \x01(\x05\x12\x11\n\tend_layer\x18\x03 \x01(\x05\x12-\n\x0e\x61ttention_mask\x18\x04 \x01(\x0b\x32\x15.mlx_inference.Tensor\"?\n\x0fLayerResponseV2\x12,\n\routput_tensor\x18\x01 \x01(\x0b\x32\x15.mlx_inference.Tensor\"\xb2\x01\n\x0e\x46orwardRequest\x12\x11\n\tinput_ids\x18\x01 \x03(\x03\x12+\n\x0cinput_tensor\x18\x02 \x01(\x0b\x32\x15.mlx_inference.Tensor\x12\x14\n\x0cis_embedding\x18\x03 \x01(\x08\x12\x1b\n\x13is_final_projection\x18\x04 \x01(\x08\x12-\n\x0e\x61ttention_mask\x18\x05 \x01(\x0b\x32\x15.mlx_inference.Tensor\"8\n\x0f\x46orwardResponse\x12%\n\x06output\x18\x01 \x01(\x0b\x32\x15.mlx_inference.Tensor\"\x0f\n\rHealthRequest\"1\n\x0eHealthResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t2\xba\x02\n\x10InferenceService\x12N\n\rProcessLayers\x12\x1d.mlx_inference.LayerRequestV2\x1a\x1e.mlx_inference.LayerResponseV2\x12H\n\x07\x46orward\x12\x1d.mlx_inference.ForwardRequest\x1a\x1e.mlx_inference.ForwardResponse\x12J\n\x0bHealthCheck\x12\x1c.mlx_inference.HealthRequest\x1a\x1d.mlx_inference.HealthResponse\x12@\n\rGetDeviceInfo\x12\x14.mlx_inference.Empty\x1a\x19.mlx_inference.DeviceInfob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0finference.proto\x12\rmlx_inference\"\x07\n\x05\x45mpty\"\x90\x02\n\nDeviceInfo\x12\x11\n\tdevice_id\x18\x01 \x01(\t\x12\x10\n\x08hostname\x18\x02 \x01(\t\x12\x0c\n\x04rank\x18\x03 \x01(\x05\x12\x0c\n\x04role\x18\x04 \x01(\t\x12\x17\n\x0f\x61ssigned_layers\x18\x05 \x03(\x05\x12\x41\n\x0c\x63\x61pabilities\x18\x06 \x03(\x0b\x32+.mlx_inference.DeviceInfo.CapabilitiesEntry\x12\x17\n\x0fgpu_utilization\x18\x07 \x01(\x02\x12\x17\n\x0fmemory_usage_gb\x18\x08 \x01(\x02\x1a\x33\n\x11\x43\x61pabilitiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"4\n\x06Tensor\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12\r\n\x05shape\x18\x02 \x03(\x03\x12\r\n\x05\x64type\x18\x03 \x01(\t\"\xd0\x01\n\x0eLayerRequestV2\x12+\n\x0cinput_tensor\x18\x01 \x01(\x0b\x32\x15.mlx_inference.Tensor\x12\x13\n\x0bstart_layer\x18\x02 \x01(\x05\x12\x11\n\tend_layer\x18\x03 \x01(\x05\x12-\n\x0e\x61ttention_mask\x18\x04 \x01(\x0b\x32\x15.mlx_inference.Tensor\x12\x12\n\nsession_id\x18\x05 \x01(\t\x12\x11\n\tis_prompt\x18\x06 \x01(\x08\x12\x13\n\x0b\x63lear_cache\x18\x07 \x01(\x08\"?\n\x0fLayerResponseV2\x12,\n\routput_tensor\x18\x01 \x01(\x0b\x32\x15.mlx_inference.Tensor\"\xd9\x01\n\x0e\x46orwardRequest\x12\x11\n\tinput_ids\x18\x01 \x03(\x03\x12+\n\x0cinput_tensor\x18\x02 \x01(\x0b\x32\x15.mlx_inference.Tensor\x12\x14\n\x0cis_embedding\x18\x03 \x01(\x08\x12\x1b\n\x13is_final_projection\x18\x04 \x01(\x08\x12-\n\x0e\x61ttention_mask\x18\x05 \x01(\x0b\x32\x15.mlx_inference.Tensor\x12\x12\n\nsession_id\x18\x06 \x01(\t\x12\x11\n\tis_prompt\x18\x07 \x01(\x08\"8\n\x0f\x46orwardResponse\x12%\n\x06output\x18\x01 \x01(\x0b\x32\x15.mlx_inference.Tensor\"\x0f\n\rHealthRequest\"1\n\x0eHealthResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"\x87\x01\n\x10\x41llReduceRequest\x12%\n\x06tensor\x18\x01 \x01(\x0b\x32\x15.mlx_inference.Tensor\x12\x11\n\toperation\x18\x02 \x01(\t\x12\x12\n\nsession_id\x18\x03 \x01(\t\x12\x11\n\tdevice_id\x18\x04 \x01(\x05\x12\x12\n\nworld_size\x18\x05 \x01(\x05\"Q\n\x11\x41llReduceResponse\x12,\n\rresult_tensor\x18\x01 \x01(\x0b\x32\x15.mlx_inference.Tensor\x12\x0e\n\x06status\x18\x02 \x01(\t\"\xe5\x01\n\x11ModelShardRequest\x12\x11\n\tdevice_id\x18\x01 \x01(\x05\x12\x12\n\nworld_size\x18\x02 \x01(\x05\x12\x12\n\nmodel_name\x18\x03 \x01(\t\x12I\n\rweight_shards\x18\x04 \x03(\x0b\x32\x32.mlx_inference.ModelShardRequest.WeightShardsEntry\x1aJ\n\x11WeightShardsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.mlx_inference.Tensor:\x02\x38\x01\"5\n\x12ModelShardResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t2\xe7\x03\n\x10InferenceService\x12N\n\rProcessLayers\x12\x1d.mlx_inference.LayerRequestV2\x1a\x1e.mlx_inference.LayerResponseV2\x12H\n\x07\x46orward\x12\x1d.mlx_inference.ForwardRequest\x1a\x1e.mlx_inference.ForwardResponse\x12J\n\x0bHealthCheck\x12\x1c.mlx_inference.HealthRequest\x1a\x1d.mlx_inference.HealthResponse\x12@\n\rGetDeviceInfo\x12\x14.mlx_inference.Empty\x1a\x19.mlx_inference.DeviceInfo\x12N\n\tAllReduce\x12\x1f.mlx_inference.AllReduceRequest\x1a .mlx_inference.AllReduceResponse\x12[\n\x14InitializeModelShard\x12 .mlx_inference.ModelShardRequest\x1a!.mlx_inference.ModelShardResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,6 +33,8 @@ if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_DEVICEINFO_CAPABILITIESENTRY']._loaded_options = None
   _globals['_DEVICEINFO_CAPABILITIESENTRY']._serialized_options = b'8\001'
+  _globals['_MODELSHARDREQUEST_WEIGHTSHARDSENTRY']._loaded_options = None
+  _globals['_MODELSHARDREQUEST_WEIGHTSHARDSENTRY']._serialized_options = b'8\001'
   _globals['_EMPTY']._serialized_start=34
   _globals['_EMPTY']._serialized_end=41
   _globals['_DEVICEINFO']._serialized_start=44
@@ -42,17 +44,27 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_TENSOR']._serialized_start=318
   _globals['_TENSOR']._serialized_end=370
   _globals['_LAYERREQUESTV2']._serialized_start=373
-  _globals['_LAYERREQUESTV2']._serialized_end=521
-  _globals['_LAYERRESPONSEV2']._serialized_start=523
-  _globals['_LAYERRESPONSEV2']._serialized_end=586
-  _globals['_FORWARDREQUEST']._serialized_start=589
-  _globals['_FORWARDREQUEST']._serialized_end=767
-  _globals['_FORWARDRESPONSE']._serialized_start=769
-  _globals['_FORWARDRESPONSE']._serialized_end=825
-  _globals['_HEALTHREQUEST']._serialized_start=827
-  _globals['_HEALTHREQUEST']._serialized_end=842
-  _globals['_HEALTHRESPONSE']._serialized_start=844
-  _globals['_HEALTHRESPONSE']._serialized_end=893
-  _globals['_INFERENCESERVICE']._serialized_start=896
-  _globals['_INFERENCESERVICE']._serialized_end=1210
+  _globals['_LAYERREQUESTV2']._serialized_end=581
+  _globals['_LAYERRESPONSEV2']._serialized_start=583
+  _globals['_LAYERRESPONSEV2']._serialized_end=646
+  _globals['_FORWARDREQUEST']._serialized_start=649
+  _globals['_FORWARDREQUEST']._serialized_end=866
+  _globals['_FORWARDRESPONSE']._serialized_start=868
+  _globals['_FORWARDRESPONSE']._serialized_end=924
+  _globals['_HEALTHREQUEST']._serialized_start=926
+  _globals['_HEALTHREQUEST']._serialized_end=941
+  _globals['_HEALTHRESPONSE']._serialized_start=943
+  _globals['_HEALTHRESPONSE']._serialized_end=992
+  _globals['_ALLREDUCEREQUEST']._serialized_start=995
+  _globals['_ALLREDUCEREQUEST']._serialized_end=1130
+  _globals['_ALLREDUCERESPONSE']._serialized_start=1132
+  _globals['_ALLREDUCERESPONSE']._serialized_end=1213
+  _globals['_MODELSHARDREQUEST']._serialized_start=1216
+  _globals['_MODELSHARDREQUEST']._serialized_end=1445
+  _globals['_MODELSHARDREQUEST_WEIGHTSHARDSENTRY']._serialized_start=1371
+  _globals['_MODELSHARDREQUEST_WEIGHTSHARDSENTRY']._serialized_end=1445
+  _globals['_MODELSHARDRESPONSE']._serialized_start=1447
+  _globals['_MODELSHARDRESPONSE']._serialized_end=1500
+  _globals['_INFERENCESERVICE']._serialized_start=1503
+  _globals['_INFERENCESERVICE']._serialized_end=1990
 # @@protoc_insertion_point(module_scope)

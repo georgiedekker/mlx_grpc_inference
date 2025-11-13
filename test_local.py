@@ -1,76 +1,38 @@
 #!/usr/bin/env python3
 """
-Test the system locally before distributed deployment.
+Quick test script to verify distributed inference works locally
 """
+import time
+import mlx.core as mx
+from server import shard_and_load, generate_pipeline_parallel
 
-import sys
-sys.path.append('.')
-
-from src.core.config import ClusterConfig
-from src.model.sharding import ModelShardingStrategy
-
-def test_config():
-    """Test configuration loading."""
-    print("Testing configuration loading...")
+def test_local():
+    """Test inference with 2 local processes."""
+    print("Testing distributed inference locally...")
     
-    config = ClusterConfig.from_yaml("config/cluster_config.yaml")
+    # Load model
+    model_name = "mlx-community/Qwen3-1.7B-8bit"
+    shard_and_load(model_name)
     
-    print(f"✓ Cluster name: {config.name}")
-    print(f"✓ Coordinator: {config.coordinator_device_id}")
-    print(f"✓ Total devices: {len(config.devices)}")
+    # Test generation
+    print("\nTesting generation...")
+    start = time.time()
     
-    for device in config.devices:
-        print(f"  - {device.device_id}: {device.role.value} (rank {device.rank})")
+    result = generate_pipeline_parallel(
+        prompt="What is 2+2? Answer:",
+        max_tokens=20,
+        temperature=0.7
+    )
     
-    print(f"✓ Model: {config.model.name}")
-    print(f"✓ Total layers: {config.model.total_layers}")
+    elapsed = time.time() - start
     
-    return config
-
-
-def test_sharding(config):
-    """Test model sharding strategy."""
-    print("\nTesting sharding strategy...")
-    
-    strategy = ModelShardingStrategy(config)
-    
-    if strategy.validate_coverage():
-        print("✓ Layer coverage validated successfully")
+    if result:
+        print(f"\nGenerated text: {result.get('text', 'No text')}")
+        print(f"Tokens per second: {result.get('tokens_per_second', 0):.2f}")
+        print(f"Total time: {elapsed:.2f}s")
+        print(f"GPUs used: {result.get('gpus_used', 1)}")
     else:
-        print("✗ Layer coverage validation failed")
-        return False
-    
-    for device_id, shard in strategy.shards.items():
-        print(f"  - {device_id}: layers {shard.layer_indices}")
-    
-    return True
-
-
-def main():
-    """Run local tests."""
-    print("🧪 Running local tests for MLX distributed inference\n")
-    
-    try:
-        # Test configuration
-        config = test_config()
-        
-        # Test sharding
-        if not test_sharding(config):
-            print("\n❌ Tests failed")
-            return 1
-        
-        print("\n✅ All local tests passed!")
-        print("\nNext steps:")
-        print("1. Copy this project to mini2 and master devices")
-        print("2. Set up virtual environments on each device")
-        print("3. Run: ./scripts/start_cluster.sh")
-        
-        return 0
-        
-    except Exception as e:
-        print(f"\n❌ Error: {e}")
-        return 1
-
+        print("Worker rank - no result")
 
 if __name__ == "__main__":
-    sys.exit(main())
+    test_local()

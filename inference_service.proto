@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package inference;
+
+service InferenceService {
+  // Send tensor from one shard to the next
+  rpc ProcessTensor (TensorRequest) returns (TensorResponse) {}
+  // Health check
+  rpc HealthCheck (Empty) returns (HealthStatus) {}
+}
+
+message Shard {
+  string model_id = 1;
+  int32 start_layer = 2;
+  int32 end_layer = 3;
+  int32 n_layers = 4;
+}
+
+message TensorRequest {
+  bytes tensor_data = 1;
+  repeated int32 shape = 2;
+  string dtype = 3;
+  string request_id = 4;
+  bool is_prompt = 5;
+}
+
+message TensorResponse {
+  bytes tensor_data = 1;
+  repeated int32 shape = 2;
+  string dtype = 3;
+  bool is_final = 4;
+}
+
+message Empty {}
+
+message HealthStatus {
+  bool healthy = 1;
+  Shard shard = 2;
+  float memory_gb = 3;
+  string node_id = 4;
+}

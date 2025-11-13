@@ -1,0 +1,4 @@
+[
+    {"ssh": "localhost", "ips": ["192.168.5.1"], "python": "/Users/mini1/Movies/mlx_grpc_inference/.venv/bin/python"},
+    {"ssh": "mini2", "ips": ["192.168.5.2"], "python": "/Users/mini2/.venv/bin/python"}
+]

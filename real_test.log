@@ -1,0 +1,1247 @@
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 256, in main
+    pipeline = RealPipelineModel()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 40, in __init__
+    logger.info(f"Initializing on {os.uname().nodename} as rank {self.rank}/{self.world_size}")
+Message: 'Initializing on mini1.local as rank 0/2'
+Arguments: ()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 256, in main
+    pipeline = RealPipelineModel()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 40, in __init__
+    logger.info(f"Initializing on {os.uname().nodename} as rank {self.rank}/{self.world_size}")
+Message: 'Initializing on mini1.local as rank 1/2'
+Arguments: ()
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 98818.68it/s]
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 231587.34it/s]
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 256, in main
+    pipeline = RealPipelineModel()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 57, in __init__
+    self._setup_pipeline()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 86, in _setup_pipeline
+    logger.info(f"Will process layers {self.start_layer} to {self.end_layer-1} ({self.end_layer - self.start_layer} layers)")
+Message: 'Will process layers 0 to 13 (14 layers)'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 256, in main
+    pipeline = RealPipelineModel()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 61, in __init__
+    logger.info(f"GPU memory after setup: {memory:.2f} GB on {os.uname().nodename}")
+Message: 'GPU memory after setup: 1.70 GB on mini1.local'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 259, in main
+    pipeline.monitor_gpu()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 241, in monitor_gpu
+    logger.info(f"GPU memory on {hostname}: {memory:.2f} GB")
+Message: 'GPU memory on mini1.local: 1.70 GB'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 256, in main
+    pipeline = RealPipelineModel()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 57, in __init__
+    self._setup_pipeline()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 86, in _setup_pipeline
+    logger.info(f"Will process layers {self.start_layer} to {self.end_layer-1} ({self.end_layer - self.start_layer} layers)")
+Message: 'Will process layers 14 to 27 (14 layers)'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 256, in main
+    pipeline = RealPipelineModel()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 61, in __init__
+    logger.info(f"GPU memory after setup: {memory:.2f} GB on {os.uname().nodename}")
+Message: 'GPU memory after setup: 1.70 GB on mini1.local'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 259, in main
+    pipeline.monitor_gpu()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 241, in monitor_gpu
+    logger.info(f"GPU memory on {hostname}: {memory:.2f} GB")
+Message: 'GPU memory on mini1.local: 1.70 GB'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 259, in main
+    pipeline.monitor_gpu()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 249, in monitor_gpu
+    logger.info(f"After test computation on {hostname}: {memory_after:.2f} GB")
+Message: 'After test computation on mini1.local: 1.71 GB'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 259, in main
+    pipeline.monitor_gpu()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 249, in monitor_gpu
+    logger.info(f"After test computation on {hostname}: {memory_after:.2f} GB")
+Message: 'After test computation on mini1.local: 1.71 GB'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 259, in main
+    pipeline.monitor_gpu()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 241, in monitor_gpu
+    logger.info(f"GPU memory on {hostname}: {memory:.2f} GB")
+Message: 'GPU memory on mini1.local: 1.71 GB'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 259, in main
+    pipeline.monitor_gpu()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 249, in monitor_gpu
+    logger.info(f"After test computation on {hostname}: {memory_after:.2f} GB")
+Message: 'After test computation on mini1.local: 1.71 GB'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 259, in main
+    pipeline.monitor_gpu()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 241, in monitor_gpu
+    logger.info(f"GPU memory on {hostname}: {memory:.2f} GB")
+Message: 'GPU memory on mini1.local: 1.71 GB'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 259, in main
+    pipeline.monitor_gpu()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 249, in monitor_gpu
+    logger.info(f"After test computation on {hostname}: {memory_after:.2f} GB")
+Message: 'After test computation on mini1.local: 1.71 GB'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 259, in main
+    pipeline.monitor_gpu()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 241, in monitor_gpu
+    logger.info(f"GPU memory on {hostname}: {memory:.2f} GB")
+Message: 'GPU memory on mini1.local: 1.71 GB'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 259, in main
+    pipeline.monitor_gpu()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 249, in monitor_gpu
+    logger.info(f"After test computation on {hostname}: {memory_after:.2f} GB")
+Message: 'After test computation on mini1.local: 1.71 GB'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 259, in main
+    pipeline.monitor_gpu()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 241, in monitor_gpu
+    logger.info(f"GPU memory on {hostname}: {memory:.2f} GB")
+Message: 'GPU memory on mini1.local: 1.71 GB'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 259, in main
+    pipeline.monitor_gpu()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 249, in monitor_gpu
+    logger.info(f"After test computation on {hostname}: {memory_after:.2f} GB")
+Message: 'After test computation on mini1.local: 1.71 GB'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 263, in main
+    logger.info("=" * 50)
+Message: '=================================================='
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 264, in main
+    logger.info("Starting generation test...")
+Message: 'Starting generation test...'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 265, in main
+    logger.info("=" * 50)
+Message: '=================================================='
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 267, in main
+    result = pipeline.generate("What is 2+2? The answer is", max_tokens=10)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 204, in generate
+    logger.info(f"Generating with prompt: '{prompt[:50]}...'")
+Message: "Generating with prompt: 'What is 2+2? The answer is...'"
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 267, in main
+    result = pipeline.generate("What is 2+2? The answer is", max_tokens=10)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 210, in generate
+    logits = self.forward_pipeline(input_ids[None])  # Add batch dimension
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 102, in forward_pipeline
+    logger.info(f"Starting forward pass on {os.uname().nodename}")
+Message: 'Starting forward pass on mini1.local'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 267, in main
+    result = pipeline.generate("What is 2+2? The answer is", max_tokens=10)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 210, in generate
+    logits = self.forward_pipeline(input_ids[None])  # Add batch dimension
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 108, in forward_pipeline
+    logger.info(f"Embedded tokens, shape: {h.shape}")
+Message: 'Embedded tokens, shape: (1, 10, 2048)'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 267, in main
+    result = pipeline.generate("What is 2+2? The answer is", max_tokens=10)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 210, in generate
+    logits = self.forward_pipeline(input_ids[None])  # Add batch dimension
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 114, in forward_pipeline
+    logger.info(f"Processed layer {i}")
+Message: 'Processed layer 0'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 267, in main
+    result = pipeline.generate("What is 2+2? The answer is", max_tokens=10)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 210, in generate
+    logits = self.forward_pipeline(input_ids[None])  # Add batch dimension
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 114, in forward_pipeline
+    logger.info(f"Processed layer {i}")
+Message: 'Processed layer 5'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 267, in main
+    result = pipeline.generate("What is 2+2? The answer is", max_tokens=10)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 210, in generate
+    logits = self.forward_pipeline(input_ids[None])  # Add batch dimension
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 114, in forward_pipeline
+    logger.info(f"Processed layer {i}")
+Message: 'Processed layer 10'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 267, in main
+    result = pipeline.generate("What is 2+2? The answer is", max_tokens=10)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 210, in generate
+    logits = self.forward_pipeline(input_ids[None])  # Add batch dimension
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 117, in forward_pipeline
+    logger.info(f"Sending activations to rank 1, shape: {h.shape}")
+Message: 'Sending activations to rank 1, shape: (1, 10, 2048)'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 274, in main
+    logger.info("Rank 1 ready to process layers 14-27")
+Message: 'Rank 1 ready to process layers 14-27'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 275, in main
+    pipeline.generate("", max_tokens=10)  # Participate in pipeline
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 204, in generate
+    logger.info(f"Generating with prompt: '{prompt[:50]}...'")
+Message: "Generating with prompt: '...'"
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 275, in main
+    pipeline.generate("", max_tokens=10)  # Participate in pipeline
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 210, in generate
+    logits = self.forward_pipeline(input_ids[None])  # Add batch dimension
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 102, in forward_pipeline
+    logger.info(f"Starting forward pass on {os.uname().nodename}")
+Message: 'Starting forward pass on mini1.local'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 275, in main
+    pipeline.generate("", max_tokens=10)  # Participate in pipeline
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 210, in generate
+    logits = self.forward_pipeline(input_ids[None])  # Add batch dimension
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 129, in forward_pipeline
+    logger.info("Waiting for activations from rank 0...")
+Message: 'Waiting for activations from rank 0...'
+Arguments: ()
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+    ~~~~^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 275, in main
+    pipeline.generate("", max_tokens=10)  # Participate in pipeline
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 210, in generate
+    logits = self.forward_pipeline(input_ids[None])  # Add batch dimension
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 130, in forward_pipeline
+    h = self._recv_activations(src=0)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 177, in _recv_activations
+    mx.distributed.recv(shape_array, src=src, group=self.group)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: recv(): incompatible function arguments. The following argument types are supported:
+    1. recv(shape: Sequence[int], dtype: Dtype, src: int, *, group: Optional[Group] = None, stream: Union[None, Stream, Device] = None) -> array
+
+Invoked with types: mlx.core.array, kwargs = { src: int, group: mlx.core.distributed.Group }
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 267, in main
+    result = pipeline.generate("What is 2+2? The answer is", max_tokens=10)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 210, in generate
+    logits = self.forward_pipeline(input_ids[None])  # Add batch dimension
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 118, in forward_pipeline
+    self._send_activations(h, dest=1)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 171, in _send_activations
+    logger.info(f"Sent tensor shape {shape} to rank {dest}")
+Message: 'Sent tensor shape (1, 10, 2048) to rank 1'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 472, in format
+    return self._format(record)
+           ~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 468, in _format
+    return self._fmt % values
+           ~~~~~~~~~~^~~~~~~~
+KeyError: 'rank'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 1151, in emit
+    msg = self.format(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 715, in format
+    s = self.formatMessage(record)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 684, in formatMessage
+    return self._style.format(record)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/logging/__init__.py", line 474, in format
+    raise ValueError('Formatting field not found in record: %s' % e)
+ValueError: Formatting field not found in record: 'rank'
+Call stack:
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 267, in main
+    result = pipeline.generate("What is 2+2? The answer is", max_tokens=10)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 210, in generate
+    logits = self.forward_pipeline(input_ids[None])  # Add batch dimension
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 121, in forward_pipeline
+    logger.info("Waiting for final output from rank 1...")
+Message: 'Waiting for final output from rank 1...'
+Arguments: ()
+Traceback (most recent call last):
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 279, in <module>
+    main()
+    ~~~~^^
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 267, in main
+    result = pipeline.generate("What is 2+2? The answer is", max_tokens=10)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 210, in generate
+    logits = self.forward_pipeline(input_ids[None])  # Add batch dimension
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 122, in forward_pipeline
+    output = self._recv_activations(src=1)
+  File "/Users/mini1/Movies/mlx_grpc_inference/real_pipeline.py", line 177, in _recv_activations
+    mx.distributed.recv(shape_array, src=src, group=self.group)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: recv(): incompatible function arguments. The following argument types are supported:
+    1. recv(shape: Sequence[int], dtype: Dtype, src: int, *, group: Optional[Group] = None, stream: Union[None, Stream, Device] = None) -> array
+
+Invoked with types: mlx.core.array, kwargs = { src: int, group: mlx.core.distributed.Group }
+[33m[WARN] Node with rank 1 exited with code 1 [0m
+[33m[WARN] Node with rank 0 exited with code 1 [0m

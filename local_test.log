@@ -1,26 +1,0 @@
-Launching single-device inference...
-[Server Rank 0] 2025-08-05 18:19:18,636 - Initializing MPI backend on rank 0/1
-[Server Rank 0] 2025-08-05 18:19:18,710 - MPI initialized: rank=0, size=1
-[Server Rank 0] 2025-08-05 18:19:18,710 - Loading model: mlx-community/Qwen3-1.7B-8bit
-Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 30006.94it/s]
-[Server Rank 0] 2025-08-05 18:19:19,372 - Model loaded successfully
-Traceback (most recent call last):
-  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 234, in <module>
-    asyncio.run(main())
-    ~~~~~~~~~~~^^^^^^^^
-  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 195, in run
-    return runner.run(main)
-           ~~~~~~~~~~^^^^^^
-  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
-  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
-    return future.result()
-           ~~~~~~~~~~~~~^^
-  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 212, in main
-    initialize_distributed()
-    ~~~~~~~~~~~~~~~~~~~~~~^^
-  File "/Users/mini1/Movies/mlx_grpc_inference/server.py", line 86, in initialize_distributed
-    logger.info(f"Memory: {mem_info['memory_used'] / 1e9:.2f}GB used, "
-                           ~~~~~~~~^^^^^^^^^^^^^^^
-KeyError: 'memory_used'

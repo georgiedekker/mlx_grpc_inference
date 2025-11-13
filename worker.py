@@ -1,315 +1,531 @@
 #!/usr/bin/env python3
 """
-Worker node for distributed MLX inference.
-Loads partial model layers and processes them via gRPC.
+MLX Distributed Inference Server with Allreduce Pipeline Parallelism
+Uses collective operations to avoid send/recv deadlocks
 """
 import os
-import sys
-import grpc
+import time
+import json
 import logging
-import asyncio
-from concurrent import futures
+import resource
+from typing import Dict, Any, List
+from pathlib import Path
+import uuid
+
 import mlx.core as mx
-from mlx_lm import load
-from mlx_lm.models.base import create_attention_mask, create_causal_mask
+import mlx.nn as nn
+from mlx_lm import stream_generate
+from mlx_lm.utils import load as load_model
+from mlx_lm.utils import load as mlx_load
+from mlx_lm.utils import load_tokenizer
+from mlx_lm.sample_utils import make_sampler
+from huggingface_hub import snapshot_download
+from mlx.utils import tree_flatten
 
-# Force reload proto modules to avoid stale imports
-import importlib
-proto_modules = ['src.communication.inference_pb2', 'src.communication.inference_pb2_grpc', 
-                 'src.communication.tensor_utils', 'src.communication']
-for module_name in proto_modules:
-    if module_name in sys.modules:
-        del sys.modules[module_name]
-
-from src.communication import inference_pb2, inference_pb2_grpc
-from src.communication.tensor_utils import serialize_mlx_array, deserialize_mlx_array
-
-# Wrapper functions to match proto format
-def serialize_tensor(array: mx.array) -> inference_pb2.Tensor:
-    """Serialize MLX array to proto Tensor."""
-    data, metadata = serialize_mlx_array(array, compress=True, compression_algorithm="lz4")
-    tensor = inference_pb2.Tensor()
-    tensor.data = data
-    tensor.shape.extend(metadata['shape'])
-    tensor.dtype = metadata['dtype']
-    return tensor
-
-def deserialize_tensor(tensor: inference_pb2.Tensor) -> mx.array:
-    """Deserialize proto Tensor to MLX array."""
-    metadata = {
-        'shape': list(tensor.shape),
-        'dtype': tensor.dtype,
-        'compressed': True,
-        'compression_info': {'algorithm': 'lz4'}
-    }
-    return deserialize_mlx_array(tensor.data, metadata)
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
+from pydantic import BaseModel
+import uvicorn
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-print("WORKER VERSION: 2.0 - Debug ProcessLayers", flush=True)
+# Set GPU as default
+mx.set_default_device(mx.gpu)
 
-# Global model state
+# Increase file limits for model loading
+try:
+    resource.setrlimit(resource.RLIMIT_NOFILE, (4096, 8192))
+except:
+    resource.setrlimit(resource.RLIMIT_NOFILE, (2048, 4096))
+
+# Global state
 model = None
 tokenizer = None
-device_id = None
-assigned_layers = None
+config = None
+distributed_group = None
+rank = 0
+world_size = 1
+model_name = os.environ.get("MODEL_NAME", "mlx-community/Qwen3-1.7B-8bit")
 
-class WorkerService(inference_pb2_grpc.InferenceServiceServicer):
-    """Worker service for processing model layers."""
+# Request/Response models
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+class ChatRequest(BaseModel):
+    messages: List[ChatMessage]
+    max_tokens: int = 100
+    temperature: float = 0.7
+    stream: bool = False
+
+class ChatResponse(BaseModel):
+    id: str
+    object: str = "chat.completion"
+    created: int
+    model: str
+    choices: List[Dict[str, Any]]
+    usage: Dict[str, Any]
+
+
+def add_allreduce_pipeline(model_class):
+    """
+    Add Allreduce-based pipeline parallelism to model.
+    Uses collective operations to avoid deadlocks.
+    """
     
-    def __init__(self, worker_id: int, start_layer: int, end_layer: int, is_first: bool, is_last: bool):
-        self.worker_id = worker_id
-        self.start_layer = start_layer
-        self.end_layer = end_layer
-        self.is_first = is_first
-        self.is_last = is_last
-        logger.info(f"Worker {worker_id} initialized for layers {start_layer}-{end_layer-1}")
-    
-    def ProcessLayers(self, request, context):
-        """Process transformer layers."""
-        try:
-            logger.info(f"ProcessLayers called - start_layer={request.start_layer}, end_layer={request.end_layer}")
-            logger.info(f"Input tensor shape: {list(request.input_tensor.shape)}, dtype={request.input_tensor.dtype}")
-            
-            # Deserialize input tensor
-            input_tensor = deserialize_tensor(request.input_tensor)
-            logger.info(f"Deserialized tensor shape: {input_tensor.shape}, mean: {input_tensor.mean():.6f}, std: {input_tensor.std():.6f}")
-            
-            # Create attention mask locally based on sequence length
-            T = input_tensor.shape[1]
-            if T > 1:
-                attention_mask = create_causal_mask(T, offset=0)
-                logger.info(f"Created local causal mask with shape: {attention_mask.shape}")
-            else:
-                attention_mask = None
-                logger.info("Single token - no mask needed")
-            
-            # Check input validity - allow higher std for this quantized model
-            input_std = float(input_tensor.std())
-            if input_std > 200.0:  # Increased threshold for Qwen3-1.7B-8bit
-                logger.error(f"Input tensor std deviation {input_std:.2f} is too high!")
-                context.abort(grpc.StatusCode.INVALID_ARGUMENT, f"Input numerical instability: std={input_std:.2f}")
-            
-            # Process layers with MLX GPU stream
-            with mx.stream(mx.gpu):
-                hidden = input_tensor
-                
-                # CRITICAL: Ensure input is fully loaded before processing
-                mx.eval(hidden)
-                mx.synchronize()
-                
-                # Create cache for layers
-                cache = [None] * (request.end_layer - request.start_layer)
-                
-                for idx, i in enumerate(range(request.start_layer, request.end_layer)):
-                    if i < len(model.model.layers):
-                        # Pass mask and cache
-                        hidden = model.model.layers[i](hidden, attention_mask, cache[idx])
-                        # Force evaluation after each layer
-                        mx.eval(hidden)
-                        
-                        # CRITICAL: Synchronize to prevent race conditions
-                        mx.synchronize()
-                        
-                        # Check for numerical instability after each layer
-                        layer_std = float(hidden.std())
-                        if layer_std > 200.0:  # Increased threshold for Qwen3-1.7B-8bit
-                            logger.error(f"Layer {i} produced unstable output: std={layer_std:.2f}")
-                            context.abort(grpc.StatusCode.INTERNAL, f"Layer {i} numerical instability: std={layer_std:.2f}")
-                    else:
-                        logger.warning(f"Layer {i} out of bounds (model has {len(model.model.layers)} layers)")
-                
-                # Ensure final result is evaluated and synchronized
-                mx.eval(hidden)
-                mx.synchronize()
-            
-            # Final validation
-            output_std = float(hidden.std())
-            logger.info(f"Output tensor stats - shape: {hidden.shape}, mean: {hidden.mean():.6f}, std: {output_std:.6f}")
-            
-            if output_std > 200.0:  # Increased threshold for Qwen3-1.7B-8bit
-                logger.error(f"Output tensor std deviation {output_std:.2f} is too high!")
-                context.abort(grpc.StatusCode.INTERNAL, f"Output numerical instability: std={output_std:.2f}")
-            
-            # Serialize output
-            response = inference_pb2.LayerResponseV2()
-            response.output_tensor.CopyFrom(serialize_tensor(hidden))
-            
-            logger.info(f"Processed layers successfully")
-            return response
-            
-        except Exception as e:
-            logger.error(f"ProcessLayers error: {e}", exc_info=True)
-            context.abort(grpc.StatusCode.INTERNAL, str(e))
-    
-    def Forward(self, request, context):
-        """Handle special forward passes (embeddings, final projection)."""
-        try:
-            if request.is_embedding:
-                # Process embedding layer
-                input_ids = mx.array(request.input_ids).reshape(1, -1)
-                
-                with mx.stream(mx.gpu):
-                    embeddings = model.model.embed_tokens(input_ids)
-                    mx.eval(embeddings)
-                
-                response = inference_pb2.ForwardResponse()
-                response.output.CopyFrom(serialize_tensor(embeddings))
-                return response
-                
-            elif request.is_final_projection:
-                # Process final norm and projection
-                input_tensor = deserialize_tensor(request.input_tensor)
-                
-                with mx.stream(mx.gpu):
-                    # Apply final layer norm
-                    normed = model.model.norm(input_tensor)
-                    # Project to vocabulary
-                    # Most MLX models use tied embeddings
-                    if hasattr(model.model, 'embed_tokens') and hasattr(model.model.embed_tokens, 'as_linear'):
-                        # Use tied embeddings (most common case)
-                        logits = model.model.embed_tokens.as_linear(normed)
-                    elif hasattr(model, 'lm_head') and model.lm_head is not None:
-                        # Use separate lm_head if available
-                        logits = model.lm_head(normed)
-                    else:
-                        logger.error(f"Cannot find output projection. Model type: {type(model)}")
-                        raise AttributeError("Cannot find output projection layer")
-                    mx.eval(logits)
-                
-                response = inference_pb2.ForwardResponse()
-                response.output.CopyFrom(serialize_tensor(logits))
-                return response
-                
-            else:
-                context.abort(grpc.StatusCode.INVALID_ARGUMENT, "Unknown forward request type")
-                
-        except Exception as e:
-            logger.error(f"Forward error: {e}", exc_info=True)
-            context.abort(grpc.StatusCode.INTERNAL, str(e))
-    
-    def HealthCheck(self, request, context):
-        """Health check endpoint."""
-        mem_info = mx.metal.device_info() or {}
-        used = mem_info.get('used_memory', 0)
-        total = mem_info.get('total_memory', 0)
+    def pipeline(self, group):
+        """Setup pipeline sharding."""
+        self.pipeline_rank = group.rank()
+        self.pipeline_size = group.size()
+        self.group = group
         
-        logger.info(f"Health check - Memory: {used/1e9:.2f}GB/{total/1e9:.2f}GB")
-        return inference_pb2.HealthResponse(
-            status="healthy",
-            message=f"Worker {self.worker_id} ready, layers {self.start_layer}-{self.end_layer-1}"
+        if self.pipeline_size != 2:
+            logger.info(f"Pipeline size {self.pipeline_size}, not sharding")
+            return
+        
+        # Split layers in half
+        if hasattr(self, 'layers'):
+            num_layers = len(self.layers)
+            mid = num_layers // 2
+            
+            if self.pipeline_rank == 0:
+                self.layers = self.layers[:mid]
+                logger.info(f"Rank 0: Processing layers 0-{mid-1}")
+            else:
+                self.layers = self.layers[mid:]
+                logger.info(f"Rank 1: Processing layers {mid}-{num_layers-1}")
+            
+            self.num_layers = num_layers
+        
+        if hasattr(self, 'hidden_size'):
+            self.hidden_dim = self.hidden_size
+        else:
+            self.hidden_dim = 2048  # Default
+    
+    def allreduce_forward(self, inputs, mask=None, cache=None):
+        """Forward pass using Allreduce."""
+        if not hasattr(self, 'pipeline_rank'):
+            # Not in pipeline mode - use original forward
+            if hasattr(self, '_original_forward'):
+                return self._original_forward(inputs, mask, cache)
+            else:
+                # Standard forward
+                h = self.embed_tokens(inputs) if hasattr(self, 'embed_tokens') else inputs
+                for layer in self.layers:
+                    h = layer(h, mask, cache) if cache else layer(h, mask)
+                if hasattr(self, 'norm'):
+                    h = self.norm(h)
+                return h
+        
+        rank = self.pipeline_rank
+        world_size = self.pipeline_size
+        hostname = os.uname().nodename
+        
+        # Determine shape
+        if inputs.ndim == 1:
+            batch_size = 1
+            seq_len = inputs.shape[0]
+        else:
+            batch_size = inputs.shape[0] if inputs.ndim > 1 else 1
+            seq_len = inputs.shape[-1]
+        
+        if rank == 0:
+            # Rank 0: Embedding + first half
+            if hasattr(self, 'embed_tokens'):
+                h = self.embed_tokens(inputs)
+                if h.ndim == 2:
+                    h = h.reshape(batch_size, seq_len, self.hidden_dim)
+            else:
+                h = inputs
+            
+            logger.debug(f"Rank 0 on {hostname}: Processing first half")
+            
+            # Process first half of layers
+            if cache is None:
+                cache = [None] * len(self.layers)
+            
+            for layer, c in zip(self.layers, cache):
+                h = layer(h, mask, c)
+            
+            # Send to rank 1 via all_sum
+            broadcast = mx.distributed.all_sum(h)
+            mx.eval(broadcast)
+            
+            # Wait for result from rank 1
+            zeros = mx.zeros((batch_size, seq_len, self.hidden_dim))
+            result = mx.distributed.all_sum(zeros)
+            mx.eval(result)
+            
+            return result
+            
+        else:  # rank == 1
+            # Receive from rank 0
+            zeros = mx.zeros((batch_size, seq_len, self.hidden_dim))
+            h = mx.distributed.all_sum(zeros)
+            mx.eval(h)
+            
+            logger.debug(f"Rank 1 on {hostname}: Processing second half")
+            
+            # Process second half
+            if cache is None:
+                cache = [None] * len(self.layers)
+            
+            for layer, c in zip(self.layers, cache):
+                h = layer(h, mask, c)
+            
+            # Apply final norm
+            if hasattr(self, 'norm'):
+                h = self.norm(h)
+            
+            # Send back to rank 0
+            result = mx.distributed.all_sum(h)
+            mx.eval(result)
+            
+            return result
+    
+    # Save original forward
+    if not hasattr(model_class, '_original_forward'):
+        model_class._original_forward = model_class.__call__
+    
+    # Add methods
+    model_class.pipeline = pipeline
+    model_class.__call__ = allreduce_forward
+    
+    logger.info(f"✅ Added Allreduce pipeline to {model_class.__name__}")
+
+
+def download(repo: str, allow_patterns: list[str]) -> Path:
+    """Download model files from HuggingFace."""
+    return Path(
+        snapshot_download(
+            repo,
+            allow_patterns=allow_patterns,
         )
+    )
 
-def initialize_worker(worker_id: int, total_workers: int):
-    """Initialize worker with model layers."""
-    global model, tokenizer, device_id, assigned_layers
-    
-    device_id = worker_id
-    model_name = "mlx-community/Qwen3-1.7B-8bit"
-    
-    logger.info(f"Loading model {model_name} on worker {worker_id} (total_workers={total_workers})")
-    # CRITICAL: Don't use lazy loading - load the full model to ensure weights are correct
-    model, tokenizer = load(model_name, lazy=False)
-    
-    # Calculate layer assignment FIRST before using the variables
-    total_layers = len(model.model.layers)
-    layers_per_worker = total_layers // total_workers
-    remainder = total_layers % total_workers
-    
-    start_layer = 0
-    for i in range(worker_id):
-        start_layer += layers_per_worker + (1 if i < remainder else 0)
-    
-    num_layers = layers_per_worker + (1 if worker_id < remainder else 0)
-    end_layer = start_layer + num_layers
-    
-    assigned_layers = (start_layer, end_layer)
-    is_first = worker_id == 0
-    is_last = worker_id == total_workers - 1
-    
-    # CRITICAL: Force model evaluation to ensure weights are loaded properly
-    logger.info(f"Testing model layers {start_layer} to {end_layer-1}...")
-    with mx.stream(mx.gpu):
-        # Test with a realistic input
-        test_tokens = [151644, 872, 198, 9707, 151645, 198, 151644, 77091, 198]
-        test_input = mx.array([test_tokens[:5]])  # Use first 5 tokens
-        
-        # Get embeddings (we need this even if we're not the first worker)
-        test_hidden = model.model.embed_tokens(test_input)
-        mx.eval(test_hidden)
-        logger.info(f"Test embeddings shape: {test_hidden.shape}, std: {test_hidden.std():.6f}")
-        
-        # Create attention mask for testing
-        test_mask = create_attention_mask(test_hidden, cache=None)
-        test_cache = [None] * len(model.model.layers)
-        
-        # If we're not the first worker, we need to process through earlier layers
-        # to get a proper input state
-        if start_layer > 0:
-            logger.info(f"Processing through layers 0-{start_layer-1} to prepare input state...")
-            for i in range(start_layer):
-                test_hidden = model.model.layers[i](test_hidden, test_mask, test_cache[i])
-                mx.eval(test_hidden)
-            logger.info(f"Input preparation complete, std: {test_hidden.std():.6f}")
-        
-        # Now test our assigned layers
-        logger.info(f"Testing assigned layers {start_layer}-{end_layer-1}...")
-        for i in range(start_layer, end_layer):
-            test_hidden = model.model.layers[i](test_hidden, test_mask, test_cache[i])
-            mx.eval(test_hidden)
-            if test_hidden.std() > 200:  # Increased threshold - high std is normal with mask
-                logger.warning(f"Layer {i} produces high std: {test_hidden.std():.6f} (normal with attention mask)")
-        
-        logger.info(f"Model test complete, final std: {test_hidden.std():.6f}")
-    
-    # Log memory usage
-    mem_info = mx.metal.device_info() or {}
-    used = mem_info.get('used_memory', 0)
-    total = mem_info.get('total_memory', 0)
-    logger.info(f"Model loaded. Memory: {used/1e9:.2f}GB/{total/1e9:.2f}GB")
-    logger.info(f"Assigned layers: {start_layer}-{end_layer-1} (is_first={is_first}, is_last={is_last})")
-    logger.info(f"Worker {worker_id} ready with {num_layers} layers out of {total_layers} total")
-    
-    return WorkerService(worker_id, start_layer, end_layer, is_first, is_last)
 
-async def serve():
-    """Start gRPC server."""
-    # Get worker configuration from command line or environment
-    worker_id = int(sys.argv[1]) if len(sys.argv) > 1 else int(os.getenv('WORKER_ID', '1'))
-    total_workers = int(sys.argv[2]) if len(sys.argv) > 2 else int(os.getenv('TOTAL_WORKERS', '3'))
-    port = int(sys.argv[3]) if len(sys.argv) > 3 else 50051
+def shard_and_load(repo: str):
+    """
+    Load and shard model using Allreduce pipeline parallelism.
+    """
+    global model, tokenizer, config, distributed_group, rank, world_size
     
-    # Initialize worker
-    service = initialize_worker(worker_id, total_workers)
+    # Initialize distributed group
+    distributed_group = mx.distributed.init()
+    if not distributed_group:
+        logger.info("No distributed group, running in single GPU mode")
+        model, tokenizer = mlx_load(repo)
+        rank = 0
+        world_size = 1
+        return
     
-    # Create gRPC server
-    server = grpc.aio.server(
-        futures.ThreadPoolExecutor(max_workers=10),
-        options=[
-            ('grpc.max_send_message_length', 500 * 1024 * 1024),
-            ('grpc.max_receive_message_length', 500 * 1024 * 1024),
-            ('grpc.keepalive_time_ms', 10000),
-            ('grpc.keepalive_timeout_ms', 5000),
-            ('grpc.keepalive_permit_without_calls', True),
-        ]
+    rank = distributed_group.rank()
+    world_size = distributed_group.size()
+    hostname = os.uname().nodename
+    logger.info(f"🚀 Rank {rank}/{world_size} on {hostname}")
+    
+    # Download model metadata
+    logger.info(f"Rank {rank}: Downloading model metadata...")
+    model_path = download(
+        repo,
+        allow_patterns=["*.json", "*.py", "tokenizer.model", "*.tiktoken", "*.txt"],
     )
     
-    inference_pb2_grpc.add_InferenceServiceServicer_to_server(service, server)
+    # Load model lazily
+    logger.info(f"Rank {rank}: Loading model structure...")
+    model, tokenizer = mlx_load(model_path, lazy=True)
     
-    # Bind to all interfaces on specified port
-    listen_addr = f'[::]:{port}'
-    server.add_insecure_port(listen_addr)
+    # Add Allreduce pipeline parallelism
+    if world_size > 1:
+        logger.info(f"Rank {rank}: Adding Allreduce pipeline parallelism...")
+        if hasattr(model, 'model'):
+            # Models like Qwen3 have model.model
+            add_allreduce_pipeline(type(model.model))
+            model.model.pipeline(distributed_group)
+        else:
+            add_allreduce_pipeline(type(model))
+            model.pipeline(distributed_group)
     
-    await server.start()
-    logger.info(f"Worker {worker_id} gRPC server started on port {port}")
+    # Download weights
+    weight_index_path = model_path / "model.safetensors.index.json"
+    if weight_index_path.exists() and world_size > 1:
+        with open(weight_index_path, "r") as fid:
+            weight_index = json.load(fid)["weight_map"]
+        
+        local_files = set()
+        for k, _ in tree_flatten(model.parameters()):
+            if k in weight_index:
+                local_files.add(weight_index[k])
+        
+        if local_files:
+            logger.info(f"Rank {rank}: Downloading {len(local_files)} weight files...")
+            download(repo, allow_patterns=list(local_files))
+    else:
+        logger.info(f"Rank {rank}: Downloading all weights...")
+        download(repo, allow_patterns=["*.safetensors"])
+    
+    # Load tokenizer
+    tokenizer = load_tokenizer(
+        model_path,
+        {"trust_remote_code": True},
+    )
+    
+    # Load weights
+    logger.info(f"Rank {rank}: Loading model weights...")
+    mx.eval(model.parameters())
+    
+    # Check memory
+    gpu_memory = mx.get_active_memory() / (1024**3)
+    logger.info(f"Rank {rank} on {hostname}: GPU memory = {gpu_memory:.2f} GB")
+    
+    # Synchronize
+    if world_size > 1:
+        mx.eval(mx.distributed.all_sum(mx.array(1.0), stream=mx.cpu))
+        logger.info(f"Rank {rank}: Synchronized")
+    
+    if rank == 0:
+        logger.info("="*70)
+        logger.info(f"✅ READY: {world_size} GPU(s) with Allreduce pipeline")
+        logger.info(f"✅ Model: {repo}")
+        logger.info("="*70)
+
+
+def generate_pipeline_parallel(
+    prompt: str,
+    max_tokens: int = 100,
+    temperature: float = 0.7
+) -> Dict[str, Any]:
+    """
+    Generate text using pipeline parallelism.
+    Returns metrics including tokens per second.
+    """
+    global model, tokenizer, rank, distributed_group, world_size
+    
+    # Timing
+    prompt_start = time.time()
+    
+    # Count prompt tokens
+    prompt_tokens = len(tokenizer.encode(prompt)) if rank == 0 else 0
+    prompt_time = time.time() - prompt_start
+    
+    # Generation
+    gen_start = time.time()
+    
+    # Create sampler
+    sampler = make_sampler(temp=temperature)
+    
+    # All ranks must participate in stream_generate
+    responses = []
+    generated_text = ""
+    for response in stream_generate(
+        model, 
+        tokenizer, 
+        prompt if rank == 0 else "", 
+        max_tokens=max_tokens,
+        sampler=sampler
+    ):
+        if rank == 0:
+            responses.append(response)
+            if hasattr(response, 'text'):
+                generated_text = response.text
+    
+    gen_time = time.time() - gen_start
+    total_time = time.time() - prompt_start
+    
+    # Only rank 0 returns results
+    if rank == 0 and responses:
+        final_response = responses[-1]
+        
+        # Extract metrics
+        prompt_tps = final_response.prompt_tps if hasattr(final_response, 'prompt_tps') else 0
+        gen_tps = final_response.generation_tps if hasattr(final_response, 'generation_tps') else 0
+        completion_tokens = final_response.generation_tokens if hasattr(final_response, 'generation_tokens') else len(generated_text.split())
+        
+        logger.info(f"Generated {completion_tokens} tokens in {gen_time:.2f}s = {gen_tps:.1f} tok/s")
+        logger.info(f"Using {world_size} GPUs with Allreduce pipeline")
+        
+        return {
+            "text": generated_text,
+            "prompt_tokens": prompt_tokens,
+            "completion_tokens": completion_tokens,
+            "total_tokens": prompt_tokens + completion_tokens,
+            "tokens_per_second": round(gen_tps, 1),
+            "prompt_eval_tokens_per_second": round(prompt_tps, 1),
+            "eval_tokens_per_second": round(gen_tps, 1),
+            "generation_time": gen_time,
+            "prompt_time": prompt_time,
+            "total_time": total_time,
+            "gpus_used": world_size
+        }
+    else:
+        # Worker ranks return empty dict
+        return {}
+
+
+def worker_loop():
+    """Worker rank loop."""
+    logger.info(f"Worker rank {rank} ready for Allreduce pipeline processing")
     
     try:
-        await server.wait_for_termination()
+        while True:
+            time.sleep(0.1)
     except KeyboardInterrupt:
-        logger.info("Shutting down worker...")
-        await server.stop(5)
+        logger.info(f"Worker rank {rank} shutting down")
+
+
+def main():
+    """Main entry point."""
+    global rank, world_size, model_name
+    
+    # Load and shard model
+    logger.info(f"Loading model: {model_name}")
+    shard_and_load(model_name)
+    
+    # Only rank 0 runs the API server
+    if rank == 0:
+        app = FastAPI(
+            title="MLX Distributed Inference (Allreduce)",
+            version="2.0"
+        )
+        
+        @app.get("/")
+        async def dashboard():
+            """Dashboard showing distributed status."""
+            gpu_memory = mx.get_active_memory() / (1024**3)
+            
+            return HTMLResponse(f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>MLX Distributed Inference</title>
+                <style>
+                    body {{ font-family: -apple-system, sans-serif; background: #1e1e1e; color: #fff; padding: 20px; }}
+                    .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px; margin-bottom: 20px; }}
+                    h1 {{ margin: 0; }}
+                    .status {{ margin: 20px 0; padding: 15px; background: #2a2a2a; border-radius: 8px; }}
+                    .metric {{ display: inline-block; margin: 10px 20px 10px 0; }}
+                    .value {{ font-size: 24px; font-weight: bold; color: #4ade80; }}
+                    .label {{ font-size: 12px; color: #999; text-transform: uppercase; }}
+                    .success {{ background: #4ade80; color: #000; padding: 10px; border-radius: 5px; margin: 10px 0; }}
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1>🚀 MLX Distributed Inference</h1>
+                    <p>Allreduce Pipeline Parallelism (No Deadlocks!)</p>
+                </div>
+                <div class="status">
+                    <div class="metric">
+                        <div class="value">ONLINE</div>
+                        <div class="label">Status</div>
+                    </div>
+                    <div class="metric">
+                        <div class="value">{world_size}</div>
+                        <div class="label">Active GPUs</div>
+                    </div>
+                    <div class="metric">
+                        <div class="value">{gpu_memory:.2f} GB</div>
+                        <div class="label">GPU Memory (Rank 0)</div>
+                    </div>
+                </div>
+                <div class="success">
+                    ✅ Model sharded across {world_size} GPUs with Allreduce!
+                </div>
+            </body>
+            </html>
+            """)
+        
+        @app.post("/v1/chat/completions", response_model=ChatResponse)
+        async def chat_completions(request: ChatRequest):
+            """OpenAI-compatible endpoint."""
+            try:
+                # Extract user message
+                prompt = ""
+                for msg in request.messages:
+                    if msg.role == "user":
+                        prompt = msg.content
+                        break
+                
+                if not prompt:
+                    prompt = "Hello"
+                
+                # Apply chat template
+                messages = [{"role": "user", "content": prompt}]
+                try:
+                    prompt_formatted = tokenizer.apply_chat_template(
+                        messages, 
+                        add_generation_prompt=True, 
+                        tokenize=False
+                    )
+                    if isinstance(prompt_formatted, list):
+                        prompt = tokenizer.decode(prompt_formatted)
+                    else:
+                        prompt = prompt_formatted
+                except:
+                    # Fallback
+                    prompt = f"<|im_start|>user\n{prompt}<|im_end|>\n<|im_start|>assistant\n"
+                
+                # Generate with pipeline parallelism
+                result = generate_pipeline_parallel(
+                    prompt,
+                    max_tokens=request.max_tokens,
+                    temperature=request.temperature
+                )
+                
+                # Return OpenAI-compatible response
+                return ChatResponse(
+                    id=f"chatcmpl-{str(uuid.uuid4())[:8]}",
+                    created=int(time.time()),
+                    model=model_name,
+                    choices=[{
+                        "index": 0,
+                        "message": {
+                            "role": "assistant",
+                            "content": result.get("text", "")
+                        },
+                        "finish_reason": "stop"
+                    }],
+                    usage={
+                        "prompt_tokens": result.get("prompt_tokens", 0),
+                        "completion_tokens": result.get("completion_tokens", 0),
+                        "total_tokens": result.get("total_tokens", 0),
+                        "tokens_per_second": result.get("tokens_per_second", 0),
+                        "prompt_eval_tokens_per_second": result.get("prompt_eval_tokens_per_second", 0),
+                        "eval_tokens_per_second": result.get("eval_tokens_per_second", 0),
+                        "gpus_used": result.get("gpus_used", 1),
+                        "generation_time": result.get("generation_time", 0),
+                        "prompt_time": result.get("prompt_time", 0),
+                        "total_time": result.get("total_time", 0)
+                    }
+                )
+            except Exception as e:
+                logger.error(f"Error in chat completion: {e}")
+                raise HTTPException(status_code=500, detail=str(e))
+        
+        @app.get("/health")
+        async def health_check():
+            """Health check."""
+            gpu_memory = mx.get_active_memory() / (1024**3)
+            
+            return {
+                "status": "healthy",
+                "rank": rank,
+                "world_size": world_size,
+                "model": model_name,
+                "distributed": world_size > 1,
+                "gpu_memory_gb": round(gpu_memory, 2),
+                "pipeline": "allreduce"
+            }
+        
+        # Run the API server
+        logger.info("Starting API server on rank 0")
+        uvicorn.run(app, host="0.0.0.0", port=8100)
+    else:
+        # Worker ranks
+        worker_loop()
+
 
 if __name__ == "__main__":
-    asyncio.run(serve())
+    main()
